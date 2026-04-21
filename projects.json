@@ -1,0 +1,3567 @@
+{
+  "projects": [
+    {
+      "name": "Sunset Terrace - Bldg.1 - Site 9/10 Ph1",
+      "id": "1605-1003",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": null
+    },
+    {
+      "name": "Intracorp Ravenna",
+      "id": "1608-1010",
+      "client": "Ravenna TH Development LLC",
+      "manager": "James C. Freeling",
+      "address": "411 First Avenue South, Suite 650, Seattle, WA 98104"
+    },
+    {
+      "name": "45th & Woodlawn (Wallingford 45 Condominum)",
+      "id": "1610-1002",
+      "client": "Arcon Tenant Improvement Contractors, LLC",
+      "manager": "James C. Freeling",
+      "address": "N 45th St & Woodlawn Ave N\nSeattle, WA 98103"
+    },
+    {
+      "name": "Aspire 11 (MLK Jr. MU)",
+      "id": "1611-1003",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": null
+    },
+    {
+      "name": "10777 Main Street",
+      "id": "1708-1007",
+      "client": "Multiple",
+      "manager": "James C. Freeling",
+      "address": "1402 3rd Avenue #1000, Seattle, WA 98101"
+    },
+    {
+      "name": "Vareze Townhomes",
+      "id": "1709-1011",
+      "client": "Multiple",
+      "manager": "James C. Freeling",
+      "address": "15900 SE Eastgate Way, Suite 300, Bellevue, WA 98008"
+    },
+    {
+      "name": "The Landing",
+      "id": "1710-1003",
+      "client": "Multiple",
+      "manager": "James C. Freeling",
+      "address": null
+    },
+    {
+      "name": "Kelkari Townhomes",
+      "id": "1710-1012",
+      "client": "Multiple",
+      "manager": "Telman A. Gasanov",
+      "address": "411 First Avenue South, Suite 650, Seattle, WA 98104"
+    },
+    {
+      "name": "Shoreline 192",
+      "id": "1807-1001",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": "19022 Aurora Avenue N., Shoreline, WA 98133"
+    },
+    {
+      "name": "Othello Square Building D",
+      "id": "1808-1006",
+      "client": "HomeSight",
+      "manager": "Anna Senchenko",
+      "address": null
+    },
+    {
+      "name": "Roystone on Queen Anne",
+      "id": "1809-1017",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "606 Maynard Avenue S, Suite 251, Seattle, WA 98104"
+    },
+    {
+      "name": "Solterra Niwa, LLC",
+      "id": "1809-1018",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": null
+    },
+    {
+      "name": "Manor Way Townhomes",
+      "id": "1810-1009",
+      "client": "MVM Development",
+      "manager": "Telman A. Gasanov",
+      "address": "19528 Ventura Blvd, Suite 573, Tarzana, CA 91356"
+    },
+    {
+      "name": "Jaguar (Jefferson) ES Renovation & Addition",
+      "id": "1902-1009",
+      "client": "DLR Group - Portland",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Franklin ES K-8 Renovation",
+      "id": "1902-1013",
+      "client": "DLR Group - Portland",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Mountain View ES Renovation & Addiition",
+      "id": "1902-1015",
+      "client": "DLR Group - Portland",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Everett Riverfront - Permit",
+      "id": "1903-1005",
+      "client": "Riverfront Commercial Investment LLC",
+      "manager": "Denin W. Dazey",
+      "address": null
+    },
+    {
+      "name": "Mercer Island Mixed-Use",
+      "id": "1904-1007",
+      "client": "R |Miller, Inc",
+      "manager": "Anna Senchenko",
+      "address": "6770 Churchill Street"
+    },
+    {
+      "name": "Hemingway Condominiums",
+      "id": "1906-1002",
+      "client": "Brett Faulds",
+      "manager": "Chad E. Brickner",
+      "address": null
+    },
+    {
+      "name": "223 Taylor Ave N Apartments",
+      "id": "1906-1009",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "223 Taylor Ave N Apartments Proposal"
+    },
+    {
+      "name": "Upper Queen Anne Condos",
+      "id": "1907-1006",
+      "client": "Queen Anne Condominiums, LLC",
+      "manager": "Anna Senchenko",
+      "address": "4111 E. Madison St., #290, Seattle, WA 98112"
+    },
+    {
+      "name": "WSECU - Martin Way",
+      "id": "1908-1008",
+      "client": "Thomas Architecture Studios",
+      "manager": "Suvad Tanjo",
+      "address": null
+    },
+    {
+      "name": "GIS Plaza Building",
+      "id": "1909-1001",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": null
+    },
+    {
+      "name": "Basel Newport Townhomes",
+      "id": "1910-1003",
+      "client": "Basel Capital",
+      "manager": "Chad E. Brickner",
+      "address": "2225 94th Avenue NE, Clyde Hill, WA 98004"
+    },
+    {
+      "name": "Dexter Apartments",
+      "id": "1910-1013",
+      "client": "Multiple",
+      "manager": "Chad E. Brickner",
+      "address": "5700 64th Avenue NE, Seattle, WA 98105"
+    },
+    {
+      "name": "Lighthouse Townhomes",
+      "id": "1910-1023",
+      "client": "Multiple",
+      "manager": "Suvad Tanjo",
+      "address": "411 1st Avenue South"
+    },
+    {
+      "name": "4508 California Avenue",
+      "id": "1912-1007",
+      "client": "Multiple",
+      "manager": "Chad E. Brickner",
+      "address": null
+    },
+    {
+      "name": "2218 1st Avenue",
+      "id": "1912-1018",
+      "client": "AXIS Architecture + Design Inc.",
+      "manager": "Chad E. Smith",
+      "address": "2218 1st Avenue Proposal – R1"
+    },
+    {
+      "name": "2028 Northshore Drive",
+      "id": "2001-1007",
+      "client": "Julie Myers",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "2028 Northshore Drive Proposal - R1"
+    },
+    {
+      "name": "Market Square Apartments",
+      "id": "2001-1013",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Merx (Pettygrove Apartments)",
+      "id": "2001-1017",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": "8343 154th Ave NE #210, Redmond, WA 98052"
+    },
+    {
+      "name": "Vered on Ventura - Encino",
+      "id": "2003-1004",
+      "client": "CP-SRM Ventura, LP",
+      "manager": "Tyler M. Smith",
+      "address": "16161 Ventura Blvd, Encino, CA 91436"
+    },
+    {
+      "name": "Beacon Hill Apartments",
+      "id": "2004-1001",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "310 11th Avenue",
+      "id": "2004-1010",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "SCIDPDA North Lot Bldg. A",
+      "id": "2005-1003",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": "409 Maynard Avenue S., Suite PS, Seattle, WA 98104"
+    },
+    {
+      "name": "4009 Stone (Reed)",
+      "id": "2005-1008",
+      "client": "Multiple",
+      "manager": "Chad E. Brickner",
+      "address": null
+    },
+    {
+      "name": "3039 SW Avalon Way",
+      "id": "2005-1014",
+      "client": "Avalon Apartments, LLC",
+      "manager": "Telman A. Gasanov",
+      "address": "3039 SW Avalon Way"
+    },
+    {
+      "name": "Pastakia Eastlake",
+      "id": "2008-1001",
+      "client": "Pastakia + Associates, LLC",
+      "manager": "Anna Senchenko",
+      "address": "94 Pike Street #36, Seattle, WA 98101"
+    },
+    {
+      "name": "3710 S. Angeline (4740 Rainier Avenue)",
+      "id": "2009-1001",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "900 Rainier (Oz Navigator)",
+      "id": "2009-1008",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "159 S. Jackson Street, Ste. 300, Seattle, WA 98104"
+    },
+    {
+      "name": "4417 Wallingford (Chronicle)",
+      "id": "2009-1017",
+      "client": "Blueprint Capital Services, LLC",
+      "manager": "Chad E. Brickner",
+      "address": null
+    },
+    {
+      "name": "Hiatt Spring Townhomes",
+      "id": "2009-1019",
+      "client": "AXIS Architecture + Design Inc.",
+      "manager": "Chad E. Brickner",
+      "address": "801 Blanchard St."
+    },
+    {
+      "name": "West Seattle Mixed-Use Apartments",
+      "id": "2010-1005",
+      "client": "ARCO/Murray",
+      "manager": "Stephen R. Polledri",
+      "address": "170 W. Dayton St., Ste. 206 CO#: 1"
+    },
+    {
+      "name": "Bellevue Station",
+      "id": "2010-1008",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "11332 NE 122nd Way, Ste 350, Kirkland, WA 98034"
+    },
+    {
+      "name": "SRM San Jose Assisted Living",
+      "id": "2010-1009",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": "6030 SE 52rd Avenue, Suite 200 ● Portland, OR 97206 ● T 503 222 1715 ● F 425 712 8608 ● www.bee-engineers.com 1 of 1"
+    },
+    {
+      "name": "118 West Mercer",
+      "id": "2010-1010",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "101 West Roy",
+      "id": "2010-1011",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "Ross Flats",
+      "id": "2010-1021",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": "2100 196th St SW, Suite 107, Lynnwood, WA 99036"
+    },
+    {
+      "name": "Polaris at Lake City",
+      "id": "2010-1022",
+      "client": "Inland Group",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com 1 of 2"
+    },
+    {
+      "name": "3235 Rainier",
+      "id": "2010-1024",
+      "client": "Multiple",
+      "manager": "Suvad Tanjo",
+      "address": null
+    },
+    {
+      "name": "2222 15th Ave W",
+      "id": "2010-1033",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": "2222 15th Ave Proposal (cid:884) R2"
+    },
+    {
+      "name": "Hayward Senior Living",
+      "id": "2011-1001",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "9420 Rainier",
+      "id": "2011-1022",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": "9420 Rainier Avenue S., Seattle, WA 98118"
+    },
+    {
+      "name": "Crossroads",
+      "id": "2012-1007",
+      "client": "ENCORE Architects",
+      "manager": "Stephen R. Polledri",
+      "address": "1402 Third Ave., Suite 1000, Seattle, WA 98101"
+    },
+    {
+      "name": "Cornus",
+      "id": "2101-1002",
+      "client": "Multiple",
+      "manager": "Suvad Tanjo",
+      "address": "311 First Avenue South, Seattle, WA 98104"
+    },
+    {
+      "name": "1555 Tacoma Avenue",
+      "id": "2101-1007",
+      "client": "AXIS Architecture + Design Inc.",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Apache Casino",
+      "id": "2102-1002",
+      "client": "I-44 Holdings, LLC",
+      "manager": "Suvad Tanjo",
+      "address": "2310 West 75th Street, Kansas City, KS 66208"
+    },
+    {
+      "name": "Pulte 357 Degrees Townhomes",
+      "id": "2102-1022",
+      "client": "Pulte Homes",
+      "manager": "Denin W. Dazey",
+      "address": null
+    },
+    {
+      "name": "Crown Hill",
+      "id": "2102-1027",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": "1404 West Garfield Street, Seattle, WA 98119"
+    },
+    {
+      "name": "Dougherty Residence Assessment",
+      "id": "2102-1028",
+      "client": "Patricia Dougherty",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": null
+    },
+    {
+      "name": "36th Street Fremont Apartments",
+      "id": "2103-1017",
+      "client": "Infinity Investment Group, LLC",
+      "manager": "Chad E. Smith",
+      "address": "835 101st Avenue SE, Bellevue, WA 98004"
+    },
+    {
+      "name": "Pulte 5 Degrees Shoreline",
+      "id": "2103-1019",
+      "client": "Pulte Homes",
+      "manager": "Denin W. Dazey",
+      "address": "33501 Peachtree Road NE, Atlanta, GA 30326"
+    },
+    {
+      "name": "Pulte 358 Degrees Townhomes",
+      "id": "2103-1020",
+      "client": "Pulte Homes",
+      "manager": "Denin W. Dazey",
+      "address": "3350 Peachtree Road NE, Atlanta, GA 30326"
+    },
+    {
+      "name": "Arlington Multifamily - Energy",
+      "id": "2103-1023",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "18405 35th Avenue NE, Arlington, WA 98223"
+    },
+    {
+      "name": "Powellhurst Apartments (NHA 122nd & Harold)",
+      "id": "2104-1005",
+      "client": "DAO Architecture",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Harbor Avenue Apartments",
+      "id": "2104-1010",
+      "client": "STS Construction Services",
+      "manager": "Suvad Tanjo",
+      "address": "9049 20th Ave SW Ste A, Seattle, WA 98106"
+    },
+    {
+      "name": "Harrington Redevelopment",
+      "id": "2104-1011",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Keystone Apartments",
+      "id": "2104-1016",
+      "client": "Multiple",
+      "manager": "Telman A. Gasanov",
+      "address": "9049 20th Ave SW, Seattle, WA 98106"
+    },
+    {
+      "name": "Grow Community Bldg B Window Testing",
+      "id": "2104-1022",
+      "client": "Windermere Commercial",
+      "manager": "Suvad Tanjo",
+      "address": null
+    },
+    {
+      "name": "King Lasik - Lynnwood",
+      "id": "2105-1001",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": "1603 164th Street SW, Lynnwood, WA 98087"
+    },
+    {
+      "name": "Filament East",
+      "id": "2105-1012",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": "201 106th Avenue Proposal – R2"
+    },
+    {
+      "name": "Filament West",
+      "id": "2105-1014",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": "206 105th Avenue Proposal – R2"
+    },
+    {
+      "name": "Port of Vancouver T1 Blocks A & C",
+      "id": "2106-1002",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": "51 University Street, Suite 600, Seattle, WA 98101"
+    },
+    {
+      "name": "7324 MLK Jr Way",
+      "id": "2106-1008",
+      "client": "Multiple",
+      "manager": "Telman A. Gasanov",
+      "address": null
+    },
+    {
+      "name": "Scout (Shoreline)",
+      "id": "2106-1013",
+      "client": "PSW HOMES, LLC",
+      "manager": "Anna Senchenko",
+      "address": "900 1st Street, Suite 110, Austin, TX 78704"
+    },
+    {
+      "name": "Stanley (Georgetown)",
+      "id": "2106-1014",
+      "client": "Multiple",
+      "manager": "Anna Senchenko",
+      "address": "900 1st Street, Suite 110, Austin, TX 78704"
+    },
+    {
+      "name": "Josephine (formerly Felix)",
+      "id": "2107-1006",
+      "client": "StoryBuilt",
+      "manager": "Anna Senchenko",
+      "address": "5201 42nd Avenue South, Seattle, WA 98118"
+    },
+    {
+      "name": "Morgan Junction Townhomes",
+      "id": "2107-1007",
+      "client": "StoryBuilt",
+      "manager": "Anna Senchenko",
+      "address": null
+    },
+    {
+      "name": "Plaza Center Garage",
+      "id": "2107-1010",
+      "client": "ENCORE Architects",
+      "manager": "Chad E. Smith",
+      "address": "10900 NE 9th Street, Bellevue, WA 98004"
+    },
+    {
+      "name": "NW Market Mixed-Use",
+      "id": "2107-1016",
+      "client": "Multiple",
+      "manager": "Chad E. Brickner",
+      "address": "1752 NW Market St, #4308, Seattle, WA 98107"
+    },
+    {
+      "name": "1005 King Street",
+      "id": "2107-1023",
+      "client": "Bosha Group",
+      "manager": "Telman A. Gasanov",
+      "address": "1005 King Street Proposal"
+    },
+    {
+      "name": "Traditions at Hazelwood",
+      "id": "2108-1002",
+      "client": "Inland Group",
+      "manager": "Tyler M. Smith",
+      "address": "6030 SE 52nd Avenue, Suite 200 ● Portland, OR 97206 ● T 503 222 1715 ● F 425 712 8608 ● www.bee-engineers.com 1 of 1"
+    },
+    {
+      "name": "Sea-Woodland Park",
+      "id": "2108-1014",
+      "client": "Sage Hill",
+      "manager": "Suvad Tanjo",
+      "address": null
+    },
+    {
+      "name": "Harvard Court Assessment",
+      "id": "2108-1019",
+      "client": "Multiple",
+      "manager": "Chad E. Brickner",
+      "address": "11245 SE 6th Street, Suite 210, Bellevue, WA 98004"
+    },
+    {
+      "name": "Oregon Zoo",
+      "id": "2109-1001",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": "4001 SW Canyon Rd, Portland, OR 97221"
+    },
+    {
+      "name": "Shoreline 185",
+      "id": "2109-1003",
+      "client": "Shoreline 185, LLC",
+      "manager": "Stephen R. Polledri",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Bremerton Bay Bowl",
+      "id": "2109-1005",
+      "client": "Bremerton R.M., LLC",
+      "manager": "Chad E. Brickner",
+      "address": "2313 Wheaton Way, Bremerton, WA 98310"
+    },
+    {
+      "name": "Marina View Multifamily",
+      "id": "2109-1015",
+      "client": "Dykeman, Inc.",
+      "manager": "Chad E. Smith",
+      "address": "1201 24th Street, Everett, WA 98201"
+    },
+    {
+      "name": "MRM Bellevue Way (Bell 10)",
+      "id": "2109-1019",
+      "client": "MRM Bellevue Way, LLC",
+      "manager": "Stephen R. Polledri",
+      "address": "10350 NE 10th Street, Bellevue, WA 98004"
+    },
+    {
+      "name": "The Orrin (158th and Jay Street Apartments)",
+      "id": "2110-1003",
+      "client": "Pahlisch Commercial Inc.",
+      "manager": "Tyler M. Smith",
+      "address": "1340 SW 160th Avenue, Beaverton, OR 97006"
+    },
+    {
+      "name": "White Center Community Hub",
+      "id": "2110-1011",
+      "client": "Side x Side Architects",
+      "manager": "Anna Senchenko",
+      "address": null
+    },
+    {
+      "name": "Summit at Canyon Park",
+      "id": "2110-1012",
+      "client": "Multiple",
+      "manager": "Chad E. Brickner",
+      "address": "1115 North 140th Street, Seattle, WA 98133"
+    },
+    {
+      "name": "Schoolhouse District Phases II and III",
+      "id": "2110-1014",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "11415 Slater Avenue NE, Suite 101, Kirkland, WA 98033"
+    },
+    {
+      "name": "Soaring Ranch",
+      "id": "2110-1020",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Redondo Hts Frontage Site (Site C)",
+      "id": "2111-1006",
+      "client": "Multiple",
+      "manager": "Anna Senchenko",
+      "address": null
+    },
+    {
+      "name": "Lynn Street Apartments",
+      "id": "2111-1007",
+      "client": "Gary & Ying Chin",
+      "manager": "Chad E. Brickner",
+      "address": "4630 Somerset Place SE, Bellevue, WA 98006"
+    },
+    {
+      "name": "228 11th Avenue E Apartments",
+      "id": "2111-1015",
+      "client": "228 Partners, LLC",
+      "manager": "Denin W. Dazey",
+      "address": "228 11th Avenue E Apartments Proposal – R1"
+    },
+    {
+      "name": "Village at 47th",
+      "id": "2111-1024",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": "170 West Dayton Street, Suite 206, Edmonds, WA 98020"
+    },
+    {
+      "name": "4448 California Mixed-Use",
+      "id": "2112-1003",
+      "client": "Multiple",
+      "manager": "Telman A. Gasanov",
+      "address": "4448 California Avenue SW, Seattle, WA 98116"
+    },
+    {
+      "name": "164th Street Apartments",
+      "id": "2112-1007",
+      "client": "Multiple",
+      "manager": "Anna Senchenko",
+      "address": null
+    },
+    {
+      "name": "Swyft Apartments",
+      "id": "2201-1001",
+      "client": "MainStreet Property Group, LLC",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "11919 Northeast 128th Street, Kirkland, WA 98034"
+    },
+    {
+      "name": "Cougar Creek Apartments",
+      "id": "2201-1007",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Carillon Park Apartments Amenities Building",
+      "id": "2201-1009",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "701 South Jackson Street",
+      "id": "2201-1015",
+      "client": "Multiple",
+      "manager": "Suvad Tanjo",
+      "address": "701 South Jackson Street Proposal – R1"
+    },
+    {
+      "name": "Elements at Georgetown",
+      "id": "2201-1016",
+      "client": "Jackson Main Architecture",
+      "manager": "Denin W. Dazey",
+      "address": null
+    },
+    {
+      "name": "Affinity at Bend",
+      "id": "2202-1004",
+      "client": "Inland Group",
+      "manager": "Tyler M. Smith",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com 1 of 1"
+    },
+    {
+      "name": "Bremerton Landing",
+      "id": "2202-1009",
+      "client": "Envision NW",
+      "manager": "Telman A. Gasanov",
+      "address": "170 West Dayton Street, Suite 206, Edmonds, WA 98020"
+    },
+    {
+      "name": "Fountainhead Apartments - Remediation",
+      "id": "2202-1011",
+      "client": "WK Investments, LLC",
+      "manager": "Suvad Tanjo",
+      "address": null
+    },
+    {
+      "name": "MGT 7th Apartments",
+      "id": "2202-1015",
+      "client": "MGT Builders",
+      "manager": "Katsiaryna Bautista",
+      "address": "711 South 7th Street, Tacoma, WA 98405"
+    },
+    {
+      "name": "River Haven Community Space Renovation",
+      "id": "2202-1016",
+      "client": "Merryman Barnes Architects Inc.",
+      "manager": "Tyler M. Smith",
+      "address": "5019 NE 102nd Avenue, Portland, OR 97220"
+    },
+    {
+      "name": "1144 NW 52nd Street - Energy",
+      "id": "2202-1020",
+      "client": "Brandt Design Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "1144 NW 52nd Street - Energy Proposal"
+    },
+    {
+      "name": "Covington Commons - Energy",
+      "id": "2202-1021",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Residence Inn - Kennewick",
+      "id": "2202-1024",
+      "client": "Varitone Architecture",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "SRM Brizo",
+      "id": "2203-1014",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": null
+    },
+    {
+      "name": "The Fir",
+      "id": "2203-1016",
+      "client": "West Judkins, LLC",
+      "manager": "Chad E. Brickner",
+      "address": "19401 40th Avenue W., Suite 302, Lynnwood, WA 98036"
+    },
+    {
+      "name": "Edmonds 236th Apartments",
+      "id": "2203-1019",
+      "client": "Edmonds Development, LLC",
+      "manager": "Stephen R. Polledri",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com 1 of 1"
+    },
+    {
+      "name": "Covington Commons Podium",
+      "id": "2203-1024",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "4001 South Willow Street",
+      "id": "2203-1025",
+      "client": "Oz Navigator",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "4001 South Willow Street (Project #: 2203-1025)"
+    },
+    {
+      "name": "SUMIE (fka Beacon Hill Village)",
+      "id": "2203-1026",
+      "client": "StoryBuilt",
+      "manager": "Anna Senchenko",
+      "address": "2123 18th Ave S, Seattle, WA 98144 (East Parcel)"
+    },
+    {
+      "name": "Polaris Rainier - Assessment",
+      "id": "2204-1001",
+      "client": "Inland Group",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "120 Cataldo Ave, Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "Alta North City - Energy",
+      "id": "2204-1005",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 West Dayton Street, Suite 206, Edmonds, WA 98020"
+    },
+    {
+      "name": "504 N 85th Street",
+      "id": "2204-1007",
+      "client": "504 N 85th Apts, LP",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "iVista@Alderwood",
+      "id": "2204-1011",
+      "client": "Cosmos Group",
+      "manager": "Anna Senchenko",
+      "address": null
+    },
+    {
+      "name": "The Perry Mixed-Use",
+      "id": "2204-1013",
+      "client": "The Perry Building, LLC",
+      "manager": "Denin W. Dazey",
+      "address": "131 4th Street W., Ketchum, ID 83340"
+    },
+    {
+      "name": "Modera International District - Energy",
+      "id": "2204-1014",
+      "client": "Tiscareno Associates, P.S.",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 (cid:3511)(cid:3)(cid:28)(cid:282)(cid:373)(cid:381)(cid:374)(cid:282)(cid:400)(cid:853)(cid:3)(cid:116)(cid:4)(cid:3)(cid:1013)(cid:1012)(cid:1004)(cid:1006)(cid:1004)(cid:3)(cid:3511)(cid:3)(cid:100)(cid:3)(cid:1008)(cid:1006)(cid:1009)(cid:3)(cid:1010)(cid:1011)(cid:1006)(cid:3)(cid:1007)(cid:1013)(cid:1004)(cid:1004)(cid:3)(cid:3511)(cid:3)(cid:38)(cid:3)(cid:1008)(cid:1006)(cid:1009)(cid:3)(cid:1011)(cid:1005)(cid:1006)(cid:3)(cid:1012)(cid:1010)(cid:1004)(cid:1012)(cid:3)(cid:3511)(cid:3)(cid:449)(cid:449)(cid:449)(cid:856)(cid:271)(cid:286)(cid:286)-engineers.com"
+    },
+    {
+      "name": "14540 5th Avenue",
+      "id": "2205-1001",
+      "client": "Tiscareno Associates, P.S.",
+      "manager": "Chad E. Smith",
+      "address": "14540 5th Avenue (Project #: 2205-1001)"
+    },
+    {
+      "name": "1013 East Republican",
+      "id": "2205-1005",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": null
+    },
+    {
+      "name": "Summerhill at Highland Park",
+      "id": "2205-1008",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Mottman Village",
+      "id": "2206-1003",
+      "client": "Veer Architecture, PLLC",
+      "manager": "Chad E. Smith",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Park View Apartments",
+      "id": "2206-1004",
+      "client": "ACS, LLC",
+      "manager": "David C. Chapman",
+      "address": "1020 South 344th Street"
+    },
+    {
+      "name": "Milano Issaquah Apartments",
+      "id": "2206-1007",
+      "client": "Milano Issaquah Apartments, LLC",
+      "manager": "Telman A. Gasanov",
+      "address": "2300 Newport Way NW, Issaquah, WA 98027"
+    },
+    {
+      "name": "Raleigh Hills Elementary School",
+      "id": "2206-1013",
+      "client": "DLR Group - Portland",
+      "manager": "Tyler M. Smith",
+      "address": "421 SW Sixth Avenue, Suite 1212, Portland, WA 97204"
+    },
+    {
+      "name": "SRM Polynesia Apartments",
+      "id": "2206-1015",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com 1 of 1"
+    },
+    {
+      "name": "Ardea at Totem Lake",
+      "id": "2206-1018",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": "12700 116th Avenue NE, Kirkland, WA 98034"
+    },
+    {
+      "name": "The Wave (fka Pastakia Everett Multi-Family)",
+      "id": "2206-1019",
+      "client": "Multiple",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 (cid:3511)(cid:3)(cid:28)(cid:282)(cid:373)(cid:381)(cid:374)(cid:282)(cid:400)(cid:853)(cid:3)(cid:116)(cid:4)(cid:3)(cid:1013)(cid:1012)(cid:1004)(cid:1006)(cid:1004)(cid:3)(cid:3511)(cid:3)(cid:100)(cid:3)(cid:1008)(cid:1006)(cid:1009)(cid:3)(cid:1010)(cid:1011)(cid:1006)(cid:3)(cid:1007)(cid:1013)(cid:1004)(cid:1004)(cid:3)(cid:3511)(cid:3)(cid:38)(cid:3)(cid:1008)(cid:1006)(cid:1009)(cid:3)(cid:1011)(cid:1005)(cid:1006)(cid:3)(cid:1012)(cid:1010)(cid:1004)(cid:1012)(cid:3)(cid:3511)(cid:3)(cid:449)(cid:449)(cid:449)(cid:856)(cid:271)(cid:286)(cid:286)-engineers.com"
+    },
+    {
+      "name": "UWMC Behavioral Health Remodel Assessment",
+      "id": "2207-1002",
+      "client": "kmd architects",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": null
+    },
+    {
+      "name": "Origin 206",
+      "id": "2207-1003",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "206 5th Avenue S., Seattle, WA 98104"
+    },
+    {
+      "name": "Melton Eastlake",
+      "id": "2207-1009",
+      "client": "Nancy Melton",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Midvale",
+      "id": "2207-1011",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": "18110 Midvale Avenue N., Shoreline, WA 98133"
+    },
+    {
+      "name": "9314 Renton Avenue - Energy",
+      "id": "2207-1012",
+      "client": "Rose Homes",
+      "manager": "Katsiaryna Bautista",
+      "address": "9314 Renton Avenue Energy Proposal"
+    },
+    {
+      "name": "Polaris @ Totem Lake",
+      "id": "2208-1003",
+      "client": "Inland Group",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com 1 of 1"
+    },
+    {
+      "name": "Legacy Garden Apartments",
+      "id": "2208-1007",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "6021 Orchard Street W., University Place, WA 98467"
+    },
+    {
+      "name": "Bellevue Nuovo Apartments",
+      "id": "2208-1008",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "Josephine South",
+      "id": "2208-1010",
+      "client": "StoryBuilt",
+      "manager": "Anna Senchenko",
+      "address": "5256 South Rainier Avenue S., Seattle, WA 98118 (Bldg A)"
+    },
+    {
+      "name": "Parkland Apartments - Energy",
+      "id": "2208-1013",
+      "client": "Farwest Partners, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": "5920 100th Street SW, Suite 25, Lakewood, WA 98499"
+    },
+    {
+      "name": "Silver Cloud Apartments",
+      "id": "2208-1021",
+      "client": "SRMSC2021, LLC",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": null
+    },
+    {
+      "name": "Waterford East Condos",
+      "id": "2209-1001",
+      "client": "Multiple",
+      "manager": "Suvad Tanjo",
+      "address": "1003 Lake Street South, Kirkland, WA 98033"
+    },
+    {
+      "name": "La Quinta Hotel - Colton",
+      "id": "2209-1006",
+      "client": "Degen & Degen",
+      "manager": "Anna Senchenko",
+      "address": null
+    },
+    {
+      "name": "Alexan Shoreline East",
+      "id": "2209-1009",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "SRM 100",
+      "id": "2209-1013",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "12 Bellevue Way SE, Bellevue, WA 98004"
+    },
+    {
+      "name": "Habitat for Humanity - MLK",
+      "id": "2210-1001",
+      "client": "Habitat for Humanity Seattle-King & Kittitas Counties",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Rose Hill Mixed-Use",
+      "id": "2210-1003",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Hollywood Transit Center",
+      "id": "2211-1002",
+      "client": "David Evan & Associates, Inc.",
+      "manager": "Tyler M. Smith",
+      "address": "2100 S. River Parkway, Suite 100, Portland, OR 97201"
+    },
+    {
+      "name": "4709 Roosevelt - Energy",
+      "id": "2211-1004",
+      "client": "Onelin Capital Corporation",
+      "manager": "Katsiaryna Bautista",
+      "address": "601 Union Street, Suite 1730, Seattle, WA 98201"
+    },
+    {
+      "name": "Salish Family Haven",
+      "id": "2211-1007",
+      "client": "Catholic Charities Eastern Washington",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Clarkston Haven",
+      "id": "2211-1008",
+      "client": "Multiple",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Colville Homes Energy Modeling",
+      "id": "2211-1009",
+      "client": "Travois Design",
+      "manager": "Katsiaryna Bautista",
+      "address": "310 West 19th Terrace, Kansas City, MO 64108"
+    },
+    {
+      "name": "White Center Food Bank",
+      "id": "2211-1010",
+      "client": "White Center Food Bank",
+      "manager": "Stephen R. Polledri",
+      "address": "10829 8th Avenue SW, Seattle, WA 98146"
+    },
+    {
+      "name": "Market Street Mixed Use (formerly Triangle)",
+      "id": "2211-1011",
+      "client": "Kirkland Community Center, LLC",
+      "manager": "Suvad Tanjo",
+      "address": null
+    },
+    {
+      "name": "Marysville Garden Style Apartments",
+      "id": "2211-1013",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "3102 Smith Avenue Apartments",
+      "id": "2211-1016",
+      "client": "AXIS Architecture + Design Inc.",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Tacoma 42 Park Mall",
+      "id": "2211-1017",
+      "client": "Studio Meng Strazzara",
+      "manager": "Stephen R. Polledri",
+      "address": "2001 Western Avenue,"
+    },
+    {
+      "name": "Explorer Middle School",
+      "id": "2211-1018",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Benton County Courthouse",
+      "id": "2211-1019",
+      "client": "DLR Group - Portland",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Reeds Crossing",
+      "id": "2212-1002",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": "2311 North 45th Street"
+    },
+    {
+      "name": "Brown Residence - Remediation",
+      "id": "2301-1002",
+      "client": "Charlie & Sarah Brown",
+      "manager": "Suvad Tanjo",
+      "address": "7325 259th Place NE, Redmond, WA 98053."
+    },
+    {
+      "name": "Affinity at Gateway North",
+      "id": "2301-1003",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Adara at Gateway North",
+      "id": "2301-1004",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Pine Forest/12th Place Apartments",
+      "id": "2301-1006",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": null
+    },
+    {
+      "name": "Bellingham Public Elementary School #15",
+      "id": "2301-1010",
+      "client": "Dykeman, Inc.",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Eagles Nest",
+      "id": "2301-1012",
+      "client": "Johnston Architects",
+      "manager": "Anna Senchenko",
+      "address": "100 NE Northlake Way, Seattle, WA 98105"
+    },
+    {
+      "name": "Executive Plaza",
+      "id": "2301-1013",
+      "client": "E-P Development, LLC",
+      "manager": "Denin W. Dazey",
+      "address": "12835 Bel-Red Road, Bellevue, WA 98005"
+    },
+    {
+      "name": "5445 24th Ave NW",
+      "id": "2302-1001",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "2401 NW Market Street, Seattle, WA 98107"
+    },
+    {
+      "name": "Bend Badger Self-Storage",
+      "id": "2302-1003",
+      "client": "Jackson Main Architecture",
+      "manager": "Tyler M. Smith",
+      "address": "20130 Badger Road, Bend, OR 97702"
+    },
+    {
+      "name": "Bothell THx2",
+      "id": "2302-1006",
+      "client": "103 Project, LLC",
+      "manager": "Telman A. Gasanov",
+      "address": "10301 NE 185th Street, Bothell, WA 98011"
+    },
+    {
+      "name": "Yonder (3831 Stone Way)",
+      "id": "2302-1007",
+      "client": "MG2",
+      "manager": "Katsiaryna Bautista",
+      "address": "3831 Stone Way (Project #: 2302-1007)"
+    },
+    {
+      "name": "Altaire at Jackson Park (fka SRM NE Sea Apts)",
+      "id": "2302-1008",
+      "client": "Altairejackson, LLC",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": null
+    },
+    {
+      "name": "Nestucca CTE Facility - Testing",
+      "id": "2302-1011",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "PCNW Focus Apartments",
+      "id": "2303-1001",
+      "client": "Link Design Group",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "900 12th Avenue, Seattle, WA 98122"
+    },
+    {
+      "name": "5115 24th Avenue",
+      "id": "2303-1002",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "Stream Overlake Mixed-Use",
+      "id": "2303-1004",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": null
+    },
+    {
+      "name": "Broadway Apartments - Energy",
+      "id": "2303-1005",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com 1 of 4"
+    },
+    {
+      "name": "Linc Lofts - Energy",
+      "id": "2303-1006",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "3707 S. Grand Blvd, Suite C, Spokane, WA 99203"
+    },
+    {
+      "name": "Village at Lake Stevens",
+      "id": "2303-1011",
+      "client": "Vintage Housing Development, Inc.",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "2988 90TH AVE NE, LAKE STEVENS WA 98258"
+    },
+    {
+      "name": "Anderson Park Apartments",
+      "id": "2303-1014",
+      "client": "Anderson Park Properties, LLC",
+      "manager": "Chad E. Brickner",
+      "address": "16940 NE 79th Street, Redmond, WA 98052"
+    },
+    {
+      "name": "SRM Studio City",
+      "id": "2304-1002",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": "111 N. Post St., Ste 200, Spokane, WA 99201"
+    },
+    {
+      "name": "29th Avenue Lofts - Energy",
+      "id": "2304-1005",
+      "client": "28FTW, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "4723 18th Avenue",
+      "id": "2304-1007",
+      "client": "AGI, LLC",
+      "manager": "Denin W. Dazey",
+      "address": "4723 18th Avenue Proposal – R1"
+    },
+    {
+      "name": "Fremont Apartments",
+      "id": "2304-1017",
+      "client": "Fremont West Partners, LLC",
+      "manager": "Chad E. Brickner",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "IAM District 751 Everett",
+      "id": "2304-1019",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": "9125 15th Pl S, Seattle, WA 98108"
+    },
+    {
+      "name": "State Street Creamery",
+      "id": "2305-1003",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "3435 15th Avenue West, Seattle, WA 98119"
+    },
+    {
+      "name": "Foundry at Totem Lake (Formerly Kinect at Totem Lake)",
+      "id": "2305-1004",
+      "client": "American Property Development",
+      "manager": "Chad E. Brickner",
+      "address": null
+    },
+    {
+      "name": "Lynnwood K2",
+      "id": "2305-1005",
+      "client": "Multiple",
+      "manager": "Chad E. Brickner",
+      "address": "3414 S 116th St, Tukwila, WA 99224"
+    },
+    {
+      "name": "Safeway Store #3440 Energy Modeling",
+      "id": "2306-1001",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Langley Library Energy Modeling",
+      "id": "2306-1002",
+      "client": "MSR Design",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Frank (508 N 36th Street - Energy)",
+      "id": "2306-1003",
+      "client": "Multiple",
+      "manager": "Katsiaryna Bautista",
+      "address": "508 North 36th Street Energy Proposal"
+    },
+    {
+      "name": "NW WA Rehabilitation Hospital - Testing",
+      "id": "2306-1004",
+      "client": "PMB Lynnwood, LLC",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "Alexan Eastgate Energy Modeling",
+      "id": "2306-1005",
+      "client": "Windsor Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "273000 NE 10th Avenue, Ridgefield, WA 98642"
+    },
+    {
+      "name": "North Creek Assisted Living Community",
+      "id": "2306-1010",
+      "client": "North Creek Special Care Community, LLC (NC ALC, LLC) Round Lake II, LLC",
+      "manager": "Christopher A. Shafer",
+      "address": "2731 77th Avenue SE, Suite 203, Mercer Island, WA 98040"
+    },
+    {
+      "name": "Woodin Creek Village Phase VI - Energy",
+      "id": "2306-1018",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com 1 of 2"
+    },
+    {
+      "name": "Baima House",
+      "id": "2307-1004",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": "411 First Ave S, Suite 650 170 W. Dayton St."
+    },
+    {
+      "name": "14400 Bel-Red Road",
+      "id": "2307-1007",
+      "client": "Amity Court, LLC",
+      "manager": "Chad E. Brickner",
+      "address": null
+    },
+    {
+      "name": "1st Avenue Townhomes (Bally's)",
+      "id": "2307-1028",
+      "client": "Multiple",
+      "manager": "Denin W. Dazey",
+      "address": null
+    },
+    {
+      "name": "Lincoln Heights Apartments",
+      "id": "2307-1030",
+      "client": "Jabooda Construction, Inc.",
+      "manager": "Stephen R. Polledri",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Mountain View",
+      "id": "2307-1031",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "Hifumi-en Housing - Energy",
+      "id": "2307-1032",
+      "client": "Multiple",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "4th Avenue Liberty Lake - Energy",
+      "id": "2307-1034",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "2409 E. Mission Avenue, Liberty Lake, WA 99019"
+    },
+    {
+      "name": "6010 Phinney Avenue N.",
+      "id": "2307-1036",
+      "client": "Horizon Realty Advisors",
+      "manager": "Chad E. Brickner",
+      "address": "6010 Phinney Avenue N. Proposal"
+    },
+    {
+      "name": "Affinity at Badger Mountain",
+      "id": "2307-1043",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 West Dayton Street, Suite 206, Edmonds, WA 98020"
+    },
+    {
+      "name": "The Alyster",
+      "id": "2307-1044",
+      "client": "Windsor Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "19960 SE Brady Road, Vancouver, WA 98607"
+    },
+    {
+      "name": "The Manning Apartments (Formerly Pinehurst)",
+      "id": "2308-1001",
+      "client": "Talbot Group",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Northwood Apartments",
+      "id": "2308-1002",
+      "client": "Dykeman, Inc.",
+      "manager": "Chad E. Smith",
+      "address": "607 47th Street SE, Everett, WA 98203"
+    },
+    {
+      "name": "HAWC-P2",
+      "id": "2308-1003",
+      "client": "Ink: Built Architecture",
+      "manager": "Tyler M. Smith",
+      "address": "2808 NE Martin Luther King Jr Blvd"
+    },
+    {
+      "name": "Mill Creek Self-Storage",
+      "id": "2308-1007",
+      "client": "Jackson Main Architecture",
+      "manager": "Stephen R. Polledri",
+      "address": "170 West Dayton Street, Suite 206, Edmonds, WA 98020"
+    },
+    {
+      "name": "Shoreline 3",
+      "id": "2308-1019",
+      "client": "Tiscareno Associates, P.S.",
+      "manager": "Chad E. Smith",
+      "address": "101 Stewart St, Suite 900, Seattle, WA 98101"
+    },
+    {
+      "name": "1237 South Jackson",
+      "id": "2308-1024",
+      "client": "Quoc Dang",
+      "manager": "Chad E. Smith",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "SRM Westchester",
+      "id": "2308-1025",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "111 N. Post St., Ste 200, Spokane, WA 99201"
+    },
+    {
+      "name": "Batey Square",
+      "id": "2309-1008",
+      "client": "Gateway Village, LLC",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Adventist Health Phase 1",
+      "id": "2309-1012",
+      "client": "Clark Kjos Architects",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "9106 Martin Way",
+      "id": "2310-1001",
+      "client": "Homes on Martin",
+      "manager": "Telman A. Gasanov",
+      "address": "9106 Martin Way Proposal"
+    },
+    {
+      "name": "Shoreline 145",
+      "id": "2310-1002",
+      "client": "MSR Communities",
+      "manager": "Stephen R. Polledri",
+      "address": "15124 5th Avenue NE, Shoreline, WA 98155"
+    },
+    {
+      "name": "Pickle at the Palms (Formerly 3435 15th Avenue)",
+      "id": "2310-1006",
+      "client": "Pickle at the Palms, LLC",
+      "manager": "Anna Senchenko",
+      "address": null
+    },
+    {
+      "name": "West Highland Condominiums Remediation",
+      "id": "2310-1009",
+      "client": "West Highland Condominiums HOA",
+      "manager": "Chad E. Smith",
+      "address": "111 West Highland Drive, Seattle, WA 98119"
+    },
+    {
+      "name": "Pacific Health Center",
+      "id": "2310-1011",
+      "client": "Gabbert Architects",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "116th Way Apartments",
+      "id": "2311-1007",
+      "client": "Rotschy, Inc.",
+      "manager": "Tyler M. Smith",
+      "address": "12616 NE 116th Way, Vancouver, WA 98682"
+    },
+    {
+      "name": "Tumwater 30",
+      "id": "2311-1008",
+      "client": "HPI",
+      "manager": "Stephen R. Polledri",
+      "address": null
+    },
+    {
+      "name": "Vintage at Everett Rehab",
+      "id": "2311-1011",
+      "client": "Vintage Housing Development, Inc.",
+      "manager": "Katsiaryna Bautista",
+      "address": "369 San Miguel Drive, Suite 135, Newport Beach, CA 92660"
+    },
+    {
+      "name": "125 15th Avenue - Sustainability/Energy",
+      "id": "2311-1013",
+      "client": "BIG 3, LLC",
+      "manager": "Denin W. Dazey",
+      "address": "125 15th Ave, Seattle, WA 98122"
+    },
+    {
+      "name": "6117 12th Avenue",
+      "id": "2311-2013",
+      "client": "Multiple",
+      "manager": "Stephen R. Polledri",
+      "address": "170 West Dayton Street, Suite 206, Edmonds, WA 98020"
+    },
+    {
+      "name": "Tacoma Country Club Condominiums",
+      "id": "2312-1005",
+      "client": "Country Club Place Association",
+      "manager": "Suvad Tanjo",
+      "address": "13120 & 13140 Country Club Drive SW, Lakewood, WA 98498"
+    },
+    {
+      "name": "Habitat for Humanity MLK Mixed-Use",
+      "id": "2312-1007",
+      "client": "Habitat for Humanity Seattle-King & Kittitas Counties",
+      "manager": "Chad E. Brickner",
+      "address": "6740 MLK Jr Way S., Seattle, WA 98118"
+    },
+    {
+      "name": "Beachwood Apartments",
+      "id": "2312-1008",
+      "client": "MSR Communities",
+      "manager": "Chad E. Brickner",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com 1 of 2"
+    },
+    {
+      "name": "Kuleana Forest Hills Consultation",
+      "id": "2312-1010",
+      "client": "Emerald Management & Consulting, LLC",
+      "manager": "Chad E. Brickner",
+      "address": "1718 NE 179th Street, Seattle, WA 98155"
+    },
+    {
+      "name": "Esslinger Hall Reroof",
+      "id": "2312-1014",
+      "client": "PIVOT Architecture",
+      "manager": "Tyler M. Smith",
+      "address": "6030 SE 52nd Avenue, Suite #200 and where the author has added to or"
+    },
+    {
+      "name": "Knappa School District",
+      "id": "2312-1015",
+      "client": "Multiple",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "611 Main Energy Modeling",
+      "id": "2401-1001",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Eckelmann Residence",
+      "id": "2401-1002",
+      "client": "Monique & Rob Eckelmann",
+      "manager": "Anna Senchenko",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "600 Broadway",
+      "id": "2401-1003",
+      "client": "Studio Meng Strazzara",
+      "manager": "Chad E. Smith",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Dreamliner Apartments",
+      "id": "2401-1005",
+      "client": "Dreamliner, LLC",
+      "manager": "Chad E. Brickner",
+      "address": "511 Airport Way, Renton, WA 98057"
+    },
+    {
+      "name": "Skagit Transit MOA Facility",
+      "id": "2401-1006",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": "600 County Shop Lane, Burlington, WA 98233"
+    },
+    {
+      "name": "Roosevelt Manor",
+      "id": "2401-1011",
+      "client": "Jenkins Properties",
+      "manager": "Anna Senchenko",
+      "address": "917 NE 63rd St, Seattle, WA 98115"
+    },
+    {
+      "name": "DOE Bellevue",
+      "id": "2401-1012",
+      "client": "DOE TH Development, LLC",
+      "manager": "Denin W. Dazey",
+      "address": "411 First Ave S, Suite 650 170 W. Dayton St."
+    },
+    {
+      "name": "Tajima & Shobe Residence",
+      "id": "2401-1015",
+      "client": "Tristie Tajima & Nathan Shobe",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "3243 24th Avenue W., Seattle, WA 98199"
+    },
+    {
+      "name": "Housing Hope Daycare",
+      "id": "2401-1017",
+      "client": "Dykeman, Inc.",
+      "manager": "Chad E. Smith",
+      "address": "1716 West Marine Drive, Everett, WA 98201"
+    },
+    {
+      "name": "Commons at Federal Way - Leak Investigation",
+      "id": "2402-1001",
+      "client": "MGP XI Commons West, LLC",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "4365 Executive Drive Tel: 858 / 259 / 9909"
+    },
+    {
+      "name": "InSite SeaTac Self-Storage",
+      "id": "2402-1008",
+      "client": "20401 28th Avenue SeaTac, LLC",
+      "manager": "David C. Chapman",
+      "address": "20401 28th Avenue SeaTac, LLC"
+    },
+    {
+      "name": "InSite Salmon Bay Storage",
+      "id": "2402-1009",
+      "client": "2707 W Commodore Way, LLC",
+      "manager": "David C. Chapman",
+      "address": "2707 W Commodore Way, LLC"
+    },
+    {
+      "name": "InSite Corgiat Storage",
+      "id": "2402-1010",
+      "client": "Multiple",
+      "manager": "David C. Chapman",
+      "address": "6305 Corgiat Dr, LLC"
+    },
+    {
+      "name": "Liberty Theater Weatherization",
+      "id": "2402-1013",
+      "client": "Rickenbach Construction, Inc.",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Depoe Bay Hospitality-Surfrider Resort Hotel (Cambria Hotel)",
+      "id": "2402-1015",
+      "client": "Oculus, Inc.",
+      "manager": "Tyler M. Smith",
+      "address": "6030 SE 52nd Avenue #200 ● Portland, OR 97206 ● T 503 222 1715 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Dylan Jude Harrell Community Center - Energy",
+      "id": "2402-1017",
+      "client": "Rickenbach Construction, Inc.",
+      "manager": "Katsiaryna Bautista",
+      "address": "37734 Eagle Lane, Astoria, OR 97103"
+    },
+    {
+      "name": "Arlington Operations Center PDB",
+      "id": "2403-1004",
+      "client": "Cornerstone General Contractors",
+      "manager": "Chad E. Smith",
+      "address": "19620 67th Ave NE, Arlington, WA 98223"
+    },
+    {
+      "name": "1723 Market Street Mixed-Use",
+      "id": "2403-1005",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": "1723 Market Street Mixed-Use Proposal – R1"
+    },
+    {
+      "name": "Block B Redevelopment",
+      "id": "2403-1006",
+      "client": "Intrinsik Architecture, Inc.",
+      "manager": "Chad E. Smith",
+      "address": "106 East Babcock Street, Suite 1A, Bozeman, WA 59715"
+    },
+    {
+      "name": "Puyallup Longhouse & Cultural Center",
+      "id": "2403-1013",
+      "client": "Mahlum Architects, Inc.",
+      "manager": "Chad E. Smith",
+      "address": "1932 1st Avenue"
+    },
+    {
+      "name": "1106 6th Avenue",
+      "id": "2403-1014",
+      "client": "rho Architects",
+      "manager": "Anna Senchenko",
+      "address": "1106 6th Avenue BE Proposal – R1"
+    },
+    {
+      "name": "Barnabie Point K-8",
+      "id": "2403-1017",
+      "client": "Herzl-Ner Tamid Synagogue",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "3700 E Mercer Way 170 West Dayton Street, Suite 206"
+    },
+    {
+      "name": "Rejuvenate Apartments (Formerly Stream Queen Anne Apts)",
+      "id": "2403-1022",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "Small Energy Projects 2024",
+      "id": "2404-1004",
+      "client": "Small Energy Consulting Project",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Morrow County Courthouse",
+      "id": "2404-1005",
+      "client": "DLR Group - Portland",
+      "manager": "Tyler M. Smith",
+      "address": "6030 SE 52nd Avenue #200 ● Portland, OR 97206 ● T 503 222 1715 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Tubman Center for Health & Freedom",
+      "id": "2404-1007",
+      "client": "ARC Architects",
+      "manager": "Anna Senchenko",
+      "address": "119 S Main St #200"
+    },
+    {
+      "name": "Vancouver Waterfront Gateway - Energy",
+      "id": "2404-1008",
+      "client": "Scott Edwards Architecture, LLP",
+      "manager": "Katsiaryna Bautista",
+      "address": "2525 E Burnside St, Portland, OR 97214"
+    },
+    {
+      "name": "Sammamish FS82 Addition - Testing",
+      "id": "2404-1011",
+      "client": "Western Ventures Construction",
+      "manager": "Christopher A. Shafer",
+      "address": "170 WEST DAYTON STREET, SUITE 206, EDMONDS, WA 98020"
+    },
+    {
+      "name": "3000 Western",
+      "id": "2404-1014",
+      "client": "Washington Holdings",
+      "manager": "Chad E. Brickner",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Greenwood Mixed-Use",
+      "id": "2404-1015",
+      "client": "Ryan Companies",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "110 110th Ave. NE, Suite 100"
+    },
+    {
+      "name": "Greater Christ Temple Church Senior Housing - Energy",
+      "id": "2405-1003",
+      "client": "Environmental Works",
+      "manager": "Katsiaryna Bautista",
+      "address": "402 15th Ave. E, Seattle, WA 98112"
+    },
+    {
+      "name": "U-District Multi-Family",
+      "id": "2405-1005",
+      "client": "Jackson Main Architecture",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "311 First Avenue S., Seattle, WA 98104"
+    },
+    {
+      "name": "Edison Apartments",
+      "id": "2405-1007",
+      "client": "Green Canopy NODE",
+      "manager": "Tyler M. Smith",
+      "address": "8665 North Edison Street, Portland, OR 97203"
+    },
+    {
+      "name": "Bandon Dunes Golf Resort",
+      "id": "2405-1008",
+      "client": "Scott Edwards Architecture, LLP",
+      "manager": "Tyler M. Smith",
+      "address": "57744 Round Lake Rd., Bandon, OR 97411"
+    },
+    {
+      "name": "Iman Center of Kirkland - Energy",
+      "id": "2405-1009",
+      "client": "Ithna-asheri Muslim Association of the Northwest (\"IMAN\")",
+      "manager": "Katsiaryna Bautista",
+      "address": "515 State Street South, Kirkland, WA 98033"
+    },
+    {
+      "name": "Medical Lake House Assessment",
+      "id": "2405-1011",
+      "client": "Laura Lane",
+      "manager": "Suvad Tanjo",
+      "address": "12323 South Greenfield Lane, Medical Lake, WA 99022"
+    },
+    {
+      "name": "102nd Avenue Apartments",
+      "id": "2405-1012",
+      "client": "Alpha Developers, LLC",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "324 102nd Avenue Southeast, Bellevue, WA 98004"
+    },
+    {
+      "name": "Sunlight Beach House",
+      "id": "2405-1017",
+      "client": "Stephen & Megan McKay",
+      "manager": "Chad E. Brickner",
+      "address": "2950 Sunlight Beach Road, Clinton, WA 98236"
+    },
+    {
+      "name": "Bryant Manor Phase II",
+      "id": "2405-1018",
+      "client": "Multiple",
+      "manager": "Anna Senchenko",
+      "address": "110 18th Avenue South, Seattle, WA 98122"
+    },
+    {
+      "name": "Norton Building ELD Testing",
+      "id": "2405-1019",
+      "client": "Chinook Roofing & Gutters",
+      "manager": "Christopher A. Shafer",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com 1 of 1"
+    },
+    {
+      "name": "1440 West Sammamish Parkway",
+      "id": "2405-1020",
+      "client": "Brandon Ting",
+      "manager": "Anna Senchenko",
+      "address": "1440 West Sammamish Parkway Proposal"
+    },
+    {
+      "name": "Pape Kenworth",
+      "id": "2405-1021",
+      "client": "Windsor Engineers",
+      "manager": "Stephen R. Polledri",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "WinCo 174 - Testing",
+      "id": "2405-1022",
+      "client": "DTL Builders",
+      "manager": "Christopher A. Shafer",
+      "address": "1005 S. Yew St., Centralia, WA 98531"
+    },
+    {
+      "name": "1710 East Denny",
+      "id": "2405-1023",
+      "client": "DEP Holdings I LLC",
+      "manager": "Chad E. Brickner",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Twisp Family Haven",
+      "id": "2406-1004",
+      "client": "Catholic Charities Eastern Washington",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": null
+    },
+    {
+      "name": "Edmonds Woodway Support Building",
+      "id": "2406-1005",
+      "client": "Dykeman, Inc.",
+      "manager": "Chad E. Smith",
+      "address": "1716 Marine View Drive, 2nd Floor, Everett, WA 98201"
+    },
+    {
+      "name": "Prologis Maersk Pilot TI - Testing",
+      "id": "2406-1006",
+      "client": "Exxel Pacific - Bellingham Office",
+      "manager": "Christopher A. Shafer",
+      "address": "323 Telegraph Road, Bellingham, WA 98226"
+    },
+    {
+      "name": "MIC Voyagers' Village Housing",
+      "id": "2406-1007",
+      "client": "DAO Architecture",
+      "manager": "Tyler M. Smith",
+      "address": "2210 Commercial Street NE, Salem, OR 97301"
+    },
+    {
+      "name": "Rush Royale Valley Clubhouse - Energy",
+      "id": "2406-1008",
+      "client": "Rush Companies",
+      "manager": "Katsiaryna Bautista",
+      "address": "10020 Royal Valley Rd NE, Bremerton, WA 98311"
+    },
+    {
+      "name": "1424 NW Slocum Way - Assessment",
+      "id": "2406-1009",
+      "client": "Stef & Vasili Stavrakas",
+      "manager": "Tyler M. Smith",
+      "address": "1424 NW Slocum Way Assessment Proposal"
+    },
+    {
+      "name": "Harvest ELD Testing",
+      "id": "2406-1012",
+      "client": "Canam Coatings, Inc.",
+      "manager": "Christopher A. Shafer",
+      "address": "25520 74th Avenue S., Kent, WA 98032"
+    },
+    {
+      "name": "Lakeview Building - Testing",
+      "id": "2406-1017",
+      "client": "Lakeview Industrial Partners",
+      "manager": "Christopher A. Shafer",
+      "address": "905 Lake Street South, Suite 201, Kirkland, WA 98033"
+    },
+    {
+      "name": "Spring Creek Head Start (Monroe Street Head Start)",
+      "id": "2406-1022",
+      "client": "J Timothy Richard Architect, LLC",
+      "manager": "Tyler M. Smith",
+      "address": "6030 SE 52nd Avenue, Suite #200"
+    },
+    {
+      "name": "Honda of Burlington - Testing",
+      "id": "2407-1003",
+      "client": "NPS RE of Burlington, LLC",
+      "manager": "Christopher A. Shafer",
+      "address": "3240 118th Ave SE, Bellevue, WA 98005"
+    },
+    {
+      "name": "The Heights at Meydenbauer",
+      "id": "2407-1005",
+      "client": "Pine Forest Properties",
+      "manager": "Chad E. Smith",
+      "address": "324 102nd Ave SE, Bellevue, WA 98004"
+    },
+    {
+      "name": "College Place Campus",
+      "id": "2407-1006",
+      "client": "Edmonds School District",
+      "manager": "Chad E. Smith",
+      "address": "20420 68th Avenue West, Lynnwood, WA 98036"
+    },
+    {
+      "name": "6220 Roosevelt",
+      "id": "2407-1008",
+      "client": "Weber Thompson",
+      "manager": "Chad E. Smith",
+      "address": "6220 Roosevelt Way NE, Seattle, WA 98115"
+    },
+    {
+      "name": "KOZ Alderwood - Assessment",
+      "id": "2407-1009",
+      "client": "Kirtley Cole Associates, LLC",
+      "manager": "Suvad Tanjo",
+      "address": "2820 Oakes Avenue, Suite B, Everett, WA 98201"
+    },
+    {
+      "name": "Barclay Village - Assessment",
+      "id": "2407-1010",
+      "client": "Thrive Communities",
+      "manager": "Tyler M. Smith",
+      "address": "1518 1st Ave S, Ste. 500, Seattle, WA 98134"
+    },
+    {
+      "name": "13200 Aurora Ave",
+      "id": "2407-1013",
+      "client": "Aurora Acres, Inc.",
+      "manager": "Chad E. Brickner",
+      "address": "13200 Aurora Ave (Project #: 2407-1013)"
+    },
+    {
+      "name": "9026 3rd Avenue",
+      "id": "2407-1014",
+      "client": "Simthrive Construction, LLC",
+      "manager": "Anna Senchenko",
+      "address": "9026 3rd Avenue Proposal – R1"
+    },
+    {
+      "name": "Poulsbo Clinic - Remediation",
+      "id": "2407-1016",
+      "client": "Johnson Oaklief Architecture & Planning",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "19581 10th Ave NE, Poulsbo, WA 98370"
+    },
+    {
+      "name": "U-District Housing",
+      "id": "2407-1022",
+      "client": "Acre UW One, LLC",
+      "manager": "Chad E. Smith",
+      "address": "4367 21st Avenue NE, Seattle, WA 98105"
+    },
+    {
+      "name": "Kitsap County Dept of Emergency Mgmt TI - Testing",
+      "id": "2407-1024",
+      "client": "Western Ventures Construction",
+      "manager": "Christopher A. Shafer",
+      "address": "24306 58th Pl W, Mountlake Terrace, WA 98403"
+    },
+    {
+      "name": "Derby Apartments",
+      "id": "2408-1001",
+      "client": "Sierra Services, Inc.",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "14800 NE Noth Woodinville Way, Woodinville, WA 98072"
+    },
+    {
+      "name": "Redemption Church - Testing",
+      "id": "2408-1003",
+      "client": "Donovan Brothers, Inc.",
+      "manager": "Christopher A. Shafer",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Trinidad Hotel",
+      "id": "2408-1005",
+      "client": "Thalden Boyd Emery Architects",
+      "manager": "Chad E. Brickner",
+      "address": "27 Scenic Drive, Trinad, CA 95570"
+    },
+    {
+      "name": "Onyx Apartments",
+      "id": "2408-1007",
+      "client": "DAHLIN Architecture",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Affinity at Missoula",
+      "id": "2408-1009",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 West Dayton Street, Suite 206, Edmonds, WA 98020"
+    },
+    {
+      "name": "Lot 9 Townhomes - Energy",
+      "id": "2408-1010",
+      "client": "IHIF Commercial Investment, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": "11624 SE 5th St, Ste 210, Bellevue, WA 98005"
+    },
+    {
+      "name": "Jones Residence - Energy",
+      "id": "2408-1012",
+      "client": "Morgan Jones",
+      "manager": "Katsiaryna Bautista",
+      "address": "8023 Shirley Ave, Gig Harbor, WA 98332"
+    },
+    {
+      "name": "Westlake Apartments",
+      "id": "2409-1002",
+      "client": "LIVV Family Holdings, LLC",
+      "manager": "Chad E. Brickner",
+      "address": "1604 Aurora Ave N, Seattle, WA 98109"
+    },
+    {
+      "name": "Shaub Residence - Energy",
+      "id": "2409-1003",
+      "client": "Scott Shaub",
+      "manager": "Katsiaryna Bautista",
+      "address": "3134 East Bay Drive NW, Gig Harbor, WA 98335"
+    },
+    {
+      "name": "Schreiner Deck Remediation",
+      "id": "2409-1004",
+      "client": "Steven and Ronna Schreiner",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "7423 110th St NW, Gig Harbor, WA 98332"
+    },
+    {
+      "name": "1800 MLK Way - Testing",
+      "id": "2409-1006",
+      "client": "CA James",
+      "manager": "Christopher A. Shafer",
+      "address": "1800 MLK Way Testing Proposal"
+    },
+    {
+      "name": "WSDNR Storage Facility - Testing",
+      "id": "2409-1007",
+      "client": "Ameresco",
+      "manager": "Christopher A. Shafer",
+      "address": "111 Speen Street, Framingham, MA 01701"
+    },
+    {
+      "name": "4011 Wallingford Ave - Testing",
+      "id": "2409-1009",
+      "client": "Top Floor Homes, LLC",
+      "manager": "Christopher A. Shafer",
+      "address": "4011 Wallingford Ave Testing Proposal"
+    },
+    {
+      "name": "Bagley Wright Theater",
+      "id": "2409-1013",
+      "client": "Johnston Architects",
+      "manager": "Anna Senchenko",
+      "address": "3131 Western Avenue Suite 510, Seattle, WA 98121"
+    },
+    {
+      "name": "Shoreline Condominiums - Assessment",
+      "id": "2409-1014",
+      "client": "Longley Property Management, Inc",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "4850 California Avenue SW, Ste 200A, Seattle, WA 98116"
+    },
+    {
+      "name": "Marysville YMCA Early Childhood Education",
+      "id": "2409-1015",
+      "client": "Dykeman, Inc.",
+      "manager": "Chad E. Smith",
+      "address": "6420 60th Dr NE, Marysville, WA 98270"
+    },
+    {
+      "name": "Quality Inn & Suites Tacoma - Assessment",
+      "id": "2409-1017",
+      "client": "Pine View Development",
+      "manager": "Suvad Tanjo",
+      "address": "4273 W Pine Cliff Ct, Spokane, WA 99208"
+    },
+    {
+      "name": "Onyx Clubhouse",
+      "id": "2409-1019",
+      "client": "DAHLIN Architecture",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "10900 NE 8th St, Ste 1650, Bellevue, WA 98004"
+    },
+    {
+      "name": "Kaulana Mahina",
+      "id": "2409-1022",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "3380 146th Place SE, Suite 107, Bellevue, WA 98007"
+    },
+    {
+      "name": "City of Portland Roof Replacements",
+      "id": "2409-1023",
+      "client": "Ink: Built Architecture",
+      "manager": "Tyler M. Smith",
+      "address": "14912 NE Airport Way, Portland, OR 97230"
+    },
+    {
+      "name": "Allenmore Medical Office Building - Energy",
+      "id": "2409-1025",
+      "client": "Rush Development Company",
+      "manager": "Katsiaryna Bautista",
+      "address": "6622 Wollochet Drive, Gig Harbor, WA 98335"
+    },
+    {
+      "name": "Camas Meadow Townhomes",
+      "id": "2409-1026",
+      "client": "Pacific Lifestyle Homes/Garrette Custom Homes",
+      "manager": "Tyler M. Smith",
+      "address": "6030 SE 52nd Avenue #200 ● Portland, OR 97206 ● T 503 222 1715 ● www.bee-engineers.com"
+    },
+    {
+      "name": "401 Baker Blvd Assessment",
+      "id": "2409-1027",
+      "client": "Top Pot Doughnuts",
+      "manager": "David C. Chapman",
+      "address": "401 Baker Blvd Assessment Proposal"
+    },
+    {
+      "name": "11301 5th Ave NE - Energy",
+      "id": "2410-1002",
+      "client": "Northgate Townhomes, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": "11301 5th Ave NE Energy Proposal"
+    },
+    {
+      "name": "SHA Appleway",
+      "id": "2410-1004",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "120 Cataldo Ave, Ste 100, Spokane, WA 99201"
+    },
+    {
+      "name": "Talus Parcel 9 Townhomes",
+      "id": "2410-1008",
+      "client": "Talus 9 Townhomes, LLC",
+      "manager": "Anna Senchenko",
+      "address": "411 First Ave S, Suite 650 170 W. Dayton St."
+    },
+    {
+      "name": "NW Partners Swing Door R&D - Testing",
+      "id": "2410-1009",
+      "client": "Northwest Partners, LLC",
+      "manager": "Christopher A. Shafer",
+      "address": "2815 Eastlake Avenue E., Seattle, WA 98102"
+    },
+    {
+      "name": "Bruchi's Spokane Valley",
+      "id": "2410-1012",
+      "client": "Bruchi's",
+      "manager": "Katsiaryna Bautista",
+      "address": "15706 E Sprague Ave, Veradale, WA 99037"
+    },
+    {
+      "name": "Jamie's Place",
+      "id": "2410-1015",
+      "client": "Johnston Architects",
+      "manager": "Anna Senchenko",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Federal Way Taco Bell - Testing",
+      "id": "2411-1003",
+      "client": "Kugel Construction",
+      "manager": "Christopher A. Shafer",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "French American School of Puget Sound",
+      "id": "2411-1004",
+      "client": "Spectrum Development Solutions",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "1809 Seventh Avenue, Suite 1501, Seattle, WA 98101"
+    },
+    {
+      "name": "Tehaleh Kiddie Academy - Testing",
+      "id": "2411-1005",
+      "client": "Kugel Construction",
+      "manager": "Christopher A. Shafer",
+      "address": null
+    },
+    {
+      "name": "Oak Harbor Sonic - Testing",
+      "id": "2411-1006",
+      "client": "Kugel Construction",
+      "manager": "Christopher A. Shafer",
+      "address": null
+    },
+    {
+      "name": "Salem Multifamily",
+      "id": "2411-1010",
+      "client": "Scott Edwards Architecture, LLP",
+      "manager": "Tyler M. Smith",
+      "address": "4885 Portland Road NE, Salem, OR 97306"
+    },
+    {
+      "name": "White Oak Village - Testing",
+      "id": "2411-1012",
+      "client": "Mosaic Construction Services, LLC",
+      "manager": "Christopher A. Shafer",
+      "address": "14715 NE 20th Ave, Vancouver, WA 98686"
+    },
+    {
+      "name": "Bledsoe Family Winery - Energy",
+      "id": "2411-1013",
+      "client": "Pacific Flyway Construction",
+      "manager": "Katsiaryna Bautista",
+      "address": "111 Sheep Company Road, Selah, WA 98942"
+    },
+    {
+      "name": "Affinity at DuPont",
+      "id": "2411-1014",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Sportsplex Arena - Remediation",
+      "id": "2412-1002",
+      "client": "City of Bellingham",
+      "manager": "Chad E. Smith",
+      "address": "1225 Civic Field Way, Bellingham, WA 98229"
+    },
+    {
+      "name": "River Family Haven",
+      "id": "2412-1004",
+      "client": "Multiple",
+      "manager": "Katsiaryna Bautista",
+      "address": "120 Cataldo Ave, Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "Harcourt Granary Condos - Testing",
+      "id": "2412-1005",
+      "client": "Harcourt Developments",
+      "manager": "Christopher A. Shafer",
+      "address": "1211 Granary Ave #601B, Bellingham, WA 98225"
+    },
+    {
+      "name": "Pearson Lofts",
+      "id": "2412-1007",
+      "client": "Wollam & Associates",
+      "manager": "Tyler M. Smith",
+      "address": "7701 NE Greenwood Drive, Ste 100, Vancouver, WA 98662"
+    },
+    {
+      "name": "Thomazin Shop - Energy",
+      "id": "2412-1009",
+      "client": "Nilsson Homes",
+      "manager": "Katsiaryna Bautista",
+      "address": "10607 NE 53rd St, Kirkland, WA 98033"
+    },
+    {
+      "name": "930 N State Street Apartments - Energy",
+      "id": "2412-1010",
+      "client": "Zervas Architects",
+      "manager": "Katsiaryna Bautista",
+      "address": "209 Prospect Street, Suite 1, Bellingham, WA 98225"
+    },
+    {
+      "name": "Bellevue Hilton Exterior Renovation",
+      "id": "2412-1011",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": "4811 134th Place SE, Bellevue, WA 98006"
+    },
+    {
+      "name": "The Sarah Queen Apartments",
+      "id": "2412-1012",
+      "client": "Public47 Architects",
+      "manager": "Chad E. Brickner",
+      "address": "232 7th Avenue N, #200, Seattle, WA 98109"
+    },
+    {
+      "name": "Canterwood Apartments - Energy",
+      "id": "2412-1014",
+      "client": "CW Baker, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Affinity at Kalispell",
+      "id": "2412-1015",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "605 Stillwater Road, Kalispell, MT 59901"
+    },
+    {
+      "name": "Bothell Townhouses - Energy",
+      "id": "2501-1002",
+      "client": "22309 Lynnwood LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": "22309 9th Ave SE, Bothell, WA 98021"
+    },
+    {
+      "name": "Treaty Rock Elementary",
+      "id": "2501-1004",
+      "client": "Architects West, Inc.",
+      "manager": "Chad E. Brickner",
+      "address": "210 E. Lakeside Avenue"
+    },
+    {
+      "name": "Small Energy Projects 2025",
+      "id": "2501-1006",
+      "client": "Multiple",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Oaks Amusement Park",
+      "id": "2501-1008",
+      "client": "Oaks Park Association",
+      "manager": "Tyler M. Smith",
+      "address": "7805 SE Oaks Park Way, Portland, OR 97202"
+    },
+    {
+      "name": "SRM Temecula",
+      "id": "2501-1009",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "111 N. Post St., Ste 200, Spokane, WA 99201"
+    },
+    {
+      "name": "Canopy Hotel Bozeman",
+      "id": "2501-1010",
+      "client": "Intrinsik Architecture, Inc.",
+      "manager": "Chad E. Smith",
+      "address": "32 South Rouse Avenue, Bozeman, MT 59715"
+    },
+    {
+      "name": "Rouvali Apartments - Energy",
+      "id": "2501-1011",
+      "client": "AVT Consulting",
+      "manager": "Katsiaryna Bautista",
+      "address": "2425 Meridian St, Bellingham, WA 98225"
+    },
+    {
+      "name": "Basis Independent School - Assessment",
+      "id": "2501-1012",
+      "client": "Spring Education Group",
+      "manager": "David C. Chapman",
+      "address": "1999 S Bascom Ave, Ste. 400, Campbell, CA 95008"
+    },
+    {
+      "name": "3601 MLK S",
+      "id": "2501-1014",
+      "client": "Habitat for Humanity Seattle-King & Kittitas Counties",
+      "manager": "Chad E. Smith",
+      "address": "500 Naches Ave SW, Ste. 200, Renton, WA 98507"
+    },
+    {
+      "name": "Orsalem Assisted Living Facility",
+      "id": "2501-1016",
+      "client": "Arete Architecture",
+      "manager": "Katsiaryna Bautista",
+      "address": "21806 2nd Avenue W., Bothell, WA 98021"
+    },
+    {
+      "name": "Edmonds School District New Middle School",
+      "id": "2501-1017",
+      "client": "Edmonds School District",
+      "manager": "Chad E. Smith",
+      "address": "20420 68th Ave W, Lynnwood, WA 98036"
+    },
+    {
+      "name": "Anderson Apartments",
+      "id": "2501-1018",
+      "client": "Sierra Construction -WA",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "14800 NE North Woodinville Way, Woodinville, WA 98072"
+    },
+    {
+      "name": "Avenue Plaza",
+      "id": "2501-1019",
+      "client": "Scott Edwards Architecture, LLP",
+      "manager": "Tyler M. Smith",
+      "address": "6030 SE 52nd Avenue #200 ● Portland, OR 97206 ● T 503 222 1715 ● www.bee-engineers.com"
+    },
+    {
+      "name": "3670 Woodland Park",
+      "id": "2501-1020",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "3670 Woodland Park Avenue N., Seattle, WA 98103"
+    },
+    {
+      "name": "21st Avenue Student Housing",
+      "id": "2501-1023",
+      "client": "Acre UW Three, LLC",
+      "manager": "Chad E. Smith",
+      "address": "10655 NE 4th St, Ste 707, Bellevue, WA 98004"
+    },
+    {
+      "name": "Painted Horse Farm",
+      "id": "2502-1002",
+      "client": "Mike Paul Construction Inc.",
+      "manager": "Katsiaryna Bautista",
+      "address": "3220 Rosedale St NW, Unit 101, Gig Harbor, WA 98335"
+    },
+    {
+      "name": "3020 NE 45th Street - Energy",
+      "id": "2502-1003",
+      "client": "ENCORE Architects",
+      "manager": "Katsiaryna Bautista",
+      "address": "411 First Avenue S., Suite 310, Seattle, WA 98104"
+    },
+    {
+      "name": "Uptown Apartments",
+      "id": "2502-1006",
+      "client": "Multiple",
+      "manager": "Chad E. Brickner",
+      "address": "1700 Westlake Avenue N."
+    },
+    {
+      "name": "Larson Residence - Energy",
+      "id": "2502-1007",
+      "client": "Dickey's Remodel & Repair",
+      "manager": "Katsiaryna Bautista",
+      "address": "3503 S Bay Rd NE, Olympia, WA 98506"
+    },
+    {
+      "name": "MN Custom Homes Insurance Claim Support",
+      "id": "2502-1008",
+      "client": "MN Custom Homes",
+      "manager": "Chad E. Brickner",
+      "address": "3009 112th Avenue NE, Suite 100, Bellevue, WA 98004"
+    },
+    {
+      "name": "Bellwether Greenwood",
+      "id": "2502-1009",
+      "client": "ENCORE Architects",
+      "manager": "Anna Senchenko",
+      "address": "411 First Avenue South, Suite 310"
+    },
+    {
+      "name": "Emblem Enumclaw Apartments",
+      "id": "2502-1010",
+      "client": "Multiple",
+      "manager": "Katsiaryna Bautista",
+      "address": "208 N Samish Way | Bellingham, WA"
+    },
+    {
+      "name": "Sportworks - TI - Testing",
+      "id": "2502-1012",
+      "client": "Steele Development Corp.",
+      "manager": "Christopher A. Shafer",
+      "address": null
+    },
+    {
+      "name": "Tillamook Bay CC Health Educational Bldg",
+      "id": "2502-1013",
+      "client": "Wenaha Group",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "BMW of Lynnwood",
+      "id": "2502-1014",
+      "client": "Swickard Automotive Group",
+      "manager": "Christopher A. Shafer",
+      "address": "5615 188th St SW, Lynnwood, WA 98037"
+    },
+    {
+      "name": "Iskcon Vedic Cultural Center - Assessment",
+      "id": "2503-1002",
+      "client": "Constructive Changes",
+      "manager": "Suvad Tanjo",
+      "address": "5833 Pioneer Ridge Place, Ferndale, WA 98248"
+    },
+    {
+      "name": "Alpine Lakes Watch Tower Cabin",
+      "id": "2503-1003",
+      "client": "Coulter Development, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": "3609 W Sequim Bay Rd, Sequim, WA 98382"
+    },
+    {
+      "name": "Terrance Adams Residence",
+      "id": "2503-1004",
+      "client": "Terrance Adams",
+      "manager": "Katsiaryna Bautista",
+      "address": "3317 127th Ave NE, Lake Stevens, WA 98258"
+    },
+    {
+      "name": "Cascara Townhouses",
+      "id": "2503-1005",
+      "client": "Westerly, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": "320 Dayton Street, Suite 101, Edmonds, WA 98020"
+    },
+    {
+      "name": "Polaris at North City - Leak Investigation",
+      "id": "2503-1008",
+      "client": "Inland Group",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "120 Cataldo Ave, Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "Greenwood Nest",
+      "id": "2503-1009",
+      "client": "Neiman Taber Architects",
+      "manager": "Stephen R. Polledri",
+      "address": "1435 34th Avenue, Seattle, WA 98122"
+    },
+    {
+      "name": "The Strand at Bennett Bay",
+      "id": "2503-1010",
+      "client": "hoist Architecture",
+      "manager": "Katsiaryna Bautista",
+      "address": "415 E 3rd Ave, Post Falls, ID 83854"
+    },
+    {
+      "name": "Victory Northgate",
+      "id": "2503-1011",
+      "client": "Axiom Division 7, Inc.",
+      "manager": "Christopher A. Shafer",
+      "address": null
+    },
+    {
+      "name": "Modera Bridle Trails",
+      "id": "2503-1011",
+      "client": "Axiom Division 7, Inc.",
+      "manager": "Christopher A. Shafer",
+      "address": null
+    },
+    {
+      "name": "Trace Apartments",
+      "id": "2503-1011",
+      "client": "Axiom Division 7, Inc.",
+      "manager": "Christopher A. Shafer",
+      "address": null
+    },
+    {
+      "name": "Axiom ELD Testing",
+      "id": "2503-1011",
+      "client": "Axiom Division 7, Inc.",
+      "manager": "Christopher A. Shafer",
+      "address": null
+    },
+    {
+      "name": "15608 252nd Street Ct. E.",
+      "id": "2503-1012",
+      "client": "Investor Services, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Catherine Johnson Court Apts Rehab - Assessment",
+      "id": "2503-1013",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "120 Cataldo Ave Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "Arlington Garden Apartments",
+      "id": "2503-1015",
+      "client": "Emerald City Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "170 W Dayton Street, Suite 206, Edmonds, WA 98020"
+    },
+    {
+      "name": "Emblem Bend (Formerly Ferguson Road Apartments)",
+      "id": "2503-1016",
+      "client": "Multiple",
+      "manager": "Katsiaryna Bautista",
+      "address": null
+    },
+    {
+      "name": "Sunstone Planter Consultation",
+      "id": "2503-1018",
+      "client": "Mallet Design Build",
+      "manager": "Suvad Tanjo",
+      "address": "2700 4th Avenue S., Suite D, Seattle, WA 98134"
+    },
+    {
+      "name": "8810 South Hosmer - Assessment",
+      "id": "2503-1019",
+      "client": "Thrive International",
+      "manager": "Suvad Tanjo",
+      "address": "110 East 4th Avenue, Spokane, WA 99202"
+    },
+    {
+      "name": "629 Woodland Apartments",
+      "id": "2503-1022",
+      "client": "DM Ventures 629",
+      "manager": "Christopher A. Shafer",
+      "address": "6725 116th Avenue NE, Kirkland, WA 98033"
+    },
+    {
+      "name": "8045 Mary Avenue - ABT",
+      "id": "2503-1023",
+      "client": "Shelter Homes",
+      "manager": "Christopher A. Shafer",
+      "address": "2461 152nd Ave NE, Redmond, WA 98052"
+    },
+    {
+      "name": "Meridian Phase III",
+      "id": "2503-1024",
+      "client": "Pacifica Senior Living Milton, LLC",
+      "manager": "Christopher A. Shafer",
+      "address": "1111 S 376th St, Milton, WA 98354"
+    },
+    {
+      "name": "Vancouver Bridge Shelter",
+      "id": "2503-1026",
+      "client": "Scott Edwards Architecture, LLP",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Gundlach Roof Assessment",
+      "id": "2503-1027",
+      "client": "Lauren Gundlach",
+      "manager": "Chad E. Brickner",
+      "address": "8032 19th Avenue NE, Seattle, WA 98115"
+    },
+    {
+      "name": "Annie Wright Schools Kemper Center Gym Addition - Testing",
+      "id": "2504-1002",
+      "client": "Absher Construction",
+      "manager": "Christopher A. Shafer",
+      "address": "1001 Shaw Road, Puyallup, WA 98372"
+    },
+    {
+      "name": "Kinect @ Gresham",
+      "id": "2504-1005",
+      "client": "American Capital Group & Design",
+      "manager": "Tyler M. Smith",
+      "address": "15 Lake Bellevue Drive, Suite 200, Bellevue, WA 98005"
+    },
+    {
+      "name": "Meadowlark Early Learning Center (form Webster Rd Head Start)",
+      "id": "2504-1006",
+      "client": "J Timothy Richard Architect, LLC",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Stoller Gym and Classroom Addition",
+      "id": "2504-1007",
+      "client": "Beaverton School District",
+      "manager": "Christopher A. Shafer",
+      "address": "16550 SW Merlo Rd, Beaverton, OR 97003"
+    },
+    {
+      "name": "15040 SE 43rd Pl",
+      "id": "2504-1009",
+      "client": "Everton Homes - Igor Tsapenko",
+      "manager": "Chad E. Brickner",
+      "address": "2300 130th Ave NE, Ste 104, Bellevue, WA 98005"
+    },
+    {
+      "name": "Second and Seneca",
+      "id": "2504-1010",
+      "client": "JPC Architects",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "909 112th Avenue NE, Suite 206, Bellevue, WA 98004"
+    },
+    {
+      "name": "18330 9th Avenue NE",
+      "id": "2504-1012",
+      "client": "Dang Do",
+      "manager": "Stephen R. Polledri",
+      "address": "19201 138th Avenue SE, Renton, WA 98058"
+    },
+    {
+      "name": "Evergreen Way Heights",
+      "id": "2504-1013",
+      "client": "Evergreen Way Heights, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": "6513 132nd Avenue NE #200, Kirkland, WA 98033"
+    },
+    {
+      "name": "401 Eastlake Ave",
+      "id": "2504-1016",
+      "client": "Green Canopy NODE",
+      "manager": "Stephen R. Polledri",
+      "address": "620 S Orcas St, #80425, Seattle, WA 98108"
+    },
+    {
+      "name": "CrystaLite Sidemount Infinity Rail Test Witnessing",
+      "id": "2504-1018",
+      "client": "CrystaLite, Inc.",
+      "manager": "Christopher A. Shafer",
+      "address": "3307 Cedar Street, Everett, WA 98201"
+    },
+    {
+      "name": "The Lantern",
+      "id": "2504-1019",
+      "client": "Emily & Kurtis Fusaro",
+      "manager": "Tyler M. Smith",
+      "address": "110 SE Main Street, Suite 300, Portland, OR 97214"
+    },
+    {
+      "name": "Losekann Unit Roof Assessment",
+      "id": "2504-1020",
+      "client": "Andrea Losekann",
+      "manager": "Chad E. Brickner",
+      "address": "207 4th Court South, Kirkland, WA 98033"
+    },
+    {
+      "name": "Linder Residence",
+      "id": "2504-1021",
+      "client": "Renae and David Linder",
+      "manager": "Katsiaryna Bautista",
+      "address": "1752 NW Market St, #4653, Seattle, WA 98107"
+    },
+    {
+      "name": "Lowell Emerson Apartments Leak Investigation",
+      "id": "2504-1022",
+      "client": "City Center Real Estate",
+      "manager": "Stephen R. Polledri",
+      "address": "1102 8th Ave, Seattle, WA 98112"
+    },
+    {
+      "name": "Green Hill Apartments Phase 2",
+      "id": "2504-1023",
+      "client": "Exxel Pacific - Bellingham Office",
+      "manager": "Christopher A. Shafer",
+      "address": "323 Telegraph Road, Bellingham, WA 98226"
+    },
+    {
+      "name": "SE 192nd Ave Apartments",
+      "id": "2505-1001",
+      "client": "Vance Development, LLC",
+      "manager": "Tyler M. Smith",
+      "address": "2005 SE 192nd Ave, Ste 200, Camas, WA 98607"
+    },
+    {
+      "name": "Sumner High School Phase 2",
+      "id": "2505-1002",
+      "client": "Hutteball & Oremus Architecture",
+      "manager": "Chad E. Smith",
+      "address": "4010 Lake Washington Blvd. NE, Suite 320, Kirkland, WA 98033"
+    },
+    {
+      "name": "St. Agnes Haven",
+      "id": "2505-1007",
+      "client": "Catholic Charities of Eastern Washington",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "120 Cataldo Ave, Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "Executive Estates - Energy",
+      "id": "2505-1010",
+      "client": "Bumgardner Architects",
+      "manager": "Katsiaryna Bautista",
+      "address": "2111 Third Avenue, Seattle, WA 98121"
+    },
+    {
+      "name": "17th Avenue Student Housing",
+      "id": "2505-1011",
+      "client": "Acre UW Two, LLC",
+      "manager": "Chad E. Smith",
+      "address": "10655 NE 4th St, Ste 707, Bellevue, WA 98004"
+    },
+    {
+      "name": "Columbia26 Townhomes",
+      "id": "2505-1012",
+      "client": "Multiple",
+      "manager": "David C. Chapman",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "SOMM - ELD Testing",
+      "id": "2505-1014",
+      "client": "Canam Coatings, Inc.",
+      "manager": "Christopher A. Shafer",
+      "address": "170 W. Dayton St. #206 ● Edmonds, WA 98020 ● T 425 672 3900 ● F 425 712 8608 ● www.bee-engineers.com"
+    },
+    {
+      "name": "Pastakia North Cove Lake Stevens",
+      "id": "2505-1016",
+      "client": "Urbal Architecture",
+      "manager": "Chad E. Brickner",
+      "address": "2001 Western Ave, #330, Seattle, WA 98121"
+    },
+    {
+      "name": "3650 60th Avenue Southwest",
+      "id": "2505-1018",
+      "client": "Rainier Custom Homes",
+      "manager": "David C. Chapman",
+      "address": "451 SW 10th St, Suite 105, Renton, WA 98057"
+    },
+    {
+      "name": "Lott Building",
+      "id": "2505-1019",
+      "client": "Herzl-Ner Tamid Synagogue",
+      "manager": "Katsiaryna Bautista",
+      "address": "3700 E Mercer Way, Mercer Island, WA 98040"
+    },
+    {
+      "name": "16310 NE 80th Street",
+      "id": "2505-1020",
+      "client": "SCB Architects",
+      "manager": "Stephen R. Polledri",
+      "address": "1326 5th Avenue, Suite 300, Seattle, WA 98101"
+    },
+    {
+      "name": "Copper View Apartments",
+      "id": "2505-1022",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "120 Cataldo Ave, Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "Regio Apartments",
+      "id": "2506-1002",
+      "client": "Regio, LLC",
+      "manager": "Christopher A. Shafer",
+      "address": "237 Eastlake Avenue E., Seattle, WA 98102"
+    },
+    {
+      "name": "Green Lake Jewelry Works",
+      "id": "2506-1003",
+      "client": "Jewelryworks Group, Inc.",
+      "manager": "Anna Senchenko",
+      "address": "550 NE Northgate Way, Seattle, WA 98125"
+    },
+    {
+      "name": "4240 Bullfrog Apartments",
+      "id": "2506-1004",
+      "client": "Tadpole, LLC",
+      "manager": "Chad E. Brickner",
+      "address": "1700 Westlake Ave N., Suite 200, Seattle, WA 98109"
+    },
+    {
+      "name": "410 Aloha St - Testing",
+      "id": "2506-1005",
+      "client": "Blackwood Acquisitions, LLC",
+      "manager": "Christopher A. Shafer",
+      "address": null
+    },
+    {
+      "name": "5222 Pullman Avenue",
+      "id": "2506-1006",
+      "client": "Patterson Ruehlmann Design + Architecture",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "5628 Airport Way S #185, Seattle, WA 98108"
+    },
+    {
+      "name": "10447 SE 222nd St",
+      "id": "2506-1007",
+      "client": "GPM Architects",
+      "manager": "Katsiaryna Bautista",
+      "address": "4600 Union Bay Place NE, Seattle, WA 98105"
+    },
+    {
+      "name": "Building 3219 Roof Consultation",
+      "id": "2506-1008",
+      "client": "WSP",
+      "manager": "Chad E. Brickner",
+      "address": "170 W DAYTON ST, Ste 206"
+    },
+    {
+      "name": "Blakeney Residence",
+      "id": "2506-1009",
+      "client": "Schaefer Construction",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "1201 E. Howell Street, Seattle, WA 98122"
+    },
+    {
+      "name": "Riverfront Entertainment Pad",
+      "id": "2506-1010",
+      "client": "Riverfront Theater, LLC",
+      "manager": "Denin W. Dazey",
+      "address": "11624 SE 5th Street Suite, 210, Bellevue, WA 98005"
+    },
+    {
+      "name": "Greenbaum @ Bellevue",
+      "id": "2506-1011",
+      "client": "ACG Design, LLC",
+      "manager": "Chad E. Brickner",
+      "address": "15 Lake Bellevue Drive"
+    },
+    {
+      "name": "Casino Road Townhomes",
+      "id": "2506-1012",
+      "client": "Wayne Sharp Construction, Inc.",
+      "manager": "Katsiaryna Bautista",
+      "address": "903 Casino Road, Everett, WA 98204"
+    },
+    {
+      "name": "Cowlitz Tribe New Administration Bldg",
+      "id": "2506-1014",
+      "client": "FREIHEIT Architecture",
+      "manager": "Tyler M. Smith",
+      "address": "505 106th Avenue NE, Suite 302, Bellevue, WA 98004"
+    },
+    {
+      "name": "Redmond 22 - Phase 1",
+      "id": "2506-1015",
+      "client": "ACG Design, LLC",
+      "manager": "Chad E. Brickner",
+      "address": null
+    },
+    {
+      "name": "Redmond 22 - Phase II",
+      "id": "2506-1016",
+      "client": "ACG Design, LLC",
+      "manager": "Chad E. Brickner",
+      "address": "15 Lake Bellevue Drive, Suite 200, Bellevue, WA 98005"
+    },
+    {
+      "name": "Stockstad Residence - Energy",
+      "id": "2506-1017",
+      "client": "Mike Paul Construction Inc.",
+      "manager": "Katsiaryna Bautista",
+      "address": "3220 Rosedale Street NW, Unit 101, Gig Harbor, WA 98335"
+    },
+    {
+      "name": "College Park West Condos Assessment",
+      "id": "2506-1018",
+      "client": "College Park West Condominiums HOA",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "4118 SW College St, Seattle, WA 98116"
+    },
+    {
+      "name": "Cedar Brook Surgery Center",
+      "id": "2506-1019",
+      "client": "Barbis Bentley Architect, LLC",
+      "manager": "Tyler M. Smith",
+      "address": "12987 SW Starview Drive, Tigard, OR 97224"
+    },
+    {
+      "name": "Monroe Family Village Roof Assessment",
+      "id": "2506-1020",
+      "client": "Housing Hope",
+      "manager": "Chad E. Brickner",
+      "address": "5830 Evergreen Way, Everett, WA 98203"
+    },
+    {
+      "name": "Hardy Residence Roof Assessment",
+      "id": "2506-1022",
+      "client": "Yooli Hardy",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "1720 NE 92nd St, Seattle, WA 98115"
+    },
+    {
+      "name": "Terrace Station 4",
+      "id": "2506-1024",
+      "client": "Sierra Services, Inc.",
+      "manager": "Stephen R. Polledri",
+      "address": "14800 NE North Woodinville Way, Woodinville, WA 98072"
+    },
+    {
+      "name": "Waverly Place Condos",
+      "id": "2507-1002",
+      "client": "Waverly Place HOA C/O MacEwan Cuthbertson",
+      "manager": "Chad E. Smith",
+      "address": "2040 Waverly Pl N, Seattle, WA 98109"
+    },
+    {
+      "name": "TVF&R Station #35",
+      "id": "2507-1004",
+      "client": "TVF&R Logistics Division",
+      "manager": "Christopher A. Shafer",
+      "address": "11945 SW 70th Ave., Tigard, OR 97223"
+    },
+    {
+      "name": "310 Daley Townhouses",
+      "id": "2507-1005",
+      "client": "Nucon Construction and Development",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "170 W Dayton Street, Suite 206, Edmonds, WA 98020"
+    },
+    {
+      "name": "VOA Crosswalk - Testing",
+      "id": "2507-1007",
+      "client": "Inland Group",
+      "manager": "Christopher A. Shafer",
+      "address": "120 Cataldo Ave, Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "6003 Corliss Avenue N",
+      "id": "2507-1008",
+      "client": "John Schneider",
+      "manager": "Katsiaryna Bautista",
+      "address": "6003 Corliss Avenue N., Seattle, WA 98103"
+    },
+    {
+      "name": "Microsoft Clean & Reseal",
+      "id": "2507-1011",
+      "client": "Cushman & Wakefield",
+      "manager": "Chad E. Smith",
+      "address": "170 W. Drayton St, Ste. 206"
+    },
+    {
+      "name": "Beaver Acres ES Cafeteria Addition",
+      "id": "2507-1012",
+      "client": "Beaverton School District",
+      "manager": "Tyler M. Smith",
+      "address": "1260 NW Waterhouse Avenue"
+    },
+    {
+      "name": "Riverview Heights",
+      "id": "2508-1002",
+      "client": "Windsor Engineers",
+      "manager": "Katsiaryna Bautista",
+      "address": "27300 NE 10th Ave, Ridgefield, WA 98642"
+    },
+    {
+      "name": "3535 Interlake Avenue N - Leak Investigation",
+      "id": "2508-1005",
+      "client": "Bouldering Project",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "979 Springdale Road #150, Austin, TX 78702"
+    },
+    {
+      "name": "Shoreline Place Block D",
+      "id": "2508-1007",
+      "client": "Merlone Geier Partners",
+      "manager": "Chad E. Brickner",
+      "address": "4365 Executive Drive Tel: 858 / 259 / 9909"
+    },
+    {
+      "name": "SRM Empowerment Center",
+      "id": "2508-1008",
+      "client": "SRM Development, LLC",
+      "manager": "Stephen R. Polledri",
+      "address": "111 N POST STREET 200 170 W DAYTON STREET STE 206"
+    },
+    {
+      "name": "19325 Damson Road",
+      "id": "2508-1010",
+      "client": "LEV Architecture",
+      "manager": "Katsiaryna Bautista",
+      "address": "19325 DAMSON ROAD"
+    },
+    {
+      "name": "LASA Gravelly Lake Commons - Phase III",
+      "id": "2508-1011",
+      "client": "Living Access Support Alliance",
+      "manager": "Stephen R. Polledri",
+      "address": "1225 S Weller St, Seattle, WA 98144"
+    },
+    {
+      "name": "Veterans Affairs Outpatient Clinic",
+      "id": "2508-1013",
+      "client": "VA Development, LLC c/o SDA Inc.",
+      "manager": "Chad E. Brickner",
+      "address": "5655 South Yosemite St., Suite 460, Greenwood Village, CO 80111"
+    },
+    {
+      "name": "IHIF Parcel A1",
+      "id": "2508-1016",
+      "client": "Multiple",
+      "manager": "Chad E. Smith",
+      "address": "11624 SE 5th Street, Ste. 210, Bellevue, WA 98005"
+    },
+    {
+      "name": "Allied8 Envelope Consultation",
+      "id": "2509-1001",
+      "client": "Allied8",
+      "manager": "Chad E. Brickner",
+      "address": "4860 Rainier Avenue S., Suite F, Seattle, WA 98118"
+    },
+    {
+      "name": "Raging River Ranch",
+      "id": "2509-1003",
+      "client": "Mikki Ward Jasper",
+      "manager": "Stephen R. Polledri",
+      "address": "32715 SE 46th Lane, Fall City, WA 98024"
+    },
+    {
+      "name": "Swyft Apartments 2.0",
+      "id": "2509-1004",
+      "client": "Multiple",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "5808 Lake Washington Blvd NE, Suite 203, Kirkland, WA 98033"
+    },
+    {
+      "name": "North City Apartments",
+      "id": "2509-1008",
+      "client": "North City Apartments",
+      "manager": "Chad E. Smith",
+      "address": "10655 NE 4th Street, Suite #707, Bellevue, WA 98005"
+    },
+    {
+      "name": "Garden Senior Village - Testing",
+      "id": "2509-1009",
+      "client": "OAC Services",
+      "manager": "Christopher A. Shafer",
+      "address": "701 Dexter Ave N, Seattle, WA 98109"
+    },
+    {
+      "name": "Microsoft Entry Doors and Storefront Partitions",
+      "id": "2509-1010",
+      "client": "Cushman & Wakefield",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "170 W. Drayton St, Ste. 206"
+    },
+    {
+      "name": "North Everett Apartments",
+      "id": "2509-1011",
+      "client": "Multiple",
+      "manager": "Anna Senchenko",
+      "address": "2524 Lombard Avenue & 1925 26th Streets, Everett, WA 98201"
+    },
+    {
+      "name": "Peak Thermo King Warehouse - Testing",
+      "id": "2509-1012",
+      "client": "Pivotal General Construction",
+      "manager": "Christopher A. Shafer",
+      "address": "8201 164th AVE NE, STE 110, Redmond, WA 98052"
+    },
+    {
+      "name": "Cascadia Commons - Assessment",
+      "id": "2509-1013",
+      "client": "Cascadia Commons HOA",
+      "manager": "Tyler M. Smith",
+      "address": "4377 SW 94th Ave, Portland, OR 97225"
+    },
+    {
+      "name": "HASCO Copper Marysville",
+      "id": "2509-1014",
+      "client": "Marysville Cedar and Grove LLLP",
+      "manager": "Katsiaryna Bautista",
+      "address": "120 Cataldo Ave, Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "OSLU - ELD Testing",
+      "id": "2509-1015",
+      "client": "Flynn BEC LP",
+      "manager": "Christopher A. Shafer",
+      "address": "3414 S 116th Street, Tukwila, WA 99224"
+    },
+    {
+      "name": "Microsoft Bldg 34 & Cafe - Reroof",
+      "id": "2509-1016",
+      "client": "Cushman & Wakefield",
+      "manager": "Chad E. Brickner",
+      "address": "170 W. Drayton St, Ste. 206"
+    },
+    {
+      "name": "Microsoft Bldg 35 - Reroof",
+      "id": "2509-1017",
+      "client": "Cushman & Wakefield",
+      "manager": "Chad E. Brickner",
+      "address": "170 W. Drayton St, Ste. 206"
+    },
+    {
+      "name": "8009 164th Ave NE Mixed-Use - Testing (fka Redmond Apartments)",
+      "id": "2509-1018",
+      "client": "RDM1 Property Owner LLC",
+      "manager": "Christopher A. Shafer",
+      "address": null
+    },
+    {
+      "name": "Affinity at Wenatchee",
+      "id": "2509-1019",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "120 Cataldo Ave, Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "North Park Lofts",
+      "id": "2509-1021",
+      "client": "HH Windows & Doors",
+      "manager": "Tyler M. Smith",
+      "address": "9330 15TH Ave. South, Building DD, Seattle, WA 98108"
+    },
+    {
+      "name": "Kroger Clackamas - Roof Assessment",
+      "id": "2509-1023",
+      "client": "Fred Meyer Distribution Center",
+      "manager": "Tyler M. Smith",
+      "address": null
+    },
+    {
+      "name": "Yarrow Cove Condominiums - Remediation",
+      "id": "2510-1001",
+      "client": "Yarrow Cove Homeowners Association",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "4817 Lake Washington Blvd NE, Unit #7, Kirkland, WA 98033"
+    },
+    {
+      "name": "Zuru Issaquah",
+      "id": "2510-1002",
+      "client": "Praedium Issaquah LLC",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "909 112th Ave NE, Suite 206, Bellevue, WA 98004"
+    },
+    {
+      "name": "Belroy Vintage Apartment Building",
+      "id": "2510-1003",
+      "client": "Belroy Homes LLC",
+      "manager": "Chad E. Brickner",
+      "address": "703 Bellevue Avenue E., Seattle, WA 98102"
+    },
+    {
+      "name": "The Lofts at 15th - Testing",
+      "id": "2510-1004",
+      "client": "The Lofts at 15th Homeowners Assocation c/o Trestle Community Management",
+      "manager": "Christopher A. Shafer",
+      "address": "2100 124th Avenue NE, Suite 110, Bellevue, WA 98005"
+    },
+    {
+      "name": "Spanaway Storage - Leak Investigation",
+      "id": "2510-1006",
+      "client": "Urban Self Storage, Inc.",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "918 South Horton St., Suite 1000, Seattle, WA 98134"
+    },
+    {
+      "name": "191st St Townhomes",
+      "id": "2510-1008",
+      "client": "MainStreet Property Group, LLC",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "5808 Lake Washington Blvd NE, Suite 203"
+    },
+    {
+      "name": "Ballard Commons",
+      "id": "2510-1009",
+      "client": "Studio Meng Strazzara",
+      "manager": "Chad E. Smith",
+      "address": "2001 Western Avenue, Suite 200, Seattle, WA 98121-2114"
+    },
+    {
+      "name": "Williams Residence - Assessment",
+      "id": "2510-1010",
+      "client": "Shannon Williams",
+      "manager": "Chad E. Brickner",
+      "address": "836 31st Avenue E., Seattle, WA 98112"
+    },
+    {
+      "name": "Microsoft Bldg 86 - Reroof",
+      "id": "2510-1013",
+      "client": "Multiple",
+      "manager": "Chad E. Brickner",
+      "address": "425 Market Street, San Francisco, CA 94105"
+    },
+    {
+      "name": "TEC Laboratories OPUS II Expansion",
+      "id": "2510-1014",
+      "client": "R & W Engineering",
+      "manager": "Chad E. Brickner",
+      "address": "9615 SW Allen Blvd, Suite 107, Beaverton, OR 97005"
+    },
+    {
+      "name": "4134 Beach Drive II",
+      "id": "2510-1015",
+      "client": "Shearwater Services, Inc.",
+      "manager": "Chad E. Brickner",
+      "address": "9206 NE 180th Street, Bothell, WA 98011"
+    },
+    {
+      "name": "Lakeview Apartments",
+      "id": "2510-1017",
+      "client": "Absaroka holdings, LLC",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "711 Capitol Way South, Suite 204, Olympia, WA 98501"
+    },
+    {
+      "name": "Vashon Maury Community Food Bank - Testing",
+      "id": "2510-1019",
+      "client": "Colvos Construction",
+      "manager": "Christopher A. Shafer",
+      "address": "711 Court C 170 W. Dayton St, Suite 206"
+    },
+    {
+      "name": "Catherine of Siena",
+      "id": "2510-1020",
+      "client": "Catholic Housing Services of Western Washington",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "100 23rd Ave S, Seattle, WA 98144"
+    },
+    {
+      "name": "Taco Bell Graham - Testing",
+      "id": "2510-1021",
+      "client": "Kugel Construction",
+      "manager": "Christopher A. Shafer",
+      "address": "10020 224th St E, Graham, WA 98338"
+    },
+    {
+      "name": "Vision House Phase 4",
+      "id": "2510-1022",
+      "client": "Vision House",
+      "manager": "Chad E. Smith",
+      "address": "450 Bremerton Avenue NE, Renton, WA 98059"
+    },
+    {
+      "name": "Taco Bell Redmond - Testing",
+      "id": "2510-1023",
+      "client": "Kugel Construction",
+      "manager": "Christopher A. Shafer",
+      "address": "16989 Redmond Way, Redmond, WA 98052"
+    },
+    {
+      "name": "Broadstone North Wilburton - Energy",
+      "id": "2511-1001",
+      "client": "Urbal Architecture",
+      "manager": "Katsiaryna Bautista",
+      "address": "1938 Fairview Ave E, Seattle, WA 98102"
+    },
+    {
+      "name": "Bowling Green Apartments",
+      "id": "2511-1003",
+      "client": "The Madrona Company",
+      "manager": "Stephen R. Polledri",
+      "address": "2719 E Union St,, Seattle, WA 98122"
+    },
+    {
+      "name": "Pacific Reign Gymnastics",
+      "id": "2511-1005",
+      "client": "Pacific Reign Gymnastics c/o Broderick Architects",
+      "manager": "Stephen R. Polledri",
+      "address": "12728 NE 178th St, Woodinville, WA 98072"
+    },
+    {
+      "name": "Microsoft Studio A-D Parking Garage",
+      "id": "2511-1006",
+      "client": "Cushman & Wakefield",
+      "manager": "Chad E. Brickner",
+      "address": "170 W. Drayton St, Ste. 206"
+    },
+    {
+      "name": "The Signature - Energy",
+      "id": "2511-1007",
+      "client": "MainStreet Property Group, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": "5808 Lake Washington Blvd NE, Suite 203, Kirkland, WA 98033"
+    },
+    {
+      "name": "Zacher Residence - Testing",
+      "id": "2511-1010",
+      "client": "Gerry Zacher",
+      "manager": "Christopher A. Shafer",
+      "address": "290 E North Cove Rd, Shelton, WA 98584"
+    },
+    {
+      "name": "Northgate Station M2 ELD Testing",
+      "id": "2511-1011",
+      "client": "Emerald City Waterproofing",
+      "manager": "Christopher A. Shafer",
+      "address": "6644 S 196th Street, Suite T104, Kent, WA 98032"
+    },
+    {
+      "name": "Broadstone East Wilburton - Energy",
+      "id": "2511-1012",
+      "client": "Urbal Architecture",
+      "manager": "Katsiaryna Bautista",
+      "address": "1938 Fairview Ave E, Seattle, WA 98102"
+    },
+    {
+      "name": "Lake Stevens SD Hillcrest Gym - Secure Vestibule Upgrades",
+      "id": "2511-1013",
+      "client": "Dykeman, Inc.",
+      "manager": "Chad E. Smith",
+      "address": null
+    },
+    {
+      "name": "11040 Main Street - Energy",
+      "id": "2511-1014",
+      "client": "ArchEcology",
+      "manager": "Katsiaryna Bautista",
+      "address": "901 Hiawatha Place S. Unit 100, Seattle, WA 98144"
+    },
+    {
+      "name": "City of Auburn Tenant Improvement - Energy",
+      "id": "2511-1015",
+      "client": "Epsilon Construction, LLC",
+      "manager": "Katsiaryna Bautista",
+      "address": "3510 Academy Drive SE, Auburn, WA 98092"
+    },
+    {
+      "name": "151st Street Apartments - Energy",
+      "id": "2511-1016",
+      "client": "Robison Engineering",
+      "manager": "Katsiaryna Bautista",
+      "address": "19401 40th Ave W, Ste 302, Lynnwood, WA 98036"
+    },
+    {
+      "name": "Ten Trails",
+      "id": "2511-1020",
+      "client": "Lennar",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "33820 Weyerhaeuser Way S., Federal Way, WA 98001"
+    },
+    {
+      "name": "Lockwood Lane",
+      "id": "2511-1021",
+      "client": "Lennar",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "33820 Weyerhaeuser Way S., Federal Way, WA 98001"
+    },
+    {
+      "name": "Lake Stevens SD SILC-CK-Gym",
+      "id": "2512-1001",
+      "client": "Dykeman, Inc.",
+      "manager": "Chad E. Smith",
+      "address": "1716 W Marine View Dr, Everett, WA 98201"
+    },
+    {
+      "name": "Woodland Park Apartments",
+      "id": "2512-1002",
+      "client": "3421Woodland Park, LLC",
+      "manager": "Stephen R. Polledri",
+      "address": "3421 Woodland Park Ave N, Seattle, WA 98103"
+    },
+    {
+      "name": "Snohomish LDS Church Addition - Testing",
+      "id": "2512-1003",
+      "client": "Grow Construction",
+      "manager": "Christopher A. Shafer",
+      "address": "20350 SW Avery Ct, Tualatin, OR 97062"
+    },
+    {
+      "name": "El Estero Apartments Rehab - Energy",
+      "id": "2512-1004",
+      "client": "Inland Group",
+      "manager": "Katsiaryna Bautista",
+      "address": "120 Cataldo Ave, Suite 100, Spokane, WA 99201"
+    },
+    {
+      "name": "Our Lady of the Lake School",
+      "id": "2512-1005",
+      "client": "Coates Design",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "3520 NE 89th Street, Seattle, WA 98115"
+    },
+    {
+      "name": "Kendall Yards",
+      "id": "2512-1006",
+      "client": "SRM Development, LLC",
+      "manager": "Patrick L. Vanderhei-McMahon",
+      "address": "1175 W. Summit Parkway, Spokane, WA 99201"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Metadata Manager — BEE FieldKIT</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<h1>Metadata Manager</h1>
+<p>Manage global and project-specific metadata for FieldKIT.</p>
+
+<!-- Select Project -->
+<section class="proj-header">
+  <h3>Project Selection</h3>
+  <label>
+    Select Project
+    <select id="projectSelect"></select>
+  </label>
+</section>
+
+<!-- Metadata Form -->
+<section class="proj-header">
+  <h3 id="metaTitle">Global Metadata</h3>
+
+  <div class="form-grid">
+    <label>
+      Technicians (comma-separated)
+      <input id="metaTechs" type="text">
+    </label>
+
+    <label>
+      Witnesses (comma-separated)
+      <input id="metaWitness" type="text">
+    </label>
+
+    <label>
+      Default Test Date
+      <input id="metaDate" type="date">
+    </label>
+
+    <label>
+      Temperature (°F)
+      <input id="metaTemp" type="number">
+    </label>
+
+    <label>
+      Wind (mph)
+      <input id="metaWind" type="number">
+    </label>
+
+    <label>
+      Wind Direction
+      <input id="metaWindDir" type="text">
+    </label>
+
+    <label>
+      Barometric Pressure
+      <input id="metaBaro" type="text">
+    </label>
+  </div>
+
+  <button id="saveBtn" class="btn btn-primary">Save Metadata</button>
+  <button id="clearBtn" class="btn btn-line">Clear Project Metadata</button>
+</section>
+
+<script type="module" src="metadata-manager.js"></script>
+
+</body>
+</html>

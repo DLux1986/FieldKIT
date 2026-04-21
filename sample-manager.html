@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sample Manager — BEE FieldKIT</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<h1>Sample Manager</h1>
+<p>View, edit, duplicate, delete, and export samples per project.</p>
+
+<section class="proj-header">
+  <h3>Project Selection</h3>
+  <label>
+    Select Project
+    <select id="projectSelect"></select>
+  </label>
+  <button id="exportProjectCsv" class="btn btn-line">Export Samples (CSV)</button>
+</section>
+
+<section class="fk-projects">
+  <h3>Samples</h3>
+  <table id="sampleTable">
+    <thead>
+      <tr>
+        <th>Sample ID</th>
+        <th>Summary</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section class="proj-header">
+  <h3 id="editorTitle">Sample Editor</h3>
+  <p>Editing raw JSON for the selected sample.</p>
+  <textarea id="sampleEditor" rows="12" style="width:100%;"></textarea>
+  <div style="margin-top:10px;">
+    <button id="saveSampleBtn" class="btn btn-primary">Save Sample</button>
+    <button id="cancelEditBtn" class="btn btn-line">Cancel</button>
+  </div>
+</section>
+
+<pre id="logBox"></pre>
+
+<script type="module" src="sample-manager.js"></script>
+
+</body>
+</html>

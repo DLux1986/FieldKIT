@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project Overview</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<h1 id="projName"></h1>
+
+<div class="proj-header">
+  <p><strong>Project ID:</strong> <span id="projId"></span></p>
+  <p><strong>Address:</strong> <span id="projAddress"></span></p>
+  <p><strong>Manager:</strong> <span id="projManager"></span></p>
+  <p><strong>Client:</strong> <span id="projClient"></span></p>
+</div>
+<div id="fk-floating-tools">
+  <div id="fk-tools-header">
+    <span>Tools</span>
+    <button id="fk-tools-toggle">−</button>
+  </div>
+
+  <div id="fk-tools-body">
+    <button class="fk-tool-btn" data-tool="timers">Test Timers</button>
+    <button class="fk-tool-btn" data-tool="weather">Weather</button>
+  </div>
+</div>
+
+<table id="sampleTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Unit</th>
+      <th>Elevation</th>
+      <th>Product Type</th>
+      <th>Pressure (psf)</th>
+      <th>Result</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<button id="addSampleBtn" class="btn btn-primary">Add Sample</button>
+
+<script type="module">
+  console.log("✅ CLEAN PROJECT PAGE LOADED");
+
+  const params = new URLSearchParams(location.search);
+  const projectId = params.get("projectId");
+  const projectName = params.get("projectName");
+  const client = params.get("client");
+  const manager = params.get("manager");
+  const address = params.get("address");
+
+  document.getElementById("projId").textContent = projectId;
+  document.getElementById("projName").textContent = projectName;
+  document.getElementById("projClient").textContent = client;
+  document.getElementById("projManager").textContent = manager;
+  document.getElementById("projAddress").textContent = address;
+
+  let samples = JSON.parse(localStorage.getItem(`project_${projectId}_samples`)) || [];
+
+  function saveSamples() {
+    localStorage.setItem(`project_${projectId}_samples`, JSON.stringify(samples));
+  }
+
+  function renderSampleTable() {
+    const tbody = document.querySelector("#sampleTable tbody");
+    tbody.innerHTML = "";
+
+    samples.forEach((s, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${s.sample_id}</td>
+        <td>${s.unit}</td>
+        <td>${s.elevation}</td>
+        <td>${s.product_type}</td>
+        <td>${s.pressure_psf}</td>
+        <td>${s.result}</td>
+        <td class="actions">
+          <button class="btn btn-line" data-edit="${index}">Edit</button>
+          <button class="btn btn-line" data-copy="${index}">Copy</button>
+          <button class="btn btn-line" data-delete="${index}">Delete</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  renderSampleTable();
+
+  document.getElementById("addSampleBtn").addEventListener("click", () => {
+    const url = new URL("sample-entry.html", location.href);
+    url.searchParams.set("sample", "new");
+    url.searchParams.set("projectId", projectId);
+    url.searchParams.set("projectName", projectName);
+    url.searchParams.set("client", client);
+    url.searchParams.set("manager", manager);
+    url.searchParams.set("address", address);
+    location.href = url.toString();
+  });
+  // -----------------------------
+  // Floating Tools Panel Logic
+  // -----------------------------
+
+  const panel = document.getElementById("fk-floating-tools");
+  const header = document.getElementById("fk-tools-header");
+  const toggleBtn = document.getElementById("fk-tools-toggle");
+  const body = document.getElementById("fk-tools-body");
+
+  // Collapse / expand
+  toggleBtn.addEventListener("click", () => {
+    const isHidden = body.style.display === "none";
+    body.style.display = isHidden ? "block" : "none";
+    toggleBtn.textContent = isHidden ? "−" : "+";
+  });
+
+  // Draggable panel
+  let offsetX = 0, offsetY = 0, dragging = false;
+
+  header.addEventListener("mousedown", (e) => {
+    dragging = true;
+    offsetX = e.clientX - panel.offsetLeft;
+    offsetY = e.clientY - panel.offsetTop;
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!dragging) return;
+    panel.style.left = `${e.clientX - offsetX}px`;
+    panel.style.top = `${e.clientY - offsetY}px`;
+    panel.style.bottom = "auto";
+    panel.style.right = "auto";
+  });
+
+  document.addEventListener("mouseup", () => dragging = false);
+
+  // Tool buttons
+  document.querySelectorAll(".fk-tool-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tool = btn.dataset.tool;
+
+      if (tool === "timers") {
+        window.open("tools/test-timers/index.html", "_blank");
+      }
+
+      if (tool === "weather") {
+        window.open("tools/weather/index.html", "_blank");
+      }
+    });
+  });
+
+  document.querySelector("#sampleTable").addEventListener("click", (e) => {
+    if (e.target.dataset.edit !== undefined) {
+      const index = Number(e.target.dataset.edit);
+      const s = samples[index];
+      const url = new URL("sample-entry.html", location.href);
+      url.searchParams.set("sample", s.sample_id);
+      url.searchParams.set("projectId", projectId);
+      url.searchParams.set("projectName", projectName);
+      url.searchParams.set("client", client);
+      url.searchParams.set("manager", manager);
+      url.searchParams.set("address", address);
+      location.href = url.toString();
+    }
+
+    if (e.target.dataset.copy !== undefined) {
+      const index = Number(e.target.dataset.copy);
+      const s = samples[index];
+      const newSample = { ...s, sample_id: samples.length + 1 };
+      samples.push(newSample);
+      saveSamples();
+      renderSampleTable();
+    }
+
+    if (e.target.dataset.delete !== undefined) {
+      const index = Number(e.target.dataset.delete);
+      samples.splice(index, 1);
+      saveSamples();
+      renderSampleTable();
+    }
+  });
+</script>
+
+</body>
+</html>

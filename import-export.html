@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Import / Export — BEE FieldKIT</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<h1>Import / Export</h1>
+<p>Backup or restore FieldKIT data (projects, metadata, samples).</p>
+
+<section class="proj-header">
+  <h3>Export Data</h3>
+
+  <button id="exportAllJson" class="btn btn-primary">Export All (JSON)</button>
+  <button id="exportProjectsCsv" class="btn btn-line">Export Projects (CSV)</button>
+  <button id="exportSamplesCsv" class="btn btn-line">Export Samples (CSV)</button>
+</section>
+
+<section class="proj-header">
+  <h3>Import Data</h3>
+
+  <label>
+    Select JSON or CSV File
+    <input type="file" id="importFile" accept=".json,.csv">
+  </label>
+
+  <label>
+    Import Mode
+    <select id="importMode">
+      <option value="merge">Merge</option>
+      <option value="overwrite">Overwrite</option>
+    </select>
+  </label>
+
+  <button id="importBtn" class="btn btn-primary">Import</button>
+</section>
+
+<pre id="logBox"></pre>
+
+<script type="module" src="import-export.js"></script>
+
+</body>
+</html>

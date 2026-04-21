@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project Manager — BEE FieldKIT</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<h1>Project Manager</h1>
+<p>Create, edit, and delete projects stored in FieldKIT.</p>
+
+<!-- Project Form -->
+<section class="proj-header">
+  <h3 id="formTitle">New Project</h3>
+
+  <div class="form-grid">
+    <label>
+      Project ID
+      <input id="projId" type="text">
+    </label>
+
+    <label>
+      Project Name
+      <input id="projName" type="text">
+    </label>
+
+    <label>
+      Client
+      <input id="projClient" type="text">
+    </label>
+
+    <label>
+      Manager
+      <input id="projManager" type="text">
+    </label>
+
+    <label>
+      Address
+      <input id="projAddress" type="text">
+    </label>
+  </div>
+
+  <button id="saveBtn" class="btn btn-primary">Save Project</button>
+  <button id="cancelBtn" class="btn btn-line hidden">Cancel Edit</button>
+</section>
+
+<!-- Project List -->
+<section class="fk-projects">
+  <h3>Existing Projects</h3>
+
+  <table id="pmTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Client</th>
+        <th>Manager</th>
+        <th>Address</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<script type="module" src="project-manager.js"></script>
+
+</body>
+</html>

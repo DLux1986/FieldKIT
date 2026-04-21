@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BEE FieldKIT Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="fk-header">
+  <div class="fk-header-left">
+    <img src="assets/img/bee-cube.png" alt="BEE FieldKIT Logo" class="fk-logo">
+    <div>
+      <h1 class="fk-title">BEE FieldKIT</h1>
+      <p class="fk-subtitle">Technician‑Proof Tools for Real‑World Testing</p>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="fk-hero">
+  <h2>Welcome to Your Field Workbench</h2>
+  <p>Manage projects, record samples, and access testing tools — all in one place.</p>
+</section>
+<div id="fk-floating-tools">
+  <div id="fk-tools-header">
+    <span>Tools</span>
+    <button id="fk-tools-toggle">−</button>
+  </div>
+
+  <div id="fk-tools-body">
+    <button class="fk-tool-btn" data-tool="importexport">Import / Export</button>
+    <button class="fk-tool-btn" data-tool="metadata">Metadata Manager</button>
+    <button class="fk-tool-btn" data-tool="timers">Test Timers</button>
+    <button class="fk-tool-btn" data-tool="weather">Weather</button>
+  </div>
+</div>
+
+<!-- Tools Section -->
+<section class="fk-tools">
+  <h3>Tools</h3>
+
+  <div class="tool-grid">
+    <a class="tool-card" href="project-manager.html">
+    <h4>Project Manager</h4>
+    <p>Create, edit, and delete projects.</p>
+    </a>
+    <a class="tool-card" href="metadata-manager.html">
+    <h4>Metadata Manager</h4>
+    <p>Technicians, witnesses, test dates, defaults.</p>
+    </a>
+    <a class="tool-card" href="sample-manager.html">
+    <h4>Sample Manager</h4>
+    <p>Batch edit, duplicate, delete, and export samples.</p>
+    </a>
+    <a class="tool-card" href="import-export.html">
+    <h4>Import / Export</h4>
+    <p>Backup or restore FieldKIT data.</p>
+    </a>
+
+    <a class="tool-card" href="tools/test-timers/index.html">
+      <h4>Test Timers</h4>
+      <p>Cyclic & Static timers for ASTM field testing.</p>
+    </a>
+
+    <a class="tool-card" href="tools/weather/index.html">
+      <h4>Weather Collector</h4>
+      <p>Record temperature, humidity, wind, and conditions.</p>
+    </a>
+
+    <a class="tool-card" href="tools/coming-soon.html">
+      <h4>More Tools Coming</h4>
+      <p>FieldKIT is modular — add anything you need.</p>
+    </a>
+
+  </div>
+</section>
+
+<!-- Project List -->
+<section class="fk-projects">
+  <h3>Projects</h3>
+
+  <table id="projectTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Client</th>
+        <th>Manager</th>
+        <th>Address</th>
+        <th>Open</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<script type="module" src="projects.js">
+    // -----------------------------
+// Floating Tools Panel Logic
+// -----------------------------
+
+const panel = document.getElementById("fk-floating-tools");
+const header = document.getElementById("fk-tools-header");
+const toggleBtn = document.getElementById("fk-tools-toggle");
+const body = document.getElementById("fk-tools-body");
+
+// Collapse / expand
+toggleBtn.addEventListener("click", () => {
+  const isHidden = body.style.display === "none";
+  body.style.display = isHidden ? "block" : "none";
+  toggleBtn.textContent = isHidden ? "−" : "+";
+});
+
+// Draggable panel
+let offsetX = 0, offsetY = 0, dragging = false;
+
+header.addEventListener("mousedown", (e) => {
+  dragging = true;
+  offsetX = e.clientX - panel.offsetLeft;
+  offsetY = e.clientY - panel.offsetTop;
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (!dragging) return;
+  panel.style.left = `${e.clientX - offsetX}px`;
+  panel.style.top = `${e.clientY - offsetY}px`;
+  panel.style.bottom = "auto";
+  panel.style.right = "auto";
+});
+
+document.addEventListener("mouseup", () => dragging = false);
+
+// Tool buttons
+document.querySelectorAll(".fk-tool-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const tool = btn.dataset.tool;
+
+    if (tool === "timers") {
+      window.open("tools/test-timers/index.html", "_blank");
+    }
+    if (tool === "metadata") {
+    window.open("metadata-manager.html", "_blank");
+    }
+    if (tool === "importexport") {
+    window.open("import-export.html", "_blank");
+    }
+    if (tool === "samples") {
+      window.open("sample-manager.html", "_blank");
+    }
+
+    if (tool === "weather") {
+      window.open("tools/weather/index.html", "_blank");
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>

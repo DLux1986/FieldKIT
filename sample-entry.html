@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sample Entry</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<h1 id="pageTitle">New Sample</h1>
+
+<!-- Project Header -->
+<div class="proj-header">
+  <p><strong>Project:</strong> <span id="projName"></span></p>
+  <p><strong>Sample ID:</strong> <span id="sampleId"></span></p>
+</div>
+
+<!-- Floating Tools Panel (unchanged) -->
+<div id="fk-floating-tools">
+  <div id="fk-tools-header">
+    <span>Tools</span>
+    <button id="fk-tools-toggle">−</button>
+  </div>
+
+  <div id="fk-tools-body">
+    <button class="fk-tool-btn" data-tool="timers">Test Timers</button>
+    <button class="fk-tool-btn" data-tool="weather">Weather</button>
+  </div>
+</div>
+
+<!-- NEW SAMPLE ENTRY FORM -->
+<form id="sampleEntryForm" class="form-grid">
+
+  <!-- SAMPLE ID (readonly) -->
+  <label>
+    Sample ID
+    <input id="sampleIdField" type="text" readonly>
+  </label>
+
+  <!-- TEST DATE -->
+  <label>
+    Test Date
+    <input id="testDate" type="date">
+  </label>
+
+  <!-- TEST TIME -->
+  <label>
+    Test Time
+    <input id="testTime" type="time">
+  </label>
+
+  <!-- RESULT -->
+  <label>
+    Result
+    <select id="result">
+      <option value="PASS">PASS</option>
+      <option value="FAIL">FAIL</option>
+    </select>
+  </label>
+
+  <!-- SAMPLE DETAILS -->
+  <h2 class="section-header">Sample Details</h2>
+
+  <label>
+    Product Type
+    <select id="productType"></select>
+  </label>
+
+  <label>
+    Manufacturer
+    <select id="manufacturer"></select>
+  </label>
+
+  <label>
+    Series / Model
+    <select id="seriesModel"></select>
+  </label>
+
+  <label>
+    Width (in)
+    <input id="width_in" type="number" step="0.01">
+  </label>
+
+  <label>
+    Height (in)
+    <input id="height_in" type="number" step="0.01">
+  </label>
+
+  <label>
+    Configuration
+    <input id="configuration" type="text" placeholder="XOX / OXO / etc">
+  </label>
+
+  <!-- SAMPLE LOCATION -->
+  <h2 class="section-header">Sample Location</h2>
+
+  <label>
+    Elevation
+    <input id="elevation" type="text">
+  </label>
+
+  <label>
+    Unit Number
+    <input id="unitNumber" type="text">
+  </label>
+
+  <label>
+    Floor Level
+    <input id="floorLevel" type="text">
+  </label>
+
+  <label>
+    Description
+    <textarea id="locationDescription"></textarea>
+  </label>
+
+  <!-- TEST PARAMETERS -->
+  <h2 class="section-header">Test Parameters</h2>
+
+  <label>
+    Procedure
+    <select id="procedure">
+      <option value="A">Procedure A</option>
+      <option value="B">Procedure B</option>
+    </select>
+  </label>
+
+  <label>
+    Pressure (PSF)
+    <input id="pressure_psf" type="number" step="0.01">
+  </label>
+
+  <label>
+    Pressure (inWC)
+    <input id="pressure_inwc" type="number" step="0.01">
+  </label>
+
+  <label>
+    Atmospheric Temp (°F)
+    <input id="atmosphericTemp_f" type="number">
+  </label>
+
+  <label>
+    Barometric Pressure (inHg)
+    <input id="barometricPressure_inhg" type="number" step="0.01">
+  </label>
+
+  <label>
+    Wind Speed (mph)
+    <input id="windSpeed_mph" type="number">
+  </label>
+
+  <label>
+    Wind Direction
+    <input id="windDirection" type="text" placeholder="NNW">
+  </label>
+
+  <!-- PHOTO UPLOADS -->
+  <h2 class="section-header">Photos</h2>
+
+  <label>
+    Interior Chamber
+    <input id="photoInterior" type="file" multiple>
+  </label>
+
+  <label>
+    Exterior Rack
+    <input id="photoExterior" type="file" multiple>
+  </label>
+
+  <label>
+    Gauges
+    <input id="photoGauges" type="file" multiple>
+  </label>
+
+  <!-- FAILURE BLOCK -->
+  <div id="failureBlock" style="display:none;">
+    <h2 class="section-header">Failure Details</h2>
+
+    <label>
+      Cycle Failure Occurred
+      <select id="cycleFailureOccurred">
+        <option value=""></option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </label>
+
+    <label>
+      Time of Failure (mm:ss)
+      <input id="timeOfFailure" type="text" placeholder="03:30">
+    </label>
+
+    <label>
+      Mode of Failure
+      <select id="modeOfFailure">
+        <option value=""></option>
+        <option value="Installation">Installation</option>
+        <option value="Product">Product</option>
+      </select>
+    </label>
+
+    <label>
+      Failure Location
+      <input id="failureLocation" type="text">
+    </label>
+
+    <label>
+      Remediation Performed
+      <select id="remediationPerformed">
+        <option value=""></option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </label>
+
+    <label>
+      Remediation Description
+      <textarea id="remediationDescription"></textarea>
+    </label>
+
+    <label>
+      Failure Location Photos
+      <input id="photoFailure" type="file" multiple>
+    </label>
+  </div>
+
+  <!-- NOTES -->
+  <h2 class="section-header">Technician Notes</h2>
+  <textarea id="notes"></textarea>
+
+</form>
+
+<!-- ACTION BUTTONS -->
+<button id="saveBtn" class="btn btn-primary">Save Sample</button>
+<button id="cancelBtn" class="btn btn-line">Cancel</button>
+
+<!-- EXISTING SCRIPT MOVED TO BOTTOM (unchanged) -->
+<script type="module">
+  console.log("🧪 BEE FieldKIT — Sample Entry Loaded");
+
+  document.getElementById("projName").textContent = projectName;
+
+  let samples = JSON.parse(localStorage.getItem(`project_${projectId}_samples`)) || [];
+  let editingSample = null;
+
+  if (sampleParam === "new") {
+    const newId = samples.length + 1;
+    document.getElementById("sampleId").textContent = newId;
+    document.getElementById("sampleIdField").value = newId;
+    editingSample = { sample_id: newId };
+  } else {
+    const id = Number(sampleParam);
+    editingSample = samples.find(s => s.sample_id === id);
+
+    if (!editingSample) {
+      alert("Sample not found.");
+      history.back();
+    }
+
+    document.getElementById("pageTitle").textContent = "Edit Sample";
+    document.getElementById("sampleId").textContent = editingSample.sample_id;
+    document.getElementById("sampleIdField").value = editingSample.sample_id;
+  }
+
+  function loadGlobalMeta() {
+    return JSON.parse(localStorage.getItem("fieldkit_metadata_global")) || {};
+  }
+
+  function loadProjectMeta(id) {
+    return JSON.parse(localStorage.getItem(`project_${id}_metadata`)) || {};
+  }
+
+  function applyMetadata() {
+    const global = loadGlobalMeta();
+    const project = loadProjectMeta(projectId);
+    const meta = { ...global, ...project };
+
+    if (meta.testDate) document.getElementById("testDate").value = meta.testDate;
+    if (meta.temp_f) document.getElementById("atmosphericTemp_f").value = meta.temp_f;
+    if (meta.wind_mph) document.getElementById("windSpeed_mph").value = meta.wind_mph;
+    if (meta.wind_dir) document.getElementById("windDirection").value = meta.wind_dir;
+    if (meta.barometric) document.getElementById("barometricPressure_inhg").value = meta.barometric;
+  }
+
+  applyMetadata();
+
+  const panel = document.getElementById("fk-floating-tools");
+  const header = document.getElementById("fk-tools-header");
+  const toggleBtn = document.getElementById("fk-tools-toggle");
+  const body = document.getElementById("fk-tools-body");
+
+  toggleBtn.addEventListener("click", () => {
+    const isHidden = body.style.display === "none";
+    body.style.display = isHidden ? "block" : "none";
+    toggleBtn.textContent = isHidden ? "−" : "+";
+  });
+
+  let offsetX = 0, offsetY = 0, dragging = false;
+
+  header.addEventListener("mousedown", (e) => {
+    dragging = true;
+    offsetX = e.clientX - panel.offsetLeft;
+    offsetY = e.clientY - panel.offsetTop;
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!dragging) return;
+    panel.style.left = `${e.clientX - offsetX}px`;
+    panel.style.top = `${e.clientY - offsetY}px`;
+    panel.style.bottom = "auto";
+    panel.style.right = "auto";
+  });
+
+  document.addEventListener("mouseup", () => dragging = false);
+
+  document.querySelectorAll(".fk-tool-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tool = btn.dataset.tool;
+
+      if (tool === "timers") {
+        window.open("tools/test-timers/index.html", "_blank");
+      }
+
+      if (tool === "weather") {
+        window.open("tools/weather/index.html", "_blank");
+      }
+    });
+  });
+
+  document.getElementById("saveBtn").addEventListener("click", () => {
+    alert("Save logic will be replaced by new controller.");
+  });
+
+  document.getElementById("cancelBtn").addEventListener("click", () => {
+    const url = new URL("project.html", location.href);
+    url.searchParams.set("projectId", projectId);
+    url.searchParams.set("projectName", projectName);
+    location.href = url.toString();
+  });
+
+import { SampleEntryController } from "./controllers/sample-entry-controller.js";
+
+// -----------------------------
+// INITIAL SETUP
+// -----------------------------
+console.log("🔗 FieldKIT — Binding Layer Loaded");
+
+const params = new URLSearchParams(location.search);
+const projectId = params.get("projectId");
+const projectName = params.get("projectName");
+const sampleParam = params.get("sample");
+
+// Create controller
+const controller = new SampleEntryController(projectId, {
+  saveSample: async (data) => {
+    // You can replace this with IndexedDB or API later
+    let samples = JSON.parse(localStorage.getItem(`project_${projectId}_samples`)) || [];
+
+    if (sampleParam === "new") {
+      samples.push(data);
+    } else {
+      const index = samples.findIndex(s => s.sampleId === data.sampleId);
+      samples[index] = data;
+    }
+
+    localStorage.setItem(`project_${projectId}_samples`, JSON.stringify(samples));
+  }
+});
+
+// -----------------------------
+// FIELD BINDING HELPER
+// -----------------------------
+function bindField(id, path) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.addEventListener("input", () => {
+    controller.updateField(path, el.value);
+  });
+}
+
+// -----------------------------
+// FILE UPLOAD BINDING
+// -----------------------------
+function bindFileUpload(id, category) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.addEventListener("change", () => {
+    const files = Array.from(el.files);
+    files.forEach(file => {
+      const url = URL.createObjectURL(file);
+      controller.addPhoto(category, url);
+    });
+  });
+}
+
+// -----------------------------
+// BIND ALL FIELDS
+// -----------------------------
+bindField("testDate", "testDate");
+bindField("testTime", "testTime");
+bindField("result", "result");
+
+bindField("productType", "sampleDetails.productType");
+bindField("manufacturer", "sampleDetails.manufacturer");
+bindField("seriesModel", "sampleDetails.seriesModel");
+bindField("width_in", "sampleDetails.width_in");
+bindField("height_in", "sampleDetails.height_in");
+bindField("configuration", "sampleDetails.configuration");
+
+bindField("elevation", "sampleLocation.elevation");
+bindField("unitNumber", "sampleLocation.unitNumber");
+bindField("floorLevel", "sampleLocation.floorLevel");
+bindField("locationDescription", "sampleLocation.description");
+
+bindField("procedure", "testParameters.procedure");
+bindField("pressure_psf", "testParameters.pressure_psf");
+bindField("pressure_inwc", "testParameters.pressure_inwc");
+bindField("atmosphericTemp_f", "testParameters.atmosphericTemp_f");
+bindField("barometricPressure_inhg", "testParameters.barometricPressure_inhg");
+bindField("windSpeed_mph", "testParameters.windSpeed_mph");
+bindField("windDirection", "testParameters.windDirection");
+
+bindField("notes", "notes");
+
+// Failure block
+bindField("cycleFailureOccurred", "failure.cycleFailureOccurred");
+bindField("timeOfFailure", "failure.timeOfFailure");
+bindField("modeOfFailure", "failure.modeOfFailure");
+bindField("failureLocation", "failure.failureLocation");
+bindField("remediationPerformed", "failure.remediationPerformed");
+bindField("remediationDescription", "failure.remediationDescription");
+
+// -----------------------------
+// PHOTO UPLOADS
+// -----------------------------
+bindFileUpload("photoInterior", "interiorChamber");
+bindFileUpload("photoExterior", "exteriorRack");
+bindFileUpload("photoGauges", "gauges");
+bindFileUpload("photoFailure", "failureLocation");
+
+// -----------------------------
+// CONDITIONAL FAIL BLOCK
+// -----------------------------
+const resultEl = document.getElementById("result");
+const failureBlock = document.getElementById("failureBlock");
+
+resultEl.addEventListener("change", () => {
+  const fail = resultEl.value === "FAIL";
+  failureBlock.style.display = fail ? "block" : "none";
+  controller.updateField("result", resultEl.value);
+});
+
+// -----------------------------
+// SAMPLE ID SYNC
+// -----------------------------
+const sampleIdSpan = document.getElementById("sampleId");
+const sampleIdField = document.getElementById("sampleIdField");
+
+if (sampleParam === "new") {
+  const samples = JSON.parse(localStorage.getItem(`project_${projectId}_samples`)) || [];
+  const nextNumber = samples.length + 1;
+
+  sampleIdSpan.textContent = nextNumber;
+  sampleIdField.value = nextNumber;
+
+  controller.state.sampleId = nextNumber;
+} else {
+  sampleIdSpan.textContent = sampleParam;
+  sampleIdField.value = sampleParam;
+
+  controller.state.sampleId = sampleParam;
+}
+
+// -----------------------------
+// SAVE BUTTON
+// -----------------------------
+document.getElementById("saveBtn").addEventListener("click", async () => {
+  const result = await controller.save();
+
+  if (!result.success) {
+    alert("Validation failed — check required fields.");
+    console.error(result.errors);
+    return;
+  }
+
+  const url = new URL("project.html", location.href);
+  url.searchParams.set("projectId", projectId);
+  url.searchParams.set("projectName", projectName);
+  location.href = url.toString();
+});
+
+// -----------------------------
+// CANCEL BUTTON
+// -----------------------------
+document.getElementById("cancelBtn").addEventListener("click", () => {
+  const url = new URL("project.html", location.href);
+  url.searchParams.set("projectId", projectId);
+  url.searchParams.set("projectName", projectName);
+  location.href = url.toString();
+});
+
+
+</script>
+
+</body>
+
+</html>
