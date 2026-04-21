@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Test Timers – BEE FieldKIT</title>
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<h1>ASTM E1105 – Procedure B Timer</h1>
+
+<div id="timerDisplay">
+  <p><strong>Step:</strong> <span id="stepName"></span></p>
+  <p><strong>Time Remaining:</strong> <span id="timeLeft"></span></p>
+</div>
+
+<div class="btn-group">
+  <button id="startBtn" class="btn btn-primary">Start</button>
+  <button id="pauseBtn" class="btn btn-line">Pause</button>
+  <button id="resumeBtn" class="btn btn-line">Resume</button>
+  <button id="resetBtn" class="btn btn-line">Reset</button>
+</div>
+
+<pre id="logBox"></pre>
+
+<script type="module">
+  import { E1105Timer } from "./procedureB.js";
+
+  const logBox = document.getElementById("logBox");
+  const stepName = document.getElementById("stepName");
+  const timeLeft = document.getElementById("timeLeft");
+
+  const timer = new E1105Timer({
+    onLog: msg => logBox.textContent += msg + "\n"
+  });
+
+  function updateUI(e) {
+    if (e.type === "step" || e.type === "tick") {
+      stepName.textContent = e.name;
+      timeLeft.textContent = e.fmt(e.left);
+    }
+    if (e.type === "done") {
+      stepName.textContent = "Complete";
+      timeLeft.textContent = "00:00";
+    }
+  }
+
+  document.getElementById("startBtn").onclick = () => timer.start({ onUI: updateUI });
+  document.getElementById("pauseBtn").onclick = () => timer.pause();
+  document.getElementById("resumeBtn").onclick = () => timer.resume();
+  document.getElementById("resetBtn").onclick = () => timer.reset();
+</script>
+</body>
+</html>
