@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>FieldKIT – Project</title>
+
   <link rel="stylesheet" href="assets/css/style.css" />
+
   <script defer src="assets/js/utils.js"></script>
   <script defer src="assets/js/projects.js"></script>
   <script defer src="assets/js/visits.js"></script>
@@ -11,6 +13,7 @@
   <script defer src="assets/js/ui-project.js"></script>
   <script defer src="assets/js/ui-visit.js"></script>
 </head>
+
 <body>
   <header class="fk-header">
     <h1 id="project-title">Project</h1>
@@ -20,37 +23,64 @@
   <main class="fk-main">
     <section class="fk-project-actions">
       <button id="add-visit-btn">Add Visit</button>
-      <button id="open-project-folder-btn">Open Project Folder</button>
+      <button id="open-project-folder-btn">Open Folder</button>
       <button id="back-to-catalog-btn">Back to Catalog</button>
     </section>
 
-    <section id="visit-list">
-      <!-- Visit cards rendered here -->
-    </section>
+    <section id="visit-list"></section>
   </main>
+
+  <!-- Visit Edit Modal -->
   <div id="visit-edit-modal" class="fk-modal hidden">
-  <div class="fk-modal-content">
-    <h2>Edit Visit</h2>
+    <div class="fk-modal-content">
+      <h2>Edit Visit</h2>
 
-    <label>Date</label>
-    <input id="edit-visit-date" type="date">
+      <label>Date</label>
+      <input id="edit-visit-date" type="date">
 
-    <label>Test Type</label>
-    <select id="edit-visit-type">
-      <option value="WT">WT</option>
-      <option value="ABT">ABT</option>
-      <option value="ELD">ELD</option>
-    </select>
+      <label>Test Type</label>
+      <select id="edit-visit-type">
+        <option value="WT">WT</option>
+        <option value="ABT">ABT</option>
+        <option value="ELD">ELD</option>
+      </select>
 
-    <label>Notes</label>
-    <textarea id="edit-visit-notes"></textarea>
+      <label>Notes</label>
+      <textarea id="edit-visit-notes"></textarea>
 
-    <div class="fk-modal-actions">
-      <button id="save-visit-btn">Save</button>
-      <button id="cancel-visit-btn">Cancel</button>
+      <div class="fk-modal-actions">
+        <button id="save-visit-btn">Save</button>
+        <button id="cancel-visit-btn">Cancel</button>
+      </div>
     </div>
   </div>
-</div>
 
+  <script>
+    // Load project from URL
+    const params = new URLSearchParams(window.location.search);
+    const projectId = params.get("project_id");
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const projects = await loadProjects();
+      const visits = await loadVisits();
+      const samples = await loadSamples();
+
+      const project = projects.find(p => p.project_id === projectId);
+
+      if (!project) {
+        document.getElementById("project-title").textContent = "Project Not Found";
+        return;
+      }
+
+      document.getElementById("project-title").textContent = project.project_name;
+      document.getElementById("project-meta").textContent = project.address || "";
+
+      renderVisitsForProject(project, visits, samples, document.getElementById("visit-list"));
+
+      document.getElementById("back-to-catalog-btn").addEventListener("click", () => {
+        window.location.href = "project-catalog.html";
+      });
+    });
+  </script>
 </body>
 </html>

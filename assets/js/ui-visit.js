@@ -47,6 +47,7 @@ function renderVisitsForProject(project, visits, samples, container) {
                 <th>Elevation</th>
                 <th>Type</th>
                 <th>Result</th>
+                <th>QA</th>
                 <th>Edit</th>
                 <th>Open</th>
                 <th>Retest</th>
@@ -60,6 +61,10 @@ function renderVisitsForProject(project, visits, samples, container) {
                     idx === 0 ||
                     s.parsed.sampleNumber !== arr[idx - 1].parsed.sampleNumber;
 
+                  const groupFlags = getSampleQAFlags(
+                    arr.filter(x => x.parsed.sampleNumber === s.parsed.sampleNumber)
+                  );
+
                   return `
                     <tr class="${s.result === 'PASS' ? 'fk-row-pass' : s.result === 'FAIL' ? 'fk-row-fail' : ''}">
                       <td>${isFirstOfGroup ? `S${pad2(s.parsed.sampleNumber)}` : ""}</td>
@@ -69,6 +74,12 @@ function renderVisitsForProject(project, visits, samples, container) {
                       <td class="${s.result === 'PASS' ? 'fk-result-pass' : s.result === 'FAIL' ? 'fk-result-fail' : ''}">
                         ${s.result || ""}
                       </td>
+
+                      <td>
+                        ${groupFlags
+                          .map(f => `<span class="fk-qa-flag" data-flag="${f}">${f}</span>`)
+                          .join(" ")}
+                      </td>
                       <td><button class="fk-sample-edit" data-id="${s.sample_id}">✎</button></td>
                       <td><button class="fk-sample-open" data-id="${s.sample_id}">→</button></td>
                       <td><button class="fk-sample-retest" data-id="${s.sample_id}">⟳</button></td>
@@ -76,9 +87,9 @@ function renderVisitsForProject(project, visits, samples, container) {
                   `;
                 })
                 .join("")}
-
             </tbody>
           </table>
+
         </div>
       `;
         // -----------------------------
@@ -153,6 +164,22 @@ function renderVisitsForProject(project, visits, samples, container) {
         btn.addEventListener("click", async () => {
           const id = btn.dataset.id;
           const sample = SAMPLES.find(s => s.sample_id === id);
+
+          // -----------------------------------------
+          // STERN WARNING: Retesting a PASSED sample
+          // -----------------------------------------
+          if (sample.result === "PASS") {
+            const proceed = confirm(
+              "⚠️ WARNING: This sample previously PASSED.\n\n" +
+              "Retesting a passing sample is unusual and should only be done if:\n" +
+              "• Test pressure changed\n" +
+              "• Installation detail changed\n" +
+              "• Technician or PM explicitly requested it\n\n" +
+              "Are you sure you want to create a retest?"
+            );
+            if (!proceed) return;
+          }
+
 
           const nextTest = sample.test_number + 1;
           const newId = `${sample.visit_id}-${sample.window_type}-S${pad2(sample.sample_number)}T${pad2(nextTest)}`;

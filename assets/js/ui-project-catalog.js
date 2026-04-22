@@ -1,39 +1,43 @@
-// ui-project-catalog.js
-
 document.addEventListener("DOMContentLoaded", async () => {
-  const tableBody = document.querySelector("#project-table tbody");
-  const searchInput = document.querySelector("#project-search");
-
   const projects = await loadProjects();
-  let filtered = [...projects];
+  const visits = await loadVisits();
 
-  function render() {
-    tableBody.innerHTML = "";
-    filtered.forEach(p => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${p.project_id}</td>
-        <td>${p.project_name}</td>
-        <td>${p.pm || ""}</td>
-      `;
-      tr.addEventListener("click", () => {
-        window.location.href = `project.html?project_id=${encodeURIComponent(
-          p.project_id
-        )}`;
-      });
-      tableBody.appendChild(tr);
-    });
-  }
+  renderProjectCatalog(projects, visits);
 
-  searchInput.addEventListener("input", () => {
-    const q = searchInput.value.toLowerCase();
-    filtered = projects.filter(p =>
-      [p.project_id, p.project_name, p.pm]
-        .filter(Boolean)
-        .some(v => v.toLowerCase().includes(q))
+  document.getElementById("project-search").addEventListener("input", e => {
+    const term = e.target.value.toLowerCase();
+    const filtered = projects.filter(p =>
+      p.project_name.toLowerCase().includes(term) ||
+      p.project_id.toLowerCase().includes(term) ||
+      (p.client || "").toLowerCase().includes(term)
     );
-    render();
+    renderProjectCatalog(filtered, visits);
   });
-
-  render();
 });
+
+function renderProjectCatalog(projects, visits) {
+  const tbody = document.getElementById("project-table-body");
+  tbody.innerHTML = "";
+
+  projects.forEach(project => {
+    const projectVisits = visits.filter(v => v.project_id === project.project_id);
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${project.project_id}</td>
+      <td>${project.project_name}</td>
+      <td>${project.client || ""}</td>
+      <td>${project.manager || ""}</td>
+      <td>${project.address || ""}</td>
+      <td>${projectVisits.length}</td>
+      <td><button class="fk-open-project" data-id="${project.project_id}">Open</button></td>
+    `;
+
+    row.querySelector(".fk-open-project").addEventListener("click", () => {
+      window.location.href = `project.html?project_id=${encodeURIComponent(project.project_id)}`;
+    });
+
+    tbody.appendChild(row);
+  });
+}
+
