@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FieldKIT – Project Catalog</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script defer src="assets/js/utils.js"></script>
+  <script defer src="assets/js/projects.js"></script>
+  <script defer src="assets/js/ui-project-catalog.js"></script>
+</head>
+<body>
+  <header class="fk-header">
+    <h1>Project Catalog</h1>
+  </header>
+
+  <main class="fk-main">
+    <section class="fk-toolbar">
+      <input id="project-search" type="text" placeholder="Search by ID, name, PM…" />
+    </section>
+
+    <section class="fk-table-wrap">
+      <table id="project-table">
+        <thead>
+          <tr>
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>PM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Filled by ui-project-catalog.js -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

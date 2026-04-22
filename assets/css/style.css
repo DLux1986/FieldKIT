@@ -280,3 +280,62 @@ input:focus, select:focus {
 #pmTable td button {
   margin-right: 6px;
 }
+.fk-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fk-modal.hidden {
+  display: none;
+}
+
+.fk-modal-content {
+  background: white;
+  padding: 20px;
+  width: 350px;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.fk-modal-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.fk-visit-body.collapsed {
+  display: none;
+}
+
+.fk-visit-toggle {
+  cursor: pointer;
+  margin-right: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+}
+
+.fk-visit-toggle.rotated {
+  transform: rotate(-90deg);
+}
+.fk-result-pass {
+  color: #0a7a0a;
+  font-weight: 600;
+}
+
+.fk-result-fail {
+  color: #b30000;
+  font-weight: 700;
+}
+
+.fk-row-fail {
+  background: #ffe5e5;
+}
+
+.fk-row-pass {
+  background: #e8ffe8;
+}
