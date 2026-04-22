@@ -1,8 +1,15 @@
 // ui-project.js
 
+import { loadProjects } from "./projects.js";
+import { loadVisits } from "./visits.js";
+import { loadSamples } from "./samples.js";
+import { getQueryParam } from "./utils.js";
+
+
+
 document.addEventListener("DOMContentLoaded", async () => {
-  const projectId = getQueryParam("project_id");
-  const project = (await loadProjects()).find(p => p.project_id === projectId);
+  const projectId = getQueryParam("id");
+  const project = (await loadProjects()).find(p => p.id === projectId);
   const visits = await loadVisits();
   const samples = await loadSamples();
 
@@ -15,10 +22,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  titleEl.textContent = `${project.project_name} (${project.project_id})`;
-  metaEl.textContent = `PM: ${project.pm || "—"} | Customer: ${
-    project.customer || "—"
+  titleEl.textContent = `${project.name} (${project.id})`;
+  metaEl.textContent = `PM: ${project.manager || "—"} | Client: ${
+    project.client || "—"
   } | ${project.address || ""}`;
+
 
   renderVisitsForProject(project, visits, samples, visitListEl);
   document.getElementById("add-visit-btn").addEventListener("click", async () => {

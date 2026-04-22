@@ -2,11 +2,12 @@
 
 let VISITS = [];
 
-async function loadVisits() {
-  if (VISITS.length) return VISITS;
-  VISITS = (await loadJSON("data/visits.json")).visits || [];
-  return VISITS;
+export async function loadVisits() {
+  const data = await loadJSON("assets/data/visits.json");
+  return data.visits;
 }
+
+
 
 function getVisitsForProject(projectId) {
   return VISITS.filter(v => v.project_id === projectId);
@@ -33,7 +34,7 @@ function createVisit({ project, testType, date }) {
     test_type: testType,
     visit_number: nextNum,
     full_name: fullName,
-    visit.folder_path = generateVisitFolderPath(project.project_id, fullName);
+    folder_path: generateVisitFolderPath(project.project_id, fullName),
     notes: "",
     sample_ids: []
   };

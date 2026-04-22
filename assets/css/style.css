@@ -360,3 +360,149 @@ input:focus, select:focus {
 .fk-qa-flag[data-flag="SEQ"] {
   background: #555; /* gray */
 }
+.fk-nav-cards {
+    display: grid;
+      gap: 1rem;
+        margin-top: 2rem;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          }
+
+          .fk-card {
+            background: #fff;
+              border: 2px solid #dcdcdc;
+                border-radius: 12px;
+                  padding: 1.5rem;
+                    text-align: center;
+                      text-decoration: none;
+                        color: inherit;
+                          box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+                            transition: transform 0.15s ease, box-shadow 0.15s ease;
+                            }
+
+                            .fk-card:hover {
+                              transform: translateY(-3px);
+                                box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+                                }
+
+                                .fk-card-icon {
+                                  font-size: 2.2rem;
+                                    margin-bottom: 0.5rem;
+                                    }
+
+.fk-project-table tr.selected {
+  background-color: #e8f1ff;
+}
+/* Right-side details pane */
+.fk-details-pane {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 340px;
+  height: 100%;
+  background: #ffffff;
+  border-left: 2px solid #d0d7e2;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease;
+}
+
+.fk-details-pane.hidden {
+  transform: translateX(100%);
+}
+
+.fk-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.fk-open-btn {
+  background: #0057ff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fk-details-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #e5e8ef;
+}
+
+.fk-label {
+  font-weight: 600;
+  color: #444;
+}
+
+.fk-subtitle {
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.fk-visit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fk-visit-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #e5e8ef;
+  font-size: 0.9rem;
+}
+/* Ensure long text wraps cleanly in the details pane */
+.fk-details-pane,
+.fk-details-pane * {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+.fk-details-row .fk-label {
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+.fk-details-row span:last-child {
+  flex: 1;
+  min-width: 0;
+}
+#details-address {
+  line-height: 1.3;
+}
+.fk-header {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* space between title and search box */
+}
+.fk-filter-bar {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0 16px;
+}
+
+.fk-filter-bar select,
+.fk-filter-bar button {
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.fk-clear-btn {
+  background: #ddd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.fk-back-btn {
+  background: #ddd;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+}

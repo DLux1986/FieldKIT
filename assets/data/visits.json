@@ -1,0 +1,15 @@
+{
+  "visits": [
+    {
+      "visit_id": "INIT01",
+      "project_id": "DEMO",
+      "date": "2024-01-01",
+      "test_type": "WT",
+      "visit_number": 1,
+      "full_name": "2024-01-01 Demo Project INIT01",
+      "folder_path": "",
+      "notes": "",
+      "sample_ids": []
+    }
+  ]
+}

@@ -1,36 +1,92 @@
 <!DOCTYPE html>
 <html>
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Project Catalog</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <script type="module" src="assets/js/ui-project-catalog.js"></script>
 </head>
+
 
 <body>
   <header class="fk-header">
     <h1>Project Catalog</h1>
-    <input id="project-search" placeholder="Search projects…">
+    
   </header>
+<input id="project-search" placeholder="Search projects…">
+<div class="fk-filter-bar">
+  <select id="filter-pm">
+    <option value="">All Project Managers</option>
+  </select>
+
+  <select id="filter-client">
+    <option value="">All Clients</option>
+  </select>
+
+  <select id="filter-visits">
+    <option value="">All Visit Counts</option>
+    <option value="has">Has Visits</option>
+    <option value="none">No Visits</option>
+  </select>
+
+  <button id="filter-clear" class="fk-clear-btn">Clear Filters</button>
+</div>
 
   <main>
     <table class="fk-project-table">
       <thead>
         <tr>
-          <th>Project ID</th>
-          <th>Name</th>
-          <th>Client</th>
-          <th>Manager</th>
-          <th>Address</th>
-          <th>Visits</th>
-          <th>Open</th>
+          <th data-col="id">ID</th>
+          <th data-col="name">Name</th>
+          <th data-col="pm">Project Manager</th>
+          <th data-col="visits">Visits</th>
         </tr>
       </thead>
       <tbody id="project-table-body"></tbody>
     </table>
   </main>
+<aside id="project-details-pane" class="fk-details-pane hidden">
+  <div class="fk-details-header">
+    <h2 id="details-name"></h2>
+    
+  </div>
 
-  <script src="data/projects.js"></script>
-  <script src="data/visits.js"></script>
-  <script src="ui-project-catalog.js"></script>
+  <div class="fk-details-body">
+    <div class="fk-details-row">
+      <span class="fk-label">Project ID</span>
+      <span id="details-id"></span>
+    </div>
+
+    <div class="fk-details-row">
+      <span class="fk-label">Project Manager</span>
+      <span id="details-pm"></span>
+    </div>
+    <div class="fk-details-row">
+      <span class="fk-label">Client</span>
+      <span id="details-client"></span>
+    </div>
+
+    <div class="fk-details-row">
+      <span class="fk-label">Address</span>
+      <span id="details-address"></span>
+    </div>
+
+    <div class="fk-details-row">
+      <span class="fk-label">Visits</span>
+      <span id="details-visits"></span>
+    </div>
+
+    <h3 class="fk-subtitle">Visit History</h3>
+    <ul id="details-visit-list" class="fk-visit-list"></ul>
+  </div>
+  <button id="details-open" class="fk-open-btn">Open Project</button>
+</aside>
+
+<script type="module" src="assets/js/ui-project-catalog.js"></script>
+
+
 </body>
 </html>

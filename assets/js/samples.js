@@ -2,11 +2,11 @@
 
 let SAMPLES = [];
 
-async function loadSamples() {
-  if (SAMPLES.length) return SAMPLES;
-  SAMPLES = (await loadJSON("data/samples.json")).samples || [];
-  return SAMPLES;
+export async function loadSamples() {
+  const data = await loadJSON("assets/data/samples.json");
+  return data.samples;
 }
+
 
 function getSamplesForVisit(visitId) {
   return SAMPLES.filter(s => s.visit_id === visitId);
