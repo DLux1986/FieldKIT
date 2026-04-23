@@ -5,6 +5,18 @@ import { loadVisits } from "./visits.js";
 import { loadSamples } from "./samples.js";
 import { getQueryParam } from "./utils.js";
 
+export function renderVisitsForProject(project, visits, samples, container) {
+  container.innerHTML = "";
+
+  const projectVisits = visits.filter(v => v.id === project.id);
+
+  projectVisits.forEach(v => {
+    const div = document.createElement("div");
+    div.className = "visit-row";
+    div.textContent = `${v.date} — ${v.test_type}${v.visit_number}`;
+    container.appendChild(div);
+  });
+}
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -26,6 +38,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   metaEl.textContent = `PM: ${project.manager || "—"} | Client: ${
     project.client || "—"
   } | ${project.address || ""}`;
+
+  document.getElementById("back-to-catalog-btn").addEventListener("click", () => {
+    window.location.href = "project-catalog.html";
+  });
 
 
   renderVisitsForProject(project, visits, samples, visitListEl);

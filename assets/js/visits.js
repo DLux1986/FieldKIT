@@ -1,44 +1,47 @@
 // visits.js
 
-let VISITS = [];
+import { loadJSON } from "./utils.js";
 
 export async function loadVisits() {
-  const data = await loadJSON("assets/data/visits.json");
-  return data.visits;
-}
+  try {
+    const data = await loadJSON("assets/data/visits.json");
 
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.visits)) return data.visits;
 
+    console.warn("Unrecognized visits format:", data);
+  } catch (errJson) {
+    console.warn("Visits JSON load failed:", errJson);
+  }
 
-function getVisitsForProject(projectId) {
-  return VISITS.filter(v => v.project_id === projectId);
-}
+  // CSV fallback (optional)
+  try {
+    const r = await fetch("assets/data/visits.csv", { cache: "no-store" });
+    if (!r.ok) throw new Error(`visits.csv HTTP ${r.status}`);
 
-function getNextVisitNumber(visits, testType) {
-  const nums = visits
-    .filter(v => v.test_type === testType)
-    .map(v => v.visit_number || parseInt(v.visit_id.slice(2), 10))
-    .filter(n => !isNaN(n));
-  return nums.length ? Math.max(...nums) + 1 : 1;
-}
+    const text = await r.text();
+    const lines = text.trim().split(/\r?\n/);
+    const header = lines.shift().split(",");
 
-function createVisit({ project, testType, date }) {
-  const visits = getVisitsForProject(project.project_id);
-  const nextNum = getNextVisitNumber(visits, testType);
-  const visitId = `${testType}${pad2(nextNum)}`;
-  const fullName = `${date} ${project.project_name} ${visitId}`;
+    const idx = name => header.indexOf(name);
 
-  const visit = {
-    visit_id: visitId,
-    project_id: project.project_id,
-    date,
-    test_type: testType,
-    visit_number: nextNum,
-    full_name: fullName,
-    folder_path: generateVisitFolderPath(project.project_id, fullName),
-    notes: "",
-    sample_ids: []
-  };
+    const idI = idx("id");
+    const dateI = idx("date");
+    const typeI = idx("test_type");
+    const numI = idx("visit_number");
 
-  VISITS.push(visit);
-  return visit;
+    return lines.map(line => {
+      const cols = line.split(",");
+      return {
+        id: cols[idI]?.trim(),
+        date: cols[dateI]?.trim(),
+        test_type: cols[typeI]?.trim(),
+        visit_number: cols[numI]?.trim()
+      };
+    });
+  } catch (errCsv) {
+    console.error("Visits CSV load failed:", errCsv);
+  }
+
+  return [];
 }

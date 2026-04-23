@@ -75,33 +75,5 @@
     </div>
   </div>
 
-  <script>
-    // Load project from URL
-    const params = new URLSearchParams(window.location.search);
-    const projectId = params.get("project_id");
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      const projects = await loadProjects();
-      const visits = await loadVisits();
-      const samples = await loadSamples();
-
-      const project = projects.find(p => p.id === projectId);
-
-      if (!project) {
-        document.getElementById("project-title").textContent = "Project Not Found";
-        return;
-      }
-
-      document.getElementById("project-title").textContent = project.name;
-      document.getElementById("project-meta").textContent = project.address || "";
-
-      renderVisitsForProject(project, visits, samples, document.getElementById("visit-list"));
-
-      document.getElementById("back-to-catalog-btn").addEventListener("click", () => {
-        window.location.href = "project-catalog.html";
-      });
-
-    });
-  </script>
 </body>
 </html>

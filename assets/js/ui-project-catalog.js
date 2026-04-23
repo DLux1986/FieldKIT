@@ -195,10 +195,3 @@ function showProjectDetails(project, projectVisits) {
 
   pane.classList.remove("hidden");
 }
-
-
-  document.getElementById("details-open").onclick = () => {
-    window.location.href = `project.html?id=${encodeURIComponent(project.project_id)}`;
-  };
-
-
