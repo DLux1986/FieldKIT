@@ -3,22 +3,22 @@
 // Populates the dashboard project table
 
 export async function loadProjects() {
-  const res = await fetch("data/projects.json");
-  const data = await res.json();
+  // Try JSON first
+  try {
+    const res = await fetch("data/projects.json");
+    const data = await res.json();
 
-  // Support both formats:
-  // { projects: [...] }
-  // [ ... ]
-  if (Array.isArray(data)) return data;
-  if (Array.isArray(data.projects)) return data.projects;
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.projects)) return data.projects;
 
-  console.warn("projects.json is not in a recognized format:", data);
-  return [];
-}
-
+    console.warn("projects.json is not in a recognized format:", data);
+  } catch (errJson) {
+    console.warn("projects.json failed, falling back to CSV:", errJson);
+  }
 
   // Fallback to CSV
   try {
+    const csvUrl = "data/projects.csv";
     const r = await fetch(csvUrl, { cache: "no-store" });
     if (!r.ok) throw new Error(`projects.csv HTTP ${r.status}`);
 
@@ -79,7 +79,6 @@ async function initProjectTable() {
     tableBody.appendChild(row);
   });
 
-  // Handle "Open" buttons
   tableBody.addEventListener("click", e => {
     if (!e.target.dataset.open) return;
 

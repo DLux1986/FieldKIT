@@ -5,10 +5,18 @@ export async function loadJSON(path) {
   if (!res.ok) throw new Error(`Failed to load ${path}`);
   return await res.json();
 }
+export async function saveJSON(path, data) {
+  const response = await fetch(path, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data, null, 2)
+  });
 
-// stub – later this becomes API / backend write
-async function saveJSON(path, data) {
-  console.warn("saveJSON stub called for", path, data);
+  if (!response.ok) {
+    throw new Error(`Failed to save JSON to ${path}`);
+  }
+
+  return true;
 }
 
 export function pad2(n) {

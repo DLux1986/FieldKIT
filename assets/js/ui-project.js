@@ -1,27 +1,38 @@
-// ui-project.js
-
 import { loadProjects } from "./projects.js";
-import { loadVisits } from "./visits.js";
+import { loadVisits, saveVisits, createVisit } from "./visits.js";
 import { loadSamples } from "./samples.js";
-import { getQueryParam } from "./utils.js";
+import { getQueryParam, saveJSON } from "./utils.js";
 
+/* -------------------------------------------------------
+   Helper: Fetch a single project by ID
+------------------------------------------------------- */
+async function getProjectById(id) {
+  const projects = await loadProjects();
+  return projects.find(p => p.id === id);
+}
+
+/* -------------------------------------------------------
+   Render visits for a project
+------------------------------------------------------- */
 export function renderVisitsForProject(project, visits, samples, container) {
   container.innerHTML = "";
 
-  const projectVisits = visits.filter(v => v.id === project.id);
+  const projectVisits = visits.filter(v => v.project_id === project.id);
 
   projectVisits.forEach(v => {
     const div = document.createElement("div");
     div.className = "visit-row";
-    div.textContent = `${v.date} — ${v.test_type}${v.visit_number}`;
+    div.textContent = `${v.date} — ${v.test_type} ${v.visit_number}`;
     container.appendChild(div);
   });
 }
 
-
+/* -------------------------------------------------------
+   Main Page Load
+------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", async () => {
   const projectId = getQueryParam("id");
-  const project = (await loadProjects()).find(p => p.id === projectId);
+  const project = await getProjectById(projectId);
   const visits = await loadVisits();
   const samples = await loadSamples();
 
@@ -35,16 +46,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   titleEl.textContent = `${project.name} (${project.id})`;
-  metaEl.textContent = `PM: ${project.manager || "—"} | Client: ${
-    project.client || "—"
-  } | ${project.address || ""}`;
-
-  document.getElementById("back-to-catalog-btn").addEventListener("click", () => {
-    window.location.href = "project-catalog.html";
-  });
-
+  metaEl.textContent = `PM: ${project.manager || "—"} | Client: ${project.client || "—"} | ${project.address || ""}`;
 
   renderVisitsForProject(project, visits, samples, visitListEl);
+
+  /* -------------------------------------------------------
+     Add Visit Button
+  ------------------------------------------------------- */
   document.getElementById("add-visit-btn").addEventListener("click", async () => {
   const testType = prompt("Test Type (WT, ABT, ELD):");
   if (!testType) return;
@@ -52,15 +60,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   const date = prompt("Visit Date (YYYY-MM-DD):");
   if (!date) return;
 
-  const projectId = getQueryParam("project_id");
-  const project = getProjectById(projectId);
+  const projectId = getQueryParam("id");
+  const project = await getProjectById(projectId);
 
+  // Create visit
   const visit = createVisit({ project, testType, date });
 
-  await saveJSON("data/visits.json", { visits: VISITS });
+  // Load → append → save
+  const allVisits = loadVisits();
+  allVisits.push(visit);
+  saveVisits(allVisits);
 
   // Re-render
-  const visits = await loadVisits();
+  const visits = loadVisits();
   const samples = await loadSamples();
   renderVisitsForProject(project, visits, samples, document.getElementById("visit-list"));
 });

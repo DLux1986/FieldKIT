@@ -1,47 +1,32 @@
-// visits.js
+// visits.js — localStorage powered
 
-import { loadJSON } from "./utils.js";
+const VISITS_KEY = "visits";
 
-export async function loadVisits() {
-  try {
-    const data = await loadJSON("assets/data/visits.json");
+export function loadVisits() {
+  return JSON.parse(localStorage.getItem(VISITS_KEY) || "[]");
+}
 
-    if (Array.isArray(data)) return data;
-    if (Array.isArray(data.visits)) return data.visits;
+export function saveVisits(visits) {
+  localStorage.setItem(VISITS_KEY, JSON.stringify(visits));
+}
 
-    console.warn("Unrecognized visits format:", data);
-  } catch (errJson) {
-    console.warn("Visits JSON load failed:", errJson);
-  }
+export function createVisit({ project, testType, date }) {
+  const allVisits = loadVisits();
 
-  // CSV fallback (optional)
-  try {
-    const r = await fetch("assets/data/visits.csv", { cache: "no-store" });
-    if (!r.ok) throw new Error(`visits.csv HTTP ${r.status}`);
+  // Filter visits for this project + test type
+  const projectVisits = allVisits.filter(
+    v => v.project_id === project.id && v.test_type === testType
+  );
 
-    const text = await r.text();
-    const lines = text.trim().split(/\r?\n/);
-    const header = lines.shift().split(",");
+  // Determine next visit number
+  const nextNumber = projectVisits.length + 1;
+  const visitNumber = String(nextNumber).padStart(2, "0");
 
-    const idx = name => header.indexOf(name);
-
-    const idI = idx("id");
-    const dateI = idx("date");
-    const typeI = idx("test_type");
-    const numI = idx("visit_number");
-
-    return lines.map(line => {
-      const cols = line.split(",");
-      return {
-        id: cols[idI]?.trim(),
-        date: cols[dateI]?.trim(),
-        test_type: cols[typeI]?.trim(),
-        visit_number: cols[numI]?.trim()
-      };
-    });
-  } catch (errCsv) {
-    console.error("Visits CSV load failed:", errCsv);
-  }
-
-  return [];
+  return {
+    id: crypto.randomUUID(),
+    project_id: project.id,
+    test_type: testType,
+    date,
+    visit_number: visitNumber
+  };
 }
