@@ -18,6 +18,14 @@ export async function saveJSON(path, data) {
 
   return true;
 }
+export async function loadCalendar() {
+  try {
+    return await loadJSON("assets/data/calendar.json");
+  } catch (err) {
+    console.warn("Calendar JSON load failed:", err);
+    return { events: [] };
+  }
+}
 
 export function pad2(n) {
   return n.toString().padStart(2, "0");

@@ -1,89 +1,110 @@
 <!DOCTYPE html>
-<html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Project Catalog</title>
+  <meta charset="UTF-8" />
+  <title>FieldKIT – Project Catalog</title>
 
-  <link rel="stylesheet" href="assets/css/style.css">
-
+  <link rel="stylesheet" href="assets/css/style.css" />
   <script type="module" src="assets/js/ui-project-catalog.js"></script>
+  
 </head>
 
-
 <body>
+
+  <!-- HEADER -->
   <header class="fk-header">
     <h1>Project Catalog</h1>
-    
   </header>
-<input id="project-search" placeholder="Search projects…">
-<div class="fk-filter-bar">
-  <select id="filter-pm">
-    <option value="">All Project Managers</option>
-  </select>
 
-  <select id="filter-client">
-    <option value="">All Clients</option>
-  </select>
+  <main class="fk-main">
 
-  <select id="filter-visits">
-    <option value="">All Visit Counts</option>
-    <option value="has">Has Visits</option>
-    <option value="none">No Visits</option>
-  </select>
+    <!-- FILTER BAR -->
+    <section class="fk-filter-bar">
 
-  <button id="filter-clear" class="fk-clear-btn">Clear Filters</button>
-</div>
+      <div class="fk-filter-group">
+        <label for="filter-pm">PM</label>
+        <select id="filter-pm">
+          <option value="">All PMs</option>
+        </select>
+      </div>
 
-  <main>
-    <table class="fk-project-table">
-      <thead>
-        <tr>
-          <th data-col="id">ID</th>
-          <th data-col="name">Name</th>
-          <th data-col="pm">Project Manager</th>
-          <th data-col="visits">Visits</th>
-        </tr>
-      </thead>
-      <tbody id="project-table-body"></tbody>
-    </table>
+      <div class="fk-filter-group">
+        <label for="filter-client">Client</label>
+        <select id="filter-client">
+          <option value="">All Clients</option>
+        </select>
+      </div>
+
+      <div class="fk-filter-group">
+        <label for="filter-visits">Visits</label>
+        <select id="filter-visits">
+          <option value="">All</option>
+          <option value="has">Has Visits</option>
+          <option value="none">No Visits</option>
+        </select>
+      </div>
+
+      <div class="fk-filter-group">
+        <label for="project-search">Search</label>
+        <input id="project-search" type="text" placeholder="Search projects…">
+      </div>
+
+      <button id="filter-clear" class="fk-clear-btn">Clear</button>
+
+    </section>
+
+    <!-- PROJECT DETAILS PANE -->
+    <section id="project-details-pane" class="fk-details hidden">
+      <h2 id="details-name"></h2>
+
+      <p><strong>ID:</strong> <span id="details-id"></span></p>
+      <p><strong>PM:</strong> <span id="details-pm"></span></p>
+      <p><strong>Client:</strong> <span id="details-client"></span></p>
+      <p><strong>Address:</strong> <span id="details-address"></span></p>
+      <p><strong>Total Visits:</strong> <span id="details-visits"></span></p>
+
+      <h3>Visits</h3>
+      <ul id="details-visit-list"></ul>
+
+      <button id="details-open">Open Project</button>
+    </section>
+
+    <!-- PROJECT TABLE -->
+    <section class="fk-table-section">
+      <table class="fk-project-table">
+        <thead>
+          <tr>
+            <th data-col="id">ID</th>
+            <th data-col="name">Name</th>
+            <th data-col="pm">PM</th>
+            <th data-col="visits">Visits</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody id="project-table-body"></tbody>
+      </table>
+    </section>
+
   </main>
-<aside id="project-details-pane" class="fk-details-pane hidden">
-  <div class="fk-details-header">
-    <h2 id="details-name"></h2>
-    
+
+  <!-- CALENDAR LINK MODAL -->
+  <div id="calendar-link-modal" class="fk-modal hidden">
+    <div class="fk-modal-content">
+      <h2>Link Calendar Event</h2>
+
+      <p id="calendar-link-event-title"></p>
+      <p id="calendar-link-event-time"></p>
+
+      <label>Assign to Project</label>
+      <select id="calendar-link-project-select"></select>
+
+      <div class="fk-modal-actions">
+        <button id="calendar-link-save-btn">Save</button>
+        <button id="calendar-link-cancel-btn">Cancel</button>
+      </div>
+    </div>
   </div>
-
-  <div class="fk-details-body">
-    <div class="fk-details-row">
-      <span class="fk-label">Project ID</span>
-      <span id="details-id"></span>
-    </div>
-
-    <div class="fk-details-row">
-      <span class="fk-label">Project Manager</span>
-      <span id="details-pm"></span>
-    </div>
-    <div class="fk-details-row">
-      <span class="fk-label">Client</span>
-      <span id="details-client"></span>
-    </div>
-
-    <div class="fk-details-row">
-      <span class="fk-label">Address</span>
-      <span id="details-address"></span>
-    </div>
-
-    <div class="fk-details-row">
-      <span class="fk-label">Visits</span>
-      <span id="details-visits"></span>
-    </div>
-
-    <h3 class="fk-subtitle">Visit History</h3>
-    <ul id="details-visit-list" class="fk-visit-list"></ul>
-  </div>
-  <button id="details-open" class="fk-open-btn">Open Project</button>
-</aside>
 
 </body>
 </html>

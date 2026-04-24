@@ -1,14 +1,90 @@
 import { loadProjects } from "./projects.js";
 import { loadVisits } from "./visits.js";
-import { pad2 } from "./utils.js";
+import { pad2, loadJSON, saveJSON } from "./utils.js";
 
+// -------------------------------
+// LOAD CALENDAR
+// -------------------------------
+export async function loadCalendar() {
+  return await loadJSON("assets/data/calendar.json");
+}
 
+// -------------------------------
+// SHOW CALENDAR LINK PROMPT
+// -------------------------------
+function showCalendarLinkPrompt(event, projects, calendar) {
+  const modal = document.getElementById("calendar-link-modal");
+  const titleEl = document.getElementById("calendar-link-event-title");
+  const timeEl = document.getElementById("calendar-link-event-time");
+  const selectEl = document.getElementById("calendar-link-project-select");
+
+  titleEl.textContent = event.title || "Scheduled Visit";
+  timeEl.textContent = new Date(event.start).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+  selectEl.innerHTML = "";
+  projects.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = `${p.name} (${p.id})`;
+    selectEl.appendChild(opt);
+  });
+
+  modal.classList.remove("hidden");
+
+  document.getElementById("calendar-link-save-btn").onclick = async () => {
+    const selectedId = selectEl.value;
+
+    event.linked_project_id = selectedId;
+    await saveJSON("assets/data/calendar.json", calendar);
+
+    modal.classList.add("hidden");
+
+    await autoCreateVisitFromEvent(event, selectedId);
+
+    window.location.reload();
+  };
+
+  document.getElementById("calendar-link-cancel-btn").onclick = () => {
+    modal.classList.add("hidden");
+  };
+}
+
+// -------------------------------
+// AUTO-CREATE VISIT FROM EVENT
+// -------------------------------
+async function autoCreateVisitFromEvent(event, projectId) {
+  const visits = await loadVisits();
+
+  let testType = "WT";
+  if (/ABT/i.test(event.title)) testType = "ABT";
+  if (/ELD/i.test(event.title)) testType = "ELD";
+
+  const projectVisits = visits.filter(v => v.id === projectId && v.test_type === testType);
+  const nextNum = (projectVisits.length + 1).toString().padStart(2, "0");
+
+  const newVisit = {
+    id: projectId,
+    date: event.start.substring(0, 10),
+    test_type: testType,
+    visit_number: nextNum
+  };
+
+  visits.push(newVisit);
+
+  await saveJSON("assets/data/visits.json", { visits });
+}
+
+// -------------------------------
+// GLOBAL STATE
+// -------------------------------
 let projects = [];
 let visits = [];
-
 let sortColumn = null;
 let sortAsc = true;
 
+// -------------------------------
+// MAIN INITIALIZER
+// -------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
   projects = await loadProjects();
   visits = await loadVisits();
@@ -28,7 +104,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   renderProjectCatalog(projects, visits);
 
-  // Search
   document.getElementById("project-search").addEventListener("input", e => {
     const term = e.target.value.toLowerCase();
     const filtered = projects.filter(p =>
@@ -38,6 +113,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     renderProjectCatalog(filtered, visits);
   });
+
+  // Load calendar + detect unlinked events
+  const calendar = await loadCalendar();
+  const today = new Date().toISOString().substring(0, 10);
+
+  const unlinkedEvents = calendar.events.filter(ev =>
+    ev.start.startsWith(today) && !ev.linked_project_id
+  );
+
+  if (unlinkedEvents.length > 0) {
+    showCalendarLinkPrompt(unlinkedEvents[0], projects, calendar);
+  }
 
   // Sorting
   document.querySelectorAll(".fk-project-table th").forEach(th => {
@@ -57,6 +144,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 });
+
+// -------------------------------
+// POPULATE FILTERS
+// -------------------------------
 function populateFilters(projects) {
   const pmSet = new Set();
   const clientSet = new Set();
@@ -84,6 +175,9 @@ function populateFilters(projects) {
   });
 }
 
+// -------------------------------
+// APPLY FILTERS
+// -------------------------------
 function applyFilters() {
   const pm = document.getElementById("filter-pm").value;
   const client = document.getElementById("filter-client").value;
@@ -113,6 +207,9 @@ function applyFilters() {
   renderProjectCatalog(filtered, visits);
 }
 
+// -------------------------------
+// RENDER PROJECT CATALOG
+// -------------------------------
 function renderProjectCatalog(projects, visits) {
   const tbody = document.getElementById("project-table-body");
   tbody.innerHTML = "";
@@ -140,6 +237,9 @@ function renderProjectCatalog(projects, visits) {
   });
 }
 
+// -------------------------------
+// SORTING
+// -------------------------------
 function sortProjects(projects, visits) {
   if (!sortColumn) return projects;
 
@@ -171,6 +271,9 @@ function sortProjects(projects, visits) {
   });
 }
 
+// -------------------------------
+// PROJECT DETAILS PANEL
+// -------------------------------
 function showProjectDetails(project, projectVisits) {
   const pane = document.getElementById("project-details-pane");
 

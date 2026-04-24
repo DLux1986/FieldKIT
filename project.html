@@ -4,43 +4,50 @@
   <meta charset="UTF-8" />
   <title>FieldKIT – Project</title>
 
-
   <link rel="stylesheet" href="assets/css/style.css" />
-
-<script type="module" src="assets/js/ui-project.js"></script>
-
+  <script type="module" src="assets/js/ui-project.js"></script>
 </head>
-
 
 <body>
   <header class="fk-header">
     <h1 id="project-title">Project</h1>
-    <div id="project-meta"></div>
   </header>
 
   <main class="fk-main">
+
+    <!-- ACTION BUTTONS -->
     <section class="fk-project-actions">
       <button id="add-visit-btn">Add Visit</button>
-      <button id="open-project-folder-btn">Open Folder</button>
       <button id="open-project-folder-btn">Open Folder</button>
       <button id="back-to-catalog-btn">Back to Catalog</button>
     </section>
 
+    <!-- PROJECT DETAILS PANE -->
+    <section id="project-details-pane" class="fk-details hidden">
+      <h2 id="details-name"></h2>
+
+      <p><strong>ID:</strong> <span id="details-id"></span></p>
+      <p><strong>PM:</strong> <span id="details-pm"></span></p>
+      <p><strong>Client:</strong> <span id="details-client"></span></p>
+      <p><strong>Address:</strong> <span id="details-address"></span></p>
+      <p><strong>Total Visits:</strong> <span id="details-visits"></span></p>
+
+      <h3>Visits</h3>
+      <ul id="details-visit-list"></ul>
+
+      <button id="details-open">Open Project</button>
+    </section>
+
+    <!-- VISIT LIST -->
     <section id="visit-list"></section>
-    <section id="visit-list"></section>
+
   </main>
 
-  <!-- Visit Edit Modal -->
-
-  <!-- Visit Edit Modal -->
+  <!-- VISIT EDIT MODAL -->
   <div id="visit-edit-modal" class="fk-modal hidden">
     <div class="fk-modal-content">
       <h2>Edit Visit</h2>
-    <div class="fk-modal-content">
-      <h2>Edit Visit</h2>
 
-      <label>Date</label>
-      <input id="edit-visit-date" type="date">
       <label>Date</label>
       <input id="edit-visit-date" type="date">
 
@@ -50,15 +57,7 @@
         <option value="ABT">ABT</option>
         <option value="ELD">ELD</option>
       </select>
-      <label>Test Type</label>
-      <select id="edit-visit-type">
-        <option value="WT">WT</option>
-        <option value="ABT">ABT</option>
-        <option value="ELD">ELD</option>
-      </select>
 
-      <label>Notes</label>
-      <textarea id="edit-visit-notes"></textarea>
       <label>Notes</label>
       <textarea id="edit-visit-notes"></textarea>
 
@@ -68,9 +67,21 @@
       </div>
     </div>
   </div>
+
+  <!-- CALENDAR LINK MODAL -->
+  <div id="calendar-link-modal" class="fk-modal hidden">
+    <div class="fk-modal-content">
+      <h2>Link Calendar Event</h2>
+
+      <p id="calendar-link-event-title"></p>
+      <p id="calendar-link-event-time"></p>
+
+      <label>Assign to Project</label>
+      <select id="calendar-link-project-select"></select>
+
       <div class="fk-modal-actions">
-        <button id="save-visit-btn">Save</button>
-        <button id="cancel-visit-btn">Cancel</button>
+        <button id="calendar-link-save-btn">Save</button>
+        <button id="calendar-link-cancel-btn">Cancel</button>
       </div>
     </div>
   </div>
