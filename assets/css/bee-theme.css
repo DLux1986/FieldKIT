@@ -1,0 +1,72 @@
+/* -----------------------------------
+   BEE BRAND VARIABLES
+----------------------------------- */
+:root {
+  --honey:   #f28705;
+  --hive:    #ffba08;
+  --sky:     #a3c2c4;
+
+  --cloudy:  #4a4f59;
+  --balance: #f5f2e3;
+  --black:   #212121;
+
+  --font-main: "Effra", Calibri, sans-serif;
+}
+
+/* -----------------------------------
+   GLOBAL RESET
+----------------------------------- */
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: white;
+  color: var(--cloudy);
+}
+
+/* -----------------------------------
+   APP SHELL
+----------------------------------- */
+.bee-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* -----------------------------------
+   HEADER
+----------------------------------- */
+.bee-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: white;
+  border-bottom: 2px solid var(--balance);
+}
+
+.bee-logo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.bee-nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--cloudy);
+  font-size: 0.95rem;
+}
+
+.bee-nav a.active {
+  color: var(--honey);
+  font-weight: 600;
+}
+
+/* -----------------------------------
+   CONTENT AREA
+----------------------------------- */
+.bee-content {
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+}

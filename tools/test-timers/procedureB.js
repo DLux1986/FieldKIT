@@ -1,7 +1,6 @@
 // timer.js - ASTM E1105 sequence timer with audio cues
 
-const AUDIO_BASE = "assets/audio";
-
+const AUDIO_BASE = "/assets/audio";
 
 const soundMap = {
   "Water Spray Rack Pressurization": `${AUDIO_BASE}/Simulated%20Rain.wav`,
@@ -25,9 +24,12 @@ const seq = [
 ];
 
 function fmt(s){
-  const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60;
-  return h>0 ? `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`
-             : `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  return h > 0
+    ? `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`
+    : `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
 }
 
 function shortBeepFallback(){
@@ -44,7 +46,7 @@ function shortBeepFallback(){
   }catch(e){}
 }
 
-class E1105Timer {
+export class E1105Timer {
   constructor({ onLog } = {}){
     this.i = 0;
     this.left = 0;
@@ -53,6 +55,7 @@ class E1105Timer {
     this.paused = false;
     this.onLog = onLog || (()=>{});
     this.audioCache = {};
+
     Object.entries(soundMap).forEach(([k,url]) => {
       const a = new Audio(url);
       a.preload = 'auto';
@@ -93,50 +96,85 @@ class E1105Timer {
 
   start({ onUI } = {}){
     if (this.h) return;
-    try{ const unlock = new Audio(); unlock.muted=true; unlock.play().catch(()=>{});}catch(e){}
 
-    this.paused=false; this.i=0;
+    try{
+      const unlock = new Audio();
+      unlock.muted = true;
+      unlock.play().catch(()=>{});
+    }catch(e){}
+
+    this.paused = false;
+    this.i = 0;
+
     this._showStep(onUI);
     this.log('Sequence started.');
+
     this.h = setInterval(()=>this._tick(onUI), 1000);
   }
 
   pause(){
     if (!this.h || this.paused) return;
-    this.paused=true;
+    this.paused = true;
     this.log('Paused.');
   }
 
   resume(){
     if (!this.h || !this.paused) return;
-    this.paused=false;
+    this.paused = false;
     this.log('Resumed.');
   }
 
   _showStep(onUI){
-    const [n,s] = seq[this.i];
-    this.left=s; this.total=s;
-    this.play(n);
-    if (onUI) onUI({ type:'step', name:n, left:this.left, total:this.total, i:this.i, fmt });
+    const [name, seconds] = seq[this.i];
+    this.left = seconds;
+    this.total = seconds;
+
+    this.play(name);
+
+    if (onUI){
+      onUI({
+        step: name,
+        time: fmt(this.left)
+      });
+    }
   }
 
   _tick(onUI){
     if (this.paused) return;
+
     if (this.left <= 0){
-      clearInterval(this.h); this.h=null;
+      clearInterval(this.h);
+      this.h = null;
+
       this.log(`Complete: ${seq[this.i][0]}`);
       this.i += 1;
+
       if (this.i >= seq.length){
         this.play('Test Complete');
         this.log('Finished.');
-        if (onUI) onUI({ type:'done', fmt });
+
+        if (onUI){
+          onUI({
+            step: "Complete",
+            time: "00:00"
+          });
+        }
+
         return;
       }
+
       this._showStep(onUI);
       this.h = setInterval(()=>this._tick(onUI), 1000);
       return;
     }
+
     this.left -= 1;
-    if (onUI) onUI({ type:'tick', name: seq[this.i][0], left:this.left, total:this.total, i:this.i, fmt });
+
+    if (onUI){
+      onUI({
+        step: seq[this.i][0],
+        time: fmt(this.left)
+      });
+    }
   }
 }

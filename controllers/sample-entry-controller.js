@@ -1,7 +1,6 @@
 // controllers/sample-entry-controller.js
-import { SampleEntrySchema } from "../schemas/sampleEntrySchema.js";
+import { SampleEntrySchema } from "./schemas/sampleEntrySchema.js";
 import { createEmptySampleEntry } from "../defaults.js";
-import { generateSampleId } from "./idGenerator.js";
 
 export class SampleEntryController {
   constructor(projectId, storage) {
@@ -42,20 +41,7 @@ export class SampleEntryController {
     this.state.photos[category].push(url);
   }
 
-  // -------------------------------------------------------
-  // Assign Sample ID using your deterministic generator
-  // -------------------------------------------------------
-  assignSampleId(productType, sampleNumber, testNumber) {
-    const id = generateSampleId({
-      projectId: this.projectId,
-      productType,
-      sampleNumber,
-      testNumber
-    });
 
-    this.state.sampleId = id;
-    return id;
-  }
 
   // -------------------------------------------------------
   // Validate using Zod
@@ -77,7 +63,6 @@ export class SampleEntryController {
 
     await this.storage.saveSample(result.data);
 
-    console.log("💾 Sample saved:", result.data.sampleId);
 
     return { success: true };
   }

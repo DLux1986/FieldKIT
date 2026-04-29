@@ -1,0 +1,99 @@
+/* ---------------------------
+   BEE BRAND VARIABLES
+---------------------------- */
+:root {
+  --honey:   #f28705;
+  --hive:    #ffba08;
+  --sky:     #a3c2c4;
+
+  --cloudy:  #4a4f59;
+  --balance: #f5f2e3;
+  --black:   #212121;
+
+  --font-main: "Effra", Calibri, sans-serif;
+}
+
+/* ---------------------------
+   PAGE LAYOUT
+---------------------------- */
+body {
+  margin: 0;
+  background: white;
+  font-family: var(--font-main);
+  color: var(--cloudy);
+}
+
+.standards-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------------------------
+   HEADER
+---------------------------- */
+.standards-header {
+  padding: 16px 20px;
+  border-bottom: 2px solid var(--balance);
+  background: white;
+}
+
+.standards-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--black);
+}
+
+/* ---------------------------
+   GRID LAYOUT
+---------------------------- */
+.standards-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  overflow: hidden;
+}
+
+/* ---------------------------
+   LEFT LIST
+---------------------------- */
+.standards-list {
+  border-right: 1px solid var(--balance);
+  padding: 12px;
+  overflow-y: auto;
+  background: white;
+}
+
+.standards-item {
+  padding: 10px 8px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--cloudy);
+  font-size: 0.95rem;
+  transition: background 0.15s ease;
+}
+
+.standards-item:hover {
+  background: var(--balance);
+}
+
+.standards-item.active {
+  background: var(--honey);
+  color: white;
+}
+
+/* ---------------------------
+   VIEWER PANEL
+---------------------------- */
+.viewer-panel {
+  background: var(--balance);
+  padding: 0;
+}
+
+.viewer-panel iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

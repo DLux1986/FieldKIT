@@ -1,37 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>BEE FieldKIT Dashboard</title>
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <title>FieldKIT Dashboard</title>
+
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+<div id="fk-floating-timers" class="fk-floating hidden">
+  <div class="fk-floating-header">
+    <span>Test Timers</span>
+    <button id="fk-floating-close">×</button>
+  </div>
+
+  <iframe src="/tools/test-timers/test-timers.html"></iframe>
+</div>
+
+<button id="fk-floating-open" class="fk-floating-open-btn">⏱️ Test Timers</button>
 
 <body>
-  <div class="fk-index">
-    <h1>BEE FieldKIT</h1>
-    <section class="fk-nav-cards">
-        <a href="project-catalog.html" class="fk-card">
-            <div class="fk-card-icon">📁</div>
-                <h2>Projects</h2>
-                  </a>
 
-                    <a href="sample-entry.html" class="fk-card">
-                        <div class="fk-card-icon">🧪</div>
-                            <h2>Samples</h2>
-                              </a>
+  <header class="fk-header">
+    <h1>BEE ENGINEERS FieldKIT</h1>
+  </header>
 
-                                <a href="metadata-manager.html" class="fk-card">
-                                    <div class="fk-card-icon">🏷️</div>
-                                        <h2>Metadata</h2>
-                                          </a>
+  <main class="fk-main">
 
-                                            <a href="import-export.html" class="fk-card">
-                                                <div class="fk-card-icon">⬆️⬇️</div>
-                                                    <h2>Import / Export</h2>
-                                                      </a>
-                                                      </section>
-  </div>
+    <!-- QUICK ACTIONS -->
+    <section class="dashboard-grid">
+
+      <a class="dash-card" href="project-catalog.html">
+        <div class="dash-icon">📁</div>
+        <div class="dash-title">Project Database</div>
+      </a>
+
+      <a class="dash-card" href="./tools/test-timers/test-timers.html">
+        <div class="dash-icon">⏱️</div>
+        <div class="dash-title">Test Timers</div>
+      </a>
+
+      <a class="dash-card" href="unit-converters.html">
+        <div class="dash-icon">🔧</div>
+        <div class="dash-title">Unit Converters</div>
+      </a>
+
+      <a class="dash-card" href="standards-library.html">
+        <div class="dash-icon">📚</div>
+        <div class="dash-title">Standards Library</div>
+      </a>
+
+      <a class="dash-card" href="sample-entry.html">
+        <div class="dash-icon">📝</div>
+        <div class="dash-title">Sample Entry</div>
+      </a>
+
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="schedule-section">
+      <h2>Testing Schedule</h2>
+
+      <div class="schedule-item">
+        <div class="schedule-date">Mon 10/12</div>
+        <div class="schedule-body">
+          <div class="schedule-title">Window Test</div>
+          <div class="schedule-location">Altera North</div>
+          <div class="schedule-time">8:00am</div>
+        </div>
+      </div>
+
+      <div class="schedule-item">
+        <div class="schedule-date">Wed 10/14</div>
+        <div class="schedule-body">
+          <div class="schedule-title">Air Barrier Test</div>
+          <div class="schedule-location">The Lofts – Mirkwood</div>
+          <div class="schedule-time">11:00am</div>
+        </div>
+      </div>
+
+    </section>
+<script type="module" src="assets/js/floating-timers.js"></script>
+
+  </main>
+
 </body>
-
-
 </html>

@@ -1,6 +1,6 @@
 // procedureA.js — ASTM E1105 Procedure A (15-minute uniform pressure)
 
-const AUDIO_BASE = "../../assets/audio";
+const AUDIO_BASE = "/assets/audio";
 
 const completeSound = new Audio(`${AUDIO_BASE}/TestConcluded.wav`);
 completeSound.preload = "auto";
@@ -45,33 +45,50 @@ export class ProcedureATimer {
     this.log("Reset.");
   }
 
-  start({ onUI } = {}){
-    if (this.h) return;
+ start({ onUI } = {}) {
+  if (this.h) return;
 
-    this.paused = false;
-    this.log("Procedure A started.");
+  this.paused = false;
+  this.log("Procedure A started.");
 
-    if (onUI) onUI({ type: "tick", left: this.left, fmt });
-
-    this.h = setInterval(() => {
-      if (this.paused) return;
-
-      this.left -= 1;
-
-      if (onUI) onUI({ type: "tick", left: this.left, fmt });
-
-      if (this.left <= 0){
-        clearInterval(this.h);
-        this.h = null;
-
-        completeSound.currentTime = 0;
-        completeSound.play().catch(()=>shortBeepFallback());
-
-        this.log("Procedure A complete.");
-        if (onUI) onUI({ type: "done", fmt });
-      }
-    }, 1000);
+  if (onUI) {
+    onUI({
+      step: "Uniform Pressure",
+      time: fmt(this.left)
+    });
   }
+
+  this.h = setInterval(() => {
+    if (this.paused) return;
+
+    this.left -= 1;
+
+    if (onUI) {
+      onUI({
+        step: "Uniform Pressure",
+        time: fmt(this.left)
+      });
+    }
+
+    if (this.left <= 0) {
+      clearInterval(this.h);
+      this.h = null;
+
+      completeSound.currentTime = 0;
+      completeSound.play().catch(() => shortBeepFallback());
+
+      this.log("Procedure A complete.");
+
+      if (onUI) {
+        onUI({
+          step: "Complete",
+          time: "00:00"
+        });
+      }
+    }
+  }, 1000);
+}
+
 
   pause(){
     if (!this.h || this.paused) return;

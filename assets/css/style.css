@@ -1,56 +1,58 @@
 /* -------------------------------------------------------
-   FIELDKIT — CLEAN BASE STYLES
+   BEE BRAND — CORE VARIABLES
+   (From Brand Guidelines: Honey, Hive, Sky, Cloudy, Balance, Black)
 ------------------------------------------------------- */
-
 :root {
-  --fk-bg: #f7f7f9;
-  --fk-card: #ffffff;
-  --fk-border: #d0d0d5;
-  --fk-accent: #2a6df4;
-  --fk-accent-light: #e7efff;
-  --fk-text: #222;
-  --fk-text-light: #666;
-  --fk-radius: 8px;
-  --fk-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  --bee-honey: #f28705;
+  --bee-hive: #ffba08;
+  --bee-sky: #a3c2c4;
+  --bee-cloudy: #4a4f59;
+  --bee-balance: #f5f2e3;
+  --bee-black: #212121;
+
+  --font-main: "Effra", Calibri, system-ui, sans-serif;
+
+  --radius: 10px;
+  --shadow: 0 3px 10px rgba(0,0,0,0.12);
 }
 
+/* -------------------------------------------------------
+   GLOBAL
+------------------------------------------------------- */
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background: var(--fk-bg);
-  color: var(--fk-text);
+  font-family: var(--font-main);
+  background: var(--bee-balance);
+  color: var(--bee-cloudy);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
 }
 
 /* -------------------------------------------------------
    HEADER
 ------------------------------------------------------- */
-
 .fk-header {
-  background: var(--fk-card);
+  background: white;
   padding: 20px;
-  border-bottom: 1px solid var(--fk-border);
-  box-shadow: var(--fk-shadow);
+  border-bottom: 1px solid var(--bee-cloudy);
+  box-shadow: var(--shadow);
 }
 
 .fk-header h1 {
   margin: 0;
-  font-size: 1.6rem;
-}
-
-/* -------------------------------------------------------
-   MAIN LAYOUT
-------------------------------------------------------- */
-
-.fk-main {
-  padding: 20px;
-  max-width: 1100px;
-  margin: auto;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--bee-black);
 }
 
 /* -------------------------------------------------------
    FILTER BAR
 ------------------------------------------------------- */
-
 .fk-filter-bar {
   display: flex;
   gap: 20px;
@@ -59,43 +61,37 @@ body {
   align-items: flex-end;
 }
 
-.fk-filter-group {
-  display: flex;
-  flex-direction: column;
-}
-
 .fk-filter-group label {
   font-size: 0.8rem;
-  color: var(--fk-text-light);
-  margin-bottom: 4px;
+  color: var(--bee-cloudy);
 }
 
 .fk-filter-group select,
 .fk-filter-group input {
   padding: 6px 10px;
-  border: 1px solid var(--fk-border);
-  border-radius: var(--fk-radius);
-  background: var(--fk-card);
+  border: 1px solid var(--bee-cloudy);
+  border-radius: var(--radius);
+  background: white;
+  color: var(--bee-black);
 }
 
 #filter-clear {
   padding: 8px 14px;
   border: none;
-  background: var(--fk-accent-light);
-  color: var(--fk-accent);
-  border-radius: var(--fk-radius);
+  background: var(--bee-sky);
+  color: var(--bee-black);
+  border-radius: var(--radius);
   cursor: pointer;
 }
 
 /* -------------------------------------------------------
-   TABLE
+   TABLES
 ------------------------------------------------------- */
-
 .fk-table-section {
-  background: var(--fk-card);
+  background: white;
   padding: 20px;
-  border-radius: var(--fk-radius);
-  box-shadow: var(--fk-shadow);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .fk-project-table {
@@ -106,34 +102,34 @@ body {
 .fk-project-table th {
   text-align: left;
   padding: 10px;
-  border-bottom: 2px solid var(--fk-border);
+  border-bottom: 2px solid var(--bee-cloudy);
   cursor: pointer;
   user-select: none;
+  color: var(--bee-black);
 }
 
 .fk-project-table td {
   padding: 10px;
-  border-bottom: 1px solid var(--fk-border);
+  border-bottom: 1px solid var(--bee-cloudy);
 }
 
 .fk-project-table tr:hover {
-  background: var(--fk-accent-light);
+  background: var(--bee-sky);
 }
 
 .fk-project-table tr.selected {
-  background: var(--fk-accent-light);
+  background: var(--bee-sky);
   font-weight: 600;
 }
 
 /* -------------------------------------------------------
-   PROJECT DETAILS PANE
+   DETAILS PANELS
 ------------------------------------------------------- */
-
 .fk-details {
-  background: var(--fk-card);
+  background: white;
   padding: 20px;
-  border-radius: var(--fk-radius);
-  box-shadow: var(--fk-shadow);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   margin-bottom: 20px;
 }
 
@@ -141,20 +137,58 @@ body {
   display: none;
 }
 
-#details-visit-list {
-  margin-top: 10px;
-  padding-left: 20px;
+/* -------------------------------------------------------
+   FORMS
+------------------------------------------------------- */
+label {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--bee-black);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 4px;
+  border: 1px solid var(--bee-cloudy);
+  border-radius: var(--radius);
+  background: white;
+  font-size: 0.95rem;
+  color: var(--bee-black);
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Failure block */
+#failureBlock {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ffb3b3;
+  background: #fff5f5;
+  border-radius: var(--radius);
+}
+
+.section-header {
+  margin-top: 0;
+  color: #b30000;
 }
 
 /* -------------------------------------------------------
    BUTTONS
 ------------------------------------------------------- */
-
 button {
   padding: 8px 14px;
-  border-radius: var(--fk-radius);
+  border-radius: var(--radius);
   border: none;
   cursor: pointer;
+  font-size: 0.95rem;
+  transition: 0.15s ease;
 }
 
 button:hover {
@@ -163,14 +197,23 @@ button:hover {
 
 .fk-project-actions button {
   margin-right: 10px;
-  background: var(--fk-accent);
+  background: var(--bee-honey);
   color: white;
+}
+
+.fk-modal-actions button:first-child {
+  background: var(--bee-honey);
+  color: white;
+}
+
+.fk-modal-actions button:last-child {
+  background: var(--bee-sky);
+  color: var(--bee-black);
 }
 
 /* -------------------------------------------------------
    MODALS
 ------------------------------------------------------- */
-
 .fk-modal {
   position: fixed;
   inset: 0;
@@ -186,46 +229,230 @@ button:hover {
 }
 
 .fk-modal-content {
-  background: var(--fk-card);
+  background: white;
   padding: 20px;
-  border-radius: var(--fk-radius);
+  border-radius: var(--radius);
   width: 350px;
-  box-shadow: var(--fk-shadow);
+  box-shadow: var(--shadow);
 }
 
 .fk-modal-content h2 {
   margin-top: 0;
+  color: var(--bee-black);
 }
 
-.fk-modal-content label {
-  display: block;
-  margin-top: 10px;
+/* -------------------------------------------------------
+   DASHBOARD
+------------------------------------------------------- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.dash-card {
+  background: white;
+  padding: 25px 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  text-decoration: none;
+  color: var(--bee-black);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.dash-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.dash-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.dash-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------
+   SCHEDULE
+------------------------------------------------------- */
+.schedule-section {
+  background: white;
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.schedule-section h2 {
+  margin-top: 0;
+  color: var(--bee-black);
+}
+
+.schedule-item {
+  display: flex;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--bee-cloudy);
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-date {
+  font-weight: 700;
+  color: var(--bee-honey);
+  min-width: 90px;
+}
+
+.schedule-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--bee-black);
+}
+
+.schedule-location {
+  color: var(--bee-cloudy);
+}
+
+.schedule-time {
+  margin-top: 4px;
   font-size: 0.9rem;
 }
 
-.fk-modal-content input,
-.fk-modal-content select,
-.fk-modal-content textarea {
-  width: 100%;
-  padding: 6px 10px;
-  margin-top: 4px;
-  border: 1px solid var(--fk-border);
-  border-radius: var(--fk-radius);
-}
-
-.fk-modal-actions {
-  margin-top: 20px;
+/* -------------------------------------------------------
+   FLOATING TEST TIMERS PANEL
+------------------------------------------------------- */
+.fk-floating {
+  position: fixed;
+  top: 80px;
+  right: 40px;
+  width: 360px;
+  height: 480px;
+  background: white;
+  border: 1px solid var(--bee-cloudy);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  z-index: 9999;
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  flex-direction: column;
 }
 
-.fk-modal-actions button:first-child {
-  background: var(--fk-accent);
+.fk-floating.hidden {
+  display: none;
+}
+
+.fk-floating-header {
+  background: var(--bee-honey);
+  color: white;
+  padding: 10px;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.fk-floating-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.fk-floating iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.fk-floating-open-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--bee-honey);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: var(--shadow);
+}
+
+/* -------------------------------------------------------
+   TEST TIMERS — BEE STYLE
+------------------------------------------------------- */
+.mode-switch {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.btn-line {
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  border: 2px solid var(--bee-cloudy);
+  background: white;
+  color: var(--bee-cloudy);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.btn-line:hover {
+  border-color: var(--bee-honey);
+  color: var(--bee-honey);
+}
+
+.btn-line.active {
+  background: var(--bee-honey);
+  border-color: var(--bee-honey);
   color: white;
 }
 
-.fk-modal-actions button:last-child {
-  background: var(--fk-accent-light);
-  color: var(--fk-accent);
+.timer-display {
+  background: white;
+  padding: 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 30px auto;
+  width: 280px;
+  text-align: center;
+}
+
+#stepName {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--bee-cloudy);
+  margin-bottom: 10px;
+}
+
+#timeLeft {
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--bee-black);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.controls .btn {
+  background: var(--bee-cloudy);
+  color: white;
+}
+
+.controls .btn:hover {
+  background: var(--bee-black);
 }

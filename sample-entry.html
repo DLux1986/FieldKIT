@@ -3,8 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Sample Entry</title>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/bee-theme.css">
 </head>
+<!-- Floating Timer Panel -->
+<div id="timerPanel" class="fk-floating hidden">
+  <div class="fk-floating-header">
+    <span>Test Timer</span>
+    <button id="timerCloseBtn">&times;</button>
+  </div>
+  <iframe src="/tools/test-timers/test-timers.html"></iframe>
+</div>
+
+<!-- Button to open the panel -->
+<button id="timerOpenBtn" class="fk-floating-open-btn">Timer</button>
 
 <body>
 
@@ -21,11 +32,6 @@
   <div id="fk-tools-header">
     <span>Tools</span>
     <button id="fk-tools-toggle">−</button>
-  </div>
-
-  <div id="fk-tools-body">
-    <button class="fk-tool-btn" data-tool="timers">Test Timers</button>
-    <button class="fk-tool-btn" data-tool="weather">Weather</button>
   </div>
 </div>
 
@@ -237,6 +243,14 @@
 <!-- ACTION BUTTONS -->
 <button id="saveBtn" class="btn btn-primary">Save Sample</button>
 <button id="cancelBtn" class="btn btn-line">Cancel</button>
+<script>
+  const panel = document.getElementById("timerPanel");
+  const openBtn = document.getElementById("timerOpenBtn");
+  const closeBtn = document.getElementById("timerCloseBtn");
+
+  openBtn.onclick = () => panel.classList.remove("hidden");
+  closeBtn.onclick = () => panel.classList.add("hidden");
+</script>
 
 <!-- EXISTING SCRIPT MOVED TO BOTTOM (unchanged) -->
 <script type="module">
@@ -288,7 +302,7 @@
 
   applyMetadata();
 
-  const panel = document.getElementById("fk-floating-tools");
+
   const header = document.getElementById("fk-tools-header");
   const toggleBtn = document.getElementById("fk-tools-toggle");
   const body = document.getElementById("fk-tools-body");

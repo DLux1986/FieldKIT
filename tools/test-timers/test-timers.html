@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Timers – FieldKIT</title>
+  <link rel="stylesheet" href="/assets/css/bee-theme.css">
+</head>
+
+<body>
+
+  <h1>Test Timers</h1>
+
+  <!-- Mode Switch -->
+  <div class="mode-switch">
+    <button id="modeUniform" class="btn btn-line">Uniform (15 min)</button>
+    <button id="modeCyclic" class="btn btn-line">Cyclic (4×5 min)</button>
+  </div>
+
+  <!-- Timer Display -->
+  <div class="timer-display">
+    <div id="stepName">Ready</div>
+    <div id="timeLeft">00:00</div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button id="startBtn" class="btn">Start</button>
+    <button id="pauseBtn" class="btn">Pause</button>
+    <button id="resumeBtn" class="btn">Resume</button>
+    <button id="resetBtn" class="btn">Reset</button>
+  </div>
+
+  <script type="module">
+    import { ProcedureATimer } from "./procedureA.js";
+    import { E1105Timer } from "./procedureB.js";
+
+    let timer = null;
+
+    // UI updater
+    function updateUI({ step, time }) {
+      document.getElementById("stepName").textContent = step;
+      document.getElementById("timeLeft").textContent = time;
+    }
+
+    // Mode loader
+    function setMode(mode) {
+      if (mode === "A") {
+        timer = new ProcedureATimer({
+          sprayDuration: 10,
+          totalDuration: 900 // 15 minutes
+        });
+      } else {
+        timer = new E1105Timer(); // 4×5 min cyclic
+      }
+
+      // Reset UI when switching modes
+      document.getElementById("stepName").textContent = "Ready";
+      document.getElementById("timeLeft").textContent = "00:00";
+    }
+
+    // Mode button wiring
+    document.getElementById("modeUniform").onclick = () => setMode("A");
+    document.getElementById("modeCyclic").onclick = () => setMode("B");
+
+    // Control buttons
+    document.getElementById("startBtn").onclick = () =>
+      timer.start({ onUI: updateUI });
+
+    document.getElementById("pauseBtn").onclick = () =>
+      timer.pause();
+
+    document.getElementById("resumeBtn").onclick = () =>
+      timer.resume();
+
+    document.getElementById("resetBtn").onclick = () =>
+      timer.reset();
+
+    // Default mode on load
+    setMode("B");
+  </script>
+
+</body>
+</html>
