@@ -1,5 +1,7 @@
 // sample-manager.js — BEE FieldKIT Sample Manager
 
+import { formatSampleId } from "./controllers/idGenerator.js";
+
 const LS_PROJECTS = "fieldkit_projects";
 
 function projectSamplesKey(id) {
@@ -61,7 +63,7 @@ function refreshSampleTable() {
   currentSamples.forEach((s, i) => {
     const row = document.createElement("tr");
 
-    const sampleId = s.sampleId || `#${i + 1}`;
+    const sampleId = formatSampleId(s.sampleId || s.sample_id || s) || `#${i + 1}`;
 
     row.innerHTML = `
       <td>${sampleId}</td>

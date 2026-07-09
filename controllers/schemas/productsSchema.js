@@ -1,5 +1,5 @@
 // schemas/productsSchema.js
-import { z } from "zod";
+import { z } from "./zod.js";
 
 export const ProductSchema = z.object({
   type: z.string(),          // e.g., AWNG, STFR

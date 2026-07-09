@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Sample Entry</title>
-<link rel="stylesheet" href="/assets/css/bee-theme.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/bee-theme.css">
 </head>
 <!-- Floating Timer Panel -->
 <div id="timerPanel" class="fk-floating hidden">
@@ -11,7 +12,7 @@
     <span>Test Timer</span>
     <button id="timerCloseBtn">&times;</button>
   </div>
-  <iframe src="/tools/test-timers/test-timers.html"></iframe>
+  <iframe src="tools/test-timers.html"></iframe>
 </div>
 
 <!-- Button to open the panel -->
@@ -19,12 +20,13 @@
 
 <body>
 
-<h1 id="pageTitle">New Sample</h1>
+<h1 id="pageTitle">Test Sample Data</h1>
 
 <!-- Project Header -->
 <div class="proj-header">
   <p><strong>Project:</strong> <span id="projName"></span></p>
-  <p><strong>Sample ID:</strong> <span id="sampleId"></span></p>
+  <p><strong>Sample ID:</strong> <span id="sampleId">—</span></p>
+  <p><strong>Visit Type:</strong> <span id="visitTypeLabel">—</span></p>
 </div>
 
 <!-- Floating Tools Panel (unchanged) -->
@@ -50,10 +52,20 @@
     <input id="testDate" type="date">
   </label>
 
+  <label>
+    Sample Number
+    <input id="sampleNumber" type="number" min="1" step="1" placeholder="1">
+  </label>
+
   <!-- TEST TIME -->
   <label>
     Test Time
     <input id="testTime" type="time">
+  </label>
+
+  <label>
+    Test Number
+    <input id="testNumber" type="number" min="1" step="1" placeholder="1">
   </label>
 
   <!-- RESULT -->
@@ -69,28 +81,55 @@
   <h2 class="section-header">Sample Details</h2>
 
   <label>
-    Product Type
-    <select id="productType"></select>
-  </label>
-
-  <label>
     Manufacturer
-    <select id="manufacturer"></select>
-  </label>
-
-  <label>
-    Series / Model
-    <select id="seriesModel"></select>
-  </label>
-
-  <label>
-    Width (in)
-    <input id="width_in" type="number" step="0.01">
+    <div style="display:flex; gap:0.5rem; align-items:center;">
+      <input id="manufacturer" list="manufacturerOptions" placeholder="Type or select" style="flex:1;">
+      <button id="showManufacturerOptionsBtn" type="button" class="btn btn-line">Show All</button>
+    </div>
+    <datalist id="manufacturerOptions"></datalist>
   </label>
 
   <label>
     Height (in)
-    <input id="height_in" type="number" step="0.01">
+    <input id="height_in" type="number" step="0.5" placeholder="48.0">
+  </label>
+
+  <label>
+    System Type
+    <select id="systemType">
+      <option value="">Select system type</option>
+      <optgroup label="Windows">
+        <option value="FIXD">Fixed Window</option>
+        <option value="AWNG">Awning Window</option>
+        <option value="CASE">Casement Window</option>
+        <option value="HUNG">Single / Double Hung</option>
+        <option value="SLDR">Sliding Window</option>
+        <option value="TILT">Tilt-Turn Window</option>
+        <option value="PCTR">Picture Window</option>
+        <option value="PIVT">Pivot Window</option>
+        <option value="CWOF">Curtain Wall (Operable Fenestration)</option>
+        <option value="CWFX">Curtain Wall (Fixed)</option>
+        <option value="WWAL">Window Wall</option>
+        <option value="STFR">Storefront System</option>
+      </optgroup>
+      <optgroup label="Doors">
+        <option value="SING">Single Swing Door</option>
+        <option value="DUBL">Double Swing Door</option>
+        <option value="SLGD">Sliding Glass Door</option>
+        <option value="TDRR">Terrace Door</option>
+      </optgroup>
+    </select>
+  </label>
+
+  <label>
+    Width (in)
+    <input id="width_in" type="number" step="0.5" placeholder="84.5">
+  </label>
+
+  <label>
+    Series / Model
+    <input id="seriesModel" list="seriesModelOptions" placeholder="Type or select">
+    <datalist id="seriesModelOptions"></datalist>
   </label>
 
   <label>
@@ -103,22 +142,22 @@
 
   <label>
     Elevation
-    <input id="elevation" type="text">
+    <input id="elevation" type="text" placeholder="Courtyard North">
   </label>
 
   <label>
     Unit Number
-    <input id="unitNumber" type="text">
+    <input id="unitNumber" type="text" placeholder="A-101">
   </label>
 
   <label>
     Floor Level
-    <input id="floorLevel" type="text">
+    <input id="floorLevel" type="text" placeholder="1st Floor">
   </label>
 
   <label>
     Description
-    <textarea id="locationDescription"></textarea>
+    <input id="locationDescription" type="text" placeholder="bedroom / stairway hall / etc">
   </label>
 
   <!-- TEST PARAMETERS -->
@@ -127,8 +166,8 @@
   <label>
     Procedure
     <select id="procedure">
-      <option value="A">Procedure A</option>
       <option value="B">Procedure B</option>
+      <option value="A">Procedure A</option>
     </select>
   </label>
 
@@ -142,6 +181,10 @@
     <input id="pressure_inwc" type="number" step="0.01">
   </label>
 
+  <!-- TEST CONDITIONS -->
+  <h2 class="section-header">Test Conditions
+  <button id="collectWeatherBtn" type="button" class="btn btn-line">Collect Weather Data</button>
+  </h2>
   <label>
     Atmospheric Temp (°F)
     <input id="atmosphericTemp_f" type="number">
@@ -254,31 +297,206 @@
 
 <!-- EXISTING SCRIPT MOVED TO BOTTOM (unchanged) -->
 <script type="module">
+  import { SampleEntryController } from "./controllers/sample-entry-controller.js";
+  import { generateSampleId } from "./controllers/idGenerator.js";
+  import { fetchWeatherForAddress } from "./assets/js/weather.js";
+
   console.log("🧪 BEE FieldKIT — Sample Entry Loaded");
+
+  const params = new URLSearchParams(location.search);
+  const projectId = params.get("projectId");
+  const projectName = params.get("projectName") || "";
+  const projectAddress = params.get("address") || "";
+  const sampleParam = params.get("sample");
+  const visitId = params.get("visitId");
+
+  function loadVisits() {
+    return JSON.parse(localStorage.getItem("visits") || "[]");
+  }
+
+  function getVisitTypeLabel(currentVisitId, currentEditingSample) {
+    const visits = loadVisits();
+    const targetId = currentVisitId || currentEditingSample?.visit_id || currentEditingSample?.visitId || "";
+    const visit = visits.find(item => String(item.id) === String(targetId) || String(item.visit_id) === String(targetId));
+    if (!visit) return "—";
+    return `${visit.test_type || ""}${visit.visit_number || ""}`;
+  }
+
+  async function loadWindowProducts() {
+    const response = await fetch("assets/data/window_products.json");
+    if (!response.ok) throw new Error("Failed to load window products data");
+    return response.json();
+  }
+
+  async function populateManufacturers() {
+    const manufacturerInput = document.getElementById("manufacturer");
+    const showManufacturerOptionsBtn = document.getElementById("showManufacturerOptionsBtn");
+    const seriesModelInput = document.getElementById("seriesModel");
+    const manufacturerOptions = document.getElementById("manufacturerOptions");
+    const seriesModelOptions = document.getElementById("seriesModelOptions");
+    if (!manufacturerInput) return;
+
+    try {
+      const data = await loadWindowProducts();
+      const manufacturers = Array.isArray(data.manufacturers) ? data.manufacturers : [];
+      const byManufacturer = data.by_manufacturer || {};
+
+      const populateDatalist = (datalist, values) => {
+        if (!datalist) return;
+        datalist.innerHTML = "";
+        values.forEach(value => {
+          const option = document.createElement("option");
+          option.value = value;
+          datalist.appendChild(option);
+        });
+      };
+
+      populateDatalist(manufacturerOptions, manufacturers);
+
+      const populateDependentOptions = (manufacturerName) => {
+        const manufacturerData = byManufacturer[manufacturerName] || {};
+        const productTypes = Array.isArray(manufacturerData.product_types) ? manufacturerData.product_types : [];
+        const series = Array.isArray(manufacturerData.series) ? manufacturerData.series : [];
+
+        populateDatalist(seriesModelOptions, series);
+      };
+
+      manufacturerInput.addEventListener("input", event => {
+        populateDependentOptions(event.target.value || "");
+      });
+
+      showManufacturerOptionsBtn?.addEventListener("click", () => {
+        manufacturerInput.value = "";
+        populateDependentOptions("");
+        manufacturerInput.focus();
+      });
+
+      const defaultManufacturer = manufacturers.find(name => {
+        const manufacturerData = byManufacturer[name] || {};
+        const productTypes = Array.isArray(manufacturerData.product_types) ? manufacturerData.product_types : [];
+        const series = Array.isArray(manufacturerData.series) ? manufacturerData.series : [];
+        return productTypes.length > 0 || series.length > 0;
+      }) || manufacturers[0] || "";
+
+      if (defaultManufacturer) {
+        manufacturerInput.value = defaultManufacturer;
+        populateDependentOptions(defaultManufacturer);
+      } else {
+        populateDependentOptions("");
+      }
+    } catch (err) {
+      console.error("Unable to load manufacturers", err);
+      if (manufacturerInput) manufacturerInput.value = "";
+      if (seriesModelInput) seriesModelInput.value = "";
+    }
+  }
 
   document.getElementById("projName").textContent = projectName;
 
   let samples = JSON.parse(localStorage.getItem(`project_${projectId}_samples`)) || [];
   let editingSample = null;
+  const visitTypeLabelEl = document.getElementById("visitTypeLabel");
+  const systemTypeEl = document.getElementById("systemType");
+  const sampleNumberEl = document.getElementById("sampleNumber");
+  const testNumberEl = document.getElementById("testNumber");
+  const sampleIdSpan = document.getElementById("sampleId");
+  const sampleIdField = document.getElementById("sampleIdField");
+  let controller = null;
+
+  function parseSampleIdValue(value) {
+    const match = String(value || "").match(/^([A-Z0-9]+)-S(\d{2})T(\d{2})$/i);
+    if (match) {
+      return {
+        systemType: match[1].toUpperCase(),
+        sampleNumber: Number(match[2]),
+        testNumber: Number(match[3])
+      };
+    }
+
+    const numericMatch = String(value || "").match(/^(\d+)$/);
+    if (numericMatch) {
+      return {
+        systemType: "",
+        sampleNumber: Number(numericMatch[1]),
+        testNumber: 1
+      };
+    }
+
+    return null;
+  }
+
+  function getNextSampleNumberForSystemType(systemType) {
+    const numbers = samples
+      .map(item => parseSampleIdValue(item.sampleId || item.sample_id || ""))
+      .filter(parsed => parsed && parsed.systemType === systemType)
+      .map(parsed => parsed.sampleNumber);
+
+    return numbers.length ? Math.max(...numbers) + 1 : 1;
+  }
+
+  function syncSampleIdPreview() {
+    const systemType = (systemTypeEl?.value || "").trim().toUpperCase();
+    const sampleNumber = Number(sampleNumberEl?.value) || 1;
+    const testNumber = Number(testNumberEl?.value) || 1;
+
+    if (!systemType) {
+      if (sampleIdSpan) sampleIdSpan.textContent = "";
+      if (sampleIdField) sampleIdField.value = "";
+      if (controller) {
+        controller.state.sampleId = "";
+      }
+      return;
+    }
+
+    const generatedId = generateSampleId(systemType, sampleNumber, testNumber);
+    if (sampleIdSpan) sampleIdSpan.textContent = generatedId;
+    if (sampleIdField) sampleIdField.value = generatedId;
+    if (controller) {
+      controller.state.sampleId = generatedId;
+    }
+  }
 
   if (sampleParam === "new") {
-    const newId = samples.length + 1;
-    document.getElementById("sampleId").textContent = newId;
-    document.getElementById("sampleIdField").value = newId;
-    editingSample = { sample_id: newId };
+    editingSample = { sample_id: "" };
+    const defaultSystemType = systemTypeEl?.options[1]?.value || "FIXD";
+    systemTypeEl.value = defaultSystemType;
+    sampleNumberEl.value = getNextSampleNumberForSystemType(defaultSystemType);
+    testNumberEl.value = 1;
   } else {
     const id = Number(sampleParam);
-    editingSample = samples.find(s => s.sample_id === id);
+    editingSample = samples.find(s => s.sampleId === id || s.sample_id === id);
 
     if (!editingSample) {
       alert("Sample not found.");
       history.back();
     }
 
+    const parsed = parseSampleIdValue(editingSample.sampleId || editingSample.sample_id || "");
+    if (parsed) {
+      if (parsed.systemType) {
+        systemTypeEl.value = parsed.systemType;
+      } else if (editingSample.window_type) {
+        systemTypeEl.value = editingSample.window_type;
+      }
+      sampleNumberEl.value = parsed.sampleNumber || 1;
+      testNumberEl.value = parsed.testNumber || 1;
+    } else {
+      systemTypeEl.value = editingSample.window_type || systemTypeEl?.options[1]?.value || "FIXD";
+      sampleNumberEl.value = Number(editingSample.sample_number) || 1;
+      testNumberEl.value = Number(editingSample.test_number) || 1;
+    }
+
     document.getElementById("pageTitle").textContent = "Edit Sample";
-    document.getElementById("sampleId").textContent = editingSample.sample_id;
-    document.getElementById("sampleIdField").value = editingSample.sample_id;
   }
+
+  if (visitTypeLabelEl) {
+    visitTypeLabelEl.textContent = getVisitTypeLabel(visitId, editingSample);
+  }
+
+  [systemTypeEl, sampleNumberEl, testNumberEl].forEach(el => {
+    el?.addEventListener("input", syncSampleIdPreview);
+    el?.addEventListener("change", syncSampleIdPreview);
+  });
 
   function loadGlobalMeta() {
     return JSON.parse(localStorage.getItem("fieldkit_metadata_global")) || {};
@@ -288,10 +506,14 @@
     return JSON.parse(localStorage.getItem(`project_${id}_metadata`)) || {};
   }
 
-  function applyMetadata() {
+  function getMergedMetadata() {
     const global = loadGlobalMeta();
     const project = loadProjectMeta(projectId);
-    const meta = { ...global, ...project };
+    return { ...global, ...project };
+  }
+
+  function applyMetadata() {
+    const meta = getMergedMetadata();
 
     if (meta.testDate) document.getElementById("testDate").value = meta.testDate;
     if (meta.temp_f) document.getElementById("atmosphericTemp_f").value = meta.temp_f;
@@ -301,7 +523,7 @@
   }
 
   applyMetadata();
-
+  await populateManufacturers();
 
   const header = document.getElementById("fk-tools-header");
   const toggleBtn = document.getElementById("fk-tools-toggle");
@@ -345,10 +567,6 @@
     });
   });
 
-  document.getElementById("saveBtn").addEventListener("click", () => {
-    alert("Save logic will be replaced by new controller.");
-  });
-
   document.getElementById("cancelBtn").addEventListener("click", () => {
     const url = new URL("project.html", location.href);
     url.searchParams.set("projectId", projectId);
@@ -356,20 +574,13 @@
     location.href = url.toString();
   });
 
-import { SampleEntryController } from "./controllers/sample-entry-controller.js";
-
 // -----------------------------
 // INITIAL SETUP
 // -----------------------------
 console.log("🔗 FieldKIT — Binding Layer Loaded");
 
-const params = new URLSearchParams(location.search);
-const projectId = params.get("projectId");
-const projectName = params.get("projectName");
-const sampleParam = params.get("sample");
-
 // Create controller
-const controller = new SampleEntryController(projectId, {
+controller = new SampleEntryController(projectId, {
   saveSample: async (data) => {
     // You can replace this with IndexedDB or API later
     let samples = JSON.parse(localStorage.getItem(`project_${projectId}_samples`)) || [];
@@ -386,6 +597,64 @@ const controller = new SampleEntryController(projectId, {
 });
 
 // -----------------------------
+// WEATHER DATA
+// -----------------------------
+const collectWeatherBtn = document.getElementById("collectWeatherBtn");
+
+collectWeatherBtn?.addEventListener("click", async () => {
+  const apiKey = localStorage.getItem("fieldkit_weather_api_key") || prompt("Enter your WeatherAPI.com API key:");
+  if (!apiKey) {
+    alert("A WeatherAPI.com API key is required.");
+    return;
+  }
+  localStorage.setItem("fieldkit_weather_api_key", apiKey);
+
+  const meta = getMergedMetadata();
+  const addressLine = [
+    projectAddress,
+    meta.address,
+    meta.projectAddress,
+    meta.project_address,
+    meta.locationAddress,
+    meta.location_address,
+    document.getElementById("elevation")?.value,
+    document.getElementById("unitNumber")?.value,
+    document.getElementById("floorLevel")?.value,
+    document.getElementById("locationDescription")?.value
+  ].filter(Boolean).join(" ") || prompt("Enter an address or ZIP code for weather lookup:");
+
+  if (!addressLine) {
+    alert("An address or ZIP code is required for weather lookup.");
+    return;
+  }
+
+  collectWeatherBtn.disabled = true;
+  collectWeatherBtn.textContent = "Fetching...";
+
+  try {
+    const weather = await fetchWeatherForAddress({ apiKey, addressLine });
+
+    const setField = (id, value, path) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.value = value ?? "";
+      controller.updateField(path, value ?? "");
+    };
+
+    setField("atmosphericTemp_f", weather.temp_f, "testParameters.atmosphericTemp_f");
+    setField("barometricPressure_inhg", weather.pressure_in, "testParameters.barometricPressure_inhg");
+    setField("windSpeed_mph", weather.wind_mph, "testParameters.windSpeed_mph");
+    setField("windDirection", weather.wind_dir, "testParameters.windDirection");
+  } catch (err) {
+    console.error("Weather lookup failed", err);
+    alert("Weather lookup failed. Check the API key and address.");
+  } finally {
+    collectWeatherBtn.disabled = false;
+    collectWeatherBtn.textContent = "Collect Weather Data";
+  }
+});
+
+// -----------------------------
 // FIELD BINDING HELPER
 // -----------------------------
 function bindField(id, path) {
@@ -397,21 +666,41 @@ function bindField(id, path) {
   });
 }
 
-// -----------------------------
-// FILE UPLOAD BINDING
-// -----------------------------
-function bindFileUpload(id, category) {
-  const el = document.getElementById(id);
-  if (!el) return;
+  function bindCalculatedField(sourceId, targetId, transform) {
+    const sourceEl = document.getElementById(sourceId);
+    const targetEl = document.getElementById(targetId);
 
-  el.addEventListener("change", () => {
-    const files = Array.from(el.files);
-    files.forEach(file => {
-      const url = URL.createObjectURL(file);
-      controller.addPhoto(category, url);
+    if (!sourceEl || !targetEl) return;
+
+    const sync = () => {
+      const value = Number(sourceEl.value);
+      if (!Number.isFinite(value)) {
+        targetEl.value = "";
+        controller.updateField("testParameters.pressure_inwc", "");
+        return;
+      }
+
+      const computed = Number(transform(value).toFixed(2));
+      targetEl.value = computed;
+      controller.updateField("testParameters.pressure_inwc", computed);
+    };
+
+    sourceEl.addEventListener("input", sync);
+    sourceEl.addEventListener("change", sync);
+  }
+
+  function bindFileUpload(id, category) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.addEventListener("change", () => {
+      const files = Array.from(el.files);
+      files.forEach(file => {
+        const url = URL.createObjectURL(file);
+        controller.addPhoto(category, url);
+      });
     });
-  });
-}
+  }
 
 // -----------------------------
 // BIND ALL FIELDS
@@ -434,7 +723,7 @@ bindField("locationDescription", "sampleLocation.description");
 
 bindField("procedure", "testParameters.procedure");
 bindField("pressure_psf", "testParameters.pressure_psf");
-bindField("pressure_inwc", "testParameters.pressure_inwc");
+bindCalculatedField("pressure_psf", "pressure_inwc", value => value * 0.19222);
 bindField("atmosphericTemp_f", "testParameters.atmosphericTemp_f");
 bindField("barometricPressure_inhg", "testParameters.barometricPressure_inhg");
 bindField("windSpeed_mph", "testParameters.windSpeed_mph");
@@ -468,36 +757,54 @@ resultEl.addEventListener("change", () => {
   const fail = resultEl.value === "FAIL";
   failureBlock.style.display = fail ? "block" : "none";
   controller.updateField("result", resultEl.value);
+
+  const notesEl = document.getElementById("notes");
+  if (!notesEl) return;
+
+  if (resultEl.value === "PASS") {
+    notesEl.value = "No penetration observed at the specified test pressure.";
+    controller.updateField("notes", notesEl.value);
+  }
 });
 
 // -----------------------------
 // SAMPLE ID SYNC
 // -----------------------------
-const sampleIdSpan = document.getElementById("sampleId");
-const sampleIdField = document.getElementById("sampleIdField");
-
-if (sampleParam === "new") {
-  const samples = JSON.parse(localStorage.getItem(`project_${projectId}_samples`)) || [];
-  const nextNumber = samples.length + 1;
-
-  sampleIdSpan.textContent = nextNumber;
-  sampleIdField.value = nextNumber;
-
-  controller.state.sampleId = nextNumber;
-} else {
-  sampleIdSpan.textContent = sampleParam;
-  sampleIdField.value = sampleParam;
-
-  controller.state.sampleId = sampleParam;
-}
+syncSampleIdPreview();
 
 // -----------------------------
 // SAVE BUTTON
 // -----------------------------
+function clearValidationHighlights() {
+  document.querySelectorAll(".fk-field-error").forEach(el => {
+    el.classList.remove("fk-field-error");
+  });
+}
+
+function highlightValidationErrors(errors) {
+  clearValidationHighlights();
+
+  const issuePaths = (errors || []).map(issue => issue.path || []);
+
+  issuePaths.forEach(pathSegments => {
+    if (!pathSegments.length) return;
+
+    const fieldId = pathSegments[0];
+    const control = document.getElementById(fieldId);
+    if (!control) return;
+
+    control.classList.add("fk-field-error");
+  });
+}
+
 document.getElementById("saveBtn").addEventListener("click", async () => {
+  clearValidationHighlights();
+  syncSampleIdPreview();
   const result = await controller.save();
 
   if (!result.success) {
+    const issues = result.errors?.issues || [];
+    highlightValidationErrors(issues);
     alert("Validation failed — check required fields.");
     console.error(result.errors);
     return;

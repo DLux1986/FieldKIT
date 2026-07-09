@@ -3,13 +3,13 @@
 const AUDIO_BASE = "/assets/audio";
 
 const soundMap = {
-  "Water Spray Rack Pressurization": `${AUDIO_BASE}/Simulated%20Rain.wav`,
+  "Water Spray Rack Pressurization": `${AUDIO_BASE}/SimulatedRain.wav`,
   "Pressurization Cycle (1/4)": `${AUDIO_BASE}/Cycle1.wav`,
   "Ambient Pressure": `${AUDIO_BASE}/Ambient.wav`,
-  "Pressurization Cycle (2/4)": `${AUDIO_BASE}/Cycle%202.wav`,
-  "Pressurization Cycle (3/4)": `${AUDIO_BASE}/Cycle%203.wav`,
-  "Pressurization Cycle (4/4)": `${AUDIO_BASE}/Cycle%20Final.wav`,
-  "Test Complete": `${AUDIO_BASE}/Test%20Concluded.wav`
+  "Pressurization Cycle (2/4)": `${AUDIO_BASE}/Cycle2.wav`,
+  "Pressurization Cycle (3/4)": `${AUDIO_BASE}/Cycle3.wav`,
+  "Pressurization Cycle (4/4)": `${AUDIO_BASE}/CycleFinal.wav`,
+  "Test Complete": `${AUDIO_BASE}/TestConcluded.wav`
 };
 
 const seq = [

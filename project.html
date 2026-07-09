@@ -4,19 +4,10 @@
   <meta charset="UTF-8" />
   <title>FieldKIT – Project</title>
 
-  <link rel="stylesheet" href="/assets/css/bee-theme.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/bee-theme.css">
   <script type="module" src="assets/js/ui-project.js"></script>
 </head>
-<div id="fk-floating-timers" class="fk-floating hidden">
-  <div class="fk-floating-header">
-    <span>Test Timers</span>
-    <button id="fk-floating-close">×</button>
-  </div>
-
-  <iframe src="/tools/test-timers/test-timers.html"></iframe>
-</div>
-
-<button id="fk-floating-open" class="fk-floating-open-btn">⏱️ Test Timers</button>
 
 <body>
   <header class="fk-header">
@@ -27,7 +18,7 @@
 
     <!-- ACTION BUTTONS -->
     <section class="fk-project-actions">
-      <button id="add-visit-btn">Add Visit</button>
+
       <button id="open-project-folder-btn">Open Folder</button>
       <button id="back-to-catalog-btn">Back to Catalog</button>
     </section>
@@ -42,12 +33,8 @@
       <p><strong>Address:</strong> <span id="details-address"></span></p>
       <p><strong>Total Visits:</strong> <span id="details-visits"></span></p>
 
-      <h3>Visits</h3>
-      <ul id="details-visit-list"></ul>
-
-      <button id="details-open">Open Project</button>
     </section>
-
+      <button id="add-visit-btn">Add Visit</button>
     <!-- VISIT LIST -->
     <section id="visit-list"></section>
 

@@ -1,5 +1,5 @@
 // schemas/projectMetadataSchema.js
-import { z } from "zod";
+import { z } from "./zod.js";
 
 export const ProjectMetadataSchema = z.object({
   testDate: z.string().optional(),

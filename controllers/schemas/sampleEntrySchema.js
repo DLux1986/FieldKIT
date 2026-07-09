@@ -1,5 +1,5 @@
 // schemas/sampleEntrySchema.js
-import { z } from "zod";
+import { z } from "./zod.js";
 
 export const SampleEntrySchema = z.object({
   sampleId: z.string(),

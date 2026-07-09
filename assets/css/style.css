@@ -43,11 +43,37 @@ body {
   box-shadow: var(--shadow);
 }
 
+.fk-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .fk-header h1 {
   margin: 0;
   font-size: 1.7rem;
   font-weight: 600;
   color: var(--bee-black);
+}
+
+.fk-nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.fk-nav a {
+  color: var(--bee-black);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+}
+
+.fk-nav a:hover {
+  background: var(--bee-balance);
 }
 
 /* -------------------------------------------------------
@@ -122,6 +148,28 @@ body {
   font-weight: 600;
 }
 
+.fk-visit-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.fk-visit-table th,
+.fk-visit-table td {
+  padding: 12px 14px;
+  vertical-align: top;
+  line-height: 1.45;
+}
+
+.fk-visit-table thead th {
+  border-bottom: 2px solid var(--bee-cloudy);
+  background: rgba(163, 194, 196, 0.16);
+}
+
+.fk-visit-table tbody tr:nth-child(even) {
+  background: rgba(245, 242, 227, 0.45);
+}
+
 /* -------------------------------------------------------
    DETAILS PANELS
 ------------------------------------------------------- */
@@ -140,11 +188,31 @@ body {
 /* -------------------------------------------------------
    FORMS
 ------------------------------------------------------- */
-label {
+form {
   display: block;
-  margin-top: 12px;
-  font-size: 0.9rem;
-  color: var(--bee-black);
+}
+
+.form-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px 18px !important;
+  align-items: start !important;
+}
+
+.form-grid > label {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-top: 0 !important;
+  font-size: 0.9rem !important;
+  color: var(--bee-black) !important;
+}
+
+.form-grid > .section-header,
+.form-grid > textarea,
+.form-grid > div[id="failureBlock"],
+.form-grid > h2,
+.form-grid > .form-full {
+  grid-column: 1 / -1 !important;
 }
 
 input,
@@ -158,11 +226,34 @@ textarea {
   background: white;
   font-size: 0.95rem;
   color: var(--bee-black);
+  box-sizing: border-box;
+}
+
+.fk-field-error {
+  background: #ffe5e5 !important;
+  border-color: #d9534f !important;
+  box-shadow: 0 0 0 1px rgba(217, 83, 79, 0.2);
+}
+
+#sampleEntryForm label {
+  margin-top: 0;
+}
+
+#sampleEntryForm .section-header {
+  margin: 8px 0 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(74, 79, 89, 0.2);
 }
 
 textarea {
   min-height: 80px;
   resize: vertical;
+}
+
+.form-grid > .section-header {
+  margin: 8px 0 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(74, 79, 89, 0.2);
 }
 
 /* Failure block */

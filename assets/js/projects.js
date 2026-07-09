@@ -87,6 +87,7 @@ async function initProjectTable() {
     if (!project) return;
 
     const url = new URL("project.html", location.href);
+    url.searchParams.set("id", project.id);
     url.searchParams.set("projectId", project.id);
     url.searchParams.set("projectName", project.name);
     url.searchParams.set("client", project.client || "");

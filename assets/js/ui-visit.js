@@ -1,5 +1,7 @@
 // ui-visit.js
 
+import { formatSampleId } from "../../controllers/idGenerator.js";
+
 function renderVisitsForProject(project, visits, samples, container) {
   container.innerHTML = "";
   const projectVisits = visits.filter(v => v.project_id === project.project_id);
@@ -67,7 +69,7 @@ function renderVisitsForProject(project, visits, samples, container) {
 
                   return `
                     <tr class="${s.result === 'PASS' ? 'fk-row-pass' : s.result === 'FAIL' ? 'fk-row-fail' : ''}">
-                      <td>${isFirstOfGroup ? `S${pad2(s.parsed.sampleNumber)}` : ""}</td>
+                      <td>${isFirstOfGroup ? formatSampleId({ systemType: s.window_type || s.system_type || "", sampleNumber: s.parsed?.sampleNumber || s.sample_number || 1, testNumber: 1 }) : ""}</td>
                       <td>T${pad2(s.parsed.testNumber)}</td>
                       <td>${s.elevation || ""}</td>
                       <td>${s.window_type || ""}</td>
@@ -224,7 +226,7 @@ function renderVisitsForProject(project, visits, samples, container) {
 // ---------------------------------------------------------
 function enterInlineEditMode(row, sample, project, visit) {
   row.innerHTML = `
-    <td>${sample.sample_id}</td>
+    <td>${formatSampleId(sample.sample_id || sample.sampleId || sample)}</td>
     <td><input id="edit-elevation" value="${sample.elevation || ""}" /></td>
 
     <td>
