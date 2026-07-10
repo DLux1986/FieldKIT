@@ -141,8 +141,35 @@
   ],
   "by_manufacturer": {
     "All Weather Architectural Aluminum Inc.": {
-      "series": [],
-      "product_types": []
+      "series": [
+        "SERIES 5000 Casement",
+        "SERIES 5000 Awning", 
+        "SERIES 5000 Fixed", 
+        "SERIES 5000 Hopper",
+        "SERIES 6000 Casement", 
+        "SERIES 6000 Awning", 
+        "SERIES 6000 Fixed",
+        "SERIES 6100 Casement", 
+        "SERIES 6100 Awning", 
+        "SERIES 6100 Fixed",
+        "SERIES 6200 Horizontal Sliding",
+        "SERIES 6200 Fixed",
+        "SERIES 7000 Side-Hinged Swing Door",
+        "SERIES 7200 Pivot Door",
+        "SERIES 8100 Sliding Door",
+        "SERIES 8150 Sliding Door",
+        "SERIES 9200 Side-Hinged Swing Door"
+
+      ],
+      "product_types": [
+        "Awning",
+        "Casement Window",
+        "Fixed Window",
+        "Hopper Window",
+        "Horizontal Sliding Window",
+        "Side-hinged Swing Door",
+        "Sliding Door"
+      ]
     },
     "Alpen High Performance Products, Inc.": {
       "series": [

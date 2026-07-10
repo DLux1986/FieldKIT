@@ -10,6 +10,20 @@ export const createEmptySampleEntry = (projectId = "") => ({
   result: "PASS",
   notes: "",
 
+  personnel: {
+    leadTechnician: "",
+    technician2: ""
+  },
+
+  witnesses: {
+    witness_name_1: "",
+    witness_company_1: "",
+    witness_role_1: "",
+    witness_name_2: "",
+    witness_company_2: "",
+    witness_role_2: ""
+  },
+
   sampleDetails: {
     productType: "",
     manufacturer: "",

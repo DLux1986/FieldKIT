@@ -147,16 +147,76 @@
     </select>
   </label>
 
+  <!-- PERSONNEL -->
+  <h2 class="section-header">Personnel</h2>
+
+  <label>
+    Lead Technician
+    <select id="leadTechnician">
+      <option value=""></option>
+      <option value="Christopher Shafer">Christopher Shafer</option>
+      <option value="Dave Luxmore">Dave Luxmore</option>
+      <option value="Jack Welch">Jack Welch</option>
+      <option value="Jesus Garcia">Jesus Garcia</option>
+      <option value="Robert Smith">Robert Smith</option>
+      <option value="Torin Garner">Torin Garner</option>
+    </select>
+  </label>
+
+  <label>
+    Technician 2
+    <select id="technician2">
+      <option value=""></option>
+      <option value="Christopher Shafer">Christopher Shafer</option>
+      <option value="Dave Luxmore">Dave Luxmore</option>
+      <option value="Jack Welch">Jack Welch</option>
+      <option value="Jesus Garcia">Jesus Garcia</option>
+      <option value="Robert Smith">Robert Smith</option>
+      <option value="Torin Garner">Torin Garner</option>
+    </select>
+  </label>
+
+  <!-- WITNESSES -->
+  <h2 class="section-header">Witnesses</h2>
+
+  <label>
+    Witness Name 1
+    <input id="witness_name_1" type="text">
+  </label>
+
+  <label>
+    Witness Name 2
+    <input id="witness_name_2" type="text">
+  </label>
+
+  <label>
+    Witness Company 1
+    <input id="witness_company_1" type="text">
+  </label>
+  
+  <label>
+    Witness Company 2
+    <input id="witness_company_2" type="text">
+  </label>
+
+  <label>
+    Witness Role 1
+    <input id="witness_role_1" type="text">
+  </label>
+
+  <label>
+    Witness Role 2
+    <input id="witness_role_2" type="text">
+  </label>
+
   <!-- SAMPLE DETAILS -->
   <h2 class="section-header">Sample Details</h2>
 
   <label>
     Manufacturer
-    <div class="field-inline">
-      <input id="manufacturer" list="manufacturerOptions" placeholder="Type or select" style="flex:1;">
-      <button id="showManufacturerOptionsBtn" type="button" class="btn btn-line">Show All</button>
-    </div>
-    <datalist id="manufacturerOptions"></datalist>
+    <select id="manufacturer">
+      <option value="">Select manufacturer</option>
+    </select>
   </label>
 
   <label>
@@ -374,10 +434,10 @@
   console.log("🧪 BEE FieldKIT — Sample Entry Loaded");
 
   const params = new URLSearchParams(location.search);
-  const projectId = params.get("projectId");
+  const projectId = params.get("projectId") || params.get("project_id") || sessionStorage.getItem("fieldkit_preload_project_id") || "";
   const projectName = params.get("projectName") || "";
   const projectAddress = params.get("address") || "";
-  const sampleParam = params.get("sample");
+  const sampleParam = params.get("sample") || params.get("sampleId") || params.get("sample_id") || "new";
   const visitId = params.get("visitId");
 
   function loadVisits() {
@@ -392,6 +452,39 @@
     return `${visit.test_type || ""}${visit.visit_number || ""}`;
   }
 
+  function toLegacySampleShape(sample) {
+    const parsed = parseSampleIdValue(sample?.sampleId || sample?.sample_id || "");
+    const personnel = sample?.personnel || {};
+    const witnesses = sample?.witnesses || {};
+    return {
+      sample_id: sample?.sampleId || sample?.sample_id || "",
+      project_id: sample?.projectId || sample?.project_id || projectId || "",
+      visit_id: sample?.visit_id || sample?.visitId || visitId || "",
+      lead_technician: personnel?.leadTechnician || sample?.lead_technician || "",
+      technician_2: personnel?.technician2 || sample?.technician_2 || "",
+      witness_name_1: witnesses?.witness_name_1 || sample?.witness_name_1 || "",
+      witness_company_1: witnesses?.witness_company_1 || sample?.witness_company_1 || "",
+      witness_role_1: witnesses?.witness_role_1 || sample?.witness_role_1 || "",
+      witness_name_2: witnesses?.witness_name_2 || sample?.witness_name_2 || "",
+      witness_company_2: witnesses?.witness_company_2 || sample?.witness_company_2 || "",
+      witness_role_2: witnesses?.witness_role_2 || sample?.witness_role_2 || "",
+      window_type: parsed?.systemType || sample?.window_type || "",
+      sample_number: parsed?.sampleNumber || sample?.sample_number || null,
+      test_number: parsed?.testNumber || sample?.test_number || null,
+      elevation: sample?.sampleLocation?.elevation || sample?.elevation || "",
+      product_type: sample?.sampleDetails?.productType || sample?.product_type || "",
+      manufacturer: sample?.sampleDetails?.manufacturer || sample?.manufacturer || "",
+      result: sample?.result || "",
+      notes: sample?.notes || "",
+      attachments: [
+        ...(sample?.photos?.interiorChamber || []),
+        ...(sample?.photos?.exteriorRack || []),
+        ...(sample?.photos?.gauges || []),
+        ...(sample?.photos?.failureLocation || [])
+      ]
+    };
+  }
+
   async function loadWindowProducts() {
     const response = await fetch("assets/data/window_products.json");
     if (!response.ok) throw new Error("Failed to load window products data");
@@ -400,9 +493,7 @@
 
   async function populateManufacturers() {
     const manufacturerInput = document.getElementById("manufacturer");
-    const showManufacturerOptionsBtn = document.getElementById("showManufacturerOptionsBtn");
     const seriesModelInput = document.getElementById("seriesModel");
-    const manufacturerOptions = document.getElementById("manufacturerOptions");
     const seriesModelOptions = document.getElementById("seriesModelOptions");
     if (!manufacturerInput) return;
 
@@ -421,7 +512,18 @@
         });
       };
 
-      populateDatalist(manufacturerOptions, manufacturers);
+      manufacturerInput.innerHTML = "";
+      const emptyOption = document.createElement("option");
+      emptyOption.value = "";
+      emptyOption.textContent = "Select manufacturer";
+      manufacturerInput.appendChild(emptyOption);
+
+      manufacturers.forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        manufacturerInput.appendChild(option);
+      });
 
       const populateDependentOptions = (manufacturerName) => {
         const manufacturerData = byManufacturer[manufacturerName] || {};
@@ -431,15 +533,12 @@
         populateDatalist(seriesModelOptions, series);
       };
 
-      manufacturerInput.addEventListener("input", event => {
-        populateDependentOptions(event.target.value || "");
-      });
+      const syncManufacturerDependentOptions = () => {
+        populateDependentOptions(manufacturerInput.value || "");
+      };
 
-      showManufacturerOptionsBtn?.addEventListener("click", () => {
-        manufacturerInput.value = "";
-        populateDependentOptions("");
-        manufacturerInput.focus();
-      });
+      manufacturerInput.addEventListener("input", syncManufacturerDependentOptions);
+      manufacturerInput.addEventListener("change", syncManufacturerDependentOptions);
 
       const defaultManufacturer = manufacturers.find(name => {
         const manufacturerData = byManufacturer[name] || {};
@@ -505,26 +604,21 @@
     return numbers.length ? Math.max(...numbers) + 1 : 1;
   }
 
-  function syncSampleIdPreview() {
+  function setSampleIdDisplay(value) {
+    if (sampleIdSpan) sampleIdSpan.textContent = value || "";
+    if (sampleIdField) sampleIdField.value = value || "";
+  }
+
+  function getFinalSampleId() {
     const systemType = (systemTypeEl?.value || "").trim().toUpperCase();
     const sampleNumber = Number(sampleNumberEl?.value) || 1;
     const testNumber = Number(testNumberEl?.value) || 1;
 
     if (!systemType) {
-      if (sampleIdSpan) sampleIdSpan.textContent = "";
-      if (sampleIdField) sampleIdField.value = "";
-      if (controller) {
-        controller.state.sampleId = "";
-      }
-      return;
+      return "";
     }
 
-    const generatedId = generateSampleId(systemType, sampleNumber, testNumber);
-    if (sampleIdSpan) sampleIdSpan.textContent = generatedId;
-    if (sampleIdField) sampleIdField.value = generatedId;
-    if (controller) {
-      controller.state.sampleId = generatedId;
-    }
+    return generateSampleId(systemType, sampleNumber, testNumber);
   }
 
   if (sampleParam === "new") {
@@ -533,9 +627,10 @@
     systemTypeEl.value = defaultSystemType;
     sampleNumberEl.value = getNextSampleNumberForSystemType(defaultSystemType);
     testNumberEl.value = 1;
+    setSampleIdDisplay("Pending (assigned on save)");
   } else {
-    const id = Number(sampleParam);
-    editingSample = samples.find(s => s.sampleId === id || s.sample_id === id);
+    const id = String(sampleParam);
+    editingSample = samples.find(s => String(s.sampleId || s.sample_id || "") === id);
 
     if (!editingSample) {
       alert("Sample not found.");
@@ -558,16 +653,12 @@
     }
 
     document.getElementById("pageTitle").textContent = "Edit Sample";
+    setSampleIdDisplay(editingSample.sampleId || editingSample.sample_id || "Pending (assigned on save)");
   }
 
   if (visitTypeLabelEl) {
     visitTypeLabelEl.textContent = getVisitTypeLabel(visitId, editingSample);
   }
-
-  [systemTypeEl, sampleNumberEl, testNumberEl].forEach(el => {
-    el?.addEventListener("input", syncSampleIdPreview);
-    el?.addEventListener("change", syncSampleIdPreview);
-  });
 
   function loadGlobalMeta() {
     return JSON.parse(localStorage.getItem("fieldkit_metadata_global")) || {};
@@ -596,33 +687,40 @@
   applyMetadata();
   await populateManufacturers();
 
-  const header = document.getElementById("fk-tools-header");
+  const toolsPanel = document.getElementById("fk-floating-tools");
+  const toolsHeader = document.getElementById("fk-tools-header");
   const toggleBtn = document.getElementById("fk-tools-toggle");
-  const body = document.getElementById("fk-tools-body");
+  const toolsBody = document.getElementById("fk-tools-body");
 
-  toggleBtn.addEventListener("click", () => {
-    const isHidden = body.style.display === "none";
-    body.style.display = isHidden ? "block" : "none";
+  toggleBtn?.addEventListener("click", () => {
+    if (!toolsBody) return;
+    const isHidden = toolsBody.style.display === "none";
+    toolsBody.style.display = isHidden ? "block" : "none";
     toggleBtn.textContent = isHidden ? "−" : "+";
   });
 
-  let offsetX = 0, offsetY = 0, dragging = false;
+  let toolsOffsetX = 0;
+  let toolsOffsetY = 0;
+  let toolsDragging = false;
 
-  header.addEventListener("mousedown", (e) => {
-    dragging = true;
-    offsetX = e.clientX - panel.offsetLeft;
-    offsetY = e.clientY - panel.offsetTop;
+  toolsHeader?.addEventListener("mousedown", (e) => {
+    if (!toolsPanel) return;
+    toolsDragging = true;
+    toolsOffsetX = e.clientX - toolsPanel.offsetLeft;
+    toolsOffsetY = e.clientY - toolsPanel.offsetTop;
   });
 
   document.addEventListener("mousemove", (e) => {
-    if (!dragging) return;
-    panel.style.left = `${e.clientX - offsetX}px`;
-    panel.style.top = `${e.clientY - offsetY}px`;
-    panel.style.bottom = "auto";
-    panel.style.right = "auto";
+    if (!toolsDragging || !toolsPanel) return;
+    toolsPanel.style.left = `${e.clientX - toolsOffsetX}px`;
+    toolsPanel.style.top = `${e.clientY - toolsOffsetY}px`;
+    toolsPanel.style.bottom = "auto";
+    toolsPanel.style.right = "auto";
   });
 
-  document.addEventListener("mouseup", () => dragging = false);
+  document.addEventListener("mouseup", () => {
+    toolsDragging = false;
+  });
 
   document.querySelectorAll(".fk-tool-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -656,15 +754,15 @@ controller = new SampleEntryController(projectId, {
     // Load samples from unified localStorage key (from samples.js)
     let samples = JSON.parse(localStorage.getItem("samples") || "[]");
 
-    if (sampleParam === "new") {
-      samples.push(data);
+    const legacy = toLegacySampleShape(data);
+    const persistedSample = { ...data, ...legacy };
+    const sampleKey = String(persistedSample.sampleId || persistedSample.sample_id || "");
+
+    const index = samples.findIndex(s => String(s.sampleId || s.sample_id || "") === sampleKey);
+    if (index >= 0) {
+      samples[index] = { ...samples[index], ...persistedSample };
     } else {
-      const index = samples.findIndex(s => s.sample_id === data.sample_id);
-      if (index >= 0) {
-        samples[index] = data;
-      } else {
-        samples.push(data);
-      }
+      samples.push(persistedSample);
     }
 
     // Save to unified localStorage key
@@ -765,6 +863,27 @@ function bindField(id, path) {
     sourceEl.addEventListener("change", sync);
   }
 
+  function bindOneDecimalDisplay(id, path) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const sync = () => {
+      if (el.value === "" || el.value === null || el.value === undefined) return;
+      const parsed = Number(el.value);
+      if (!Number.isFinite(parsed)) return;
+
+      const formatted = parsed.toFixed(1);
+      el.value = formatted;
+      controller.updateField(path, formatted);
+    };
+
+    el.addEventListener("blur", sync);
+    el.addEventListener("change", sync);
+
+    // Normalize any prefilled value on initial load.
+    sync();
+  }
+
   function bindFileUpload(id, category) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -785,12 +904,24 @@ bindField("testDate", "testDate");
 bindField("testTime", "testTime");
 bindField("result", "result");
 
+bindField("leadTechnician", "personnel.leadTechnician");
+bindField("technician2", "personnel.technician2");
+bindField("witness_name_1", "witnesses.witness_name_1");
+bindField("witness_company_1", "witnesses.witness_company_1");
+bindField("witness_role_1", "witnesses.witness_role_1");
+bindField("witness_name_2", "witnesses.witness_name_2");
+bindField("witness_company_2", "witnesses.witness_company_2");
+bindField("witness_role_2", "witnesses.witness_role_2");
+
 bindField("productType", "sampleDetails.productType");
 bindField("manufacturer", "sampleDetails.manufacturer");
 bindField("seriesModel", "sampleDetails.seriesModel");
 bindField("width_in", "sampleDetails.width_in");
 bindField("height_in", "sampleDetails.height_in");
 bindField("configuration", "sampleDetails.configuration");
+
+bindOneDecimalDisplay("width_in", "sampleDetails.width_in");
+bindOneDecimalDisplay("height_in", "sampleDetails.height_in");
 
 bindField("elevation", "sampleLocation.elevation");
 bindField("unitNumber", "sampleLocation.unitNumber");
@@ -844,11 +975,6 @@ resultEl.addEventListener("change", () => {
 });
 
 // -----------------------------
-// SAMPLE ID SYNC
-// -----------------------------
-syncSampleIdPreview();
-
-// -----------------------------
 // SAVE BUTTON
 // -----------------------------
 function clearValidationHighlights() {
@@ -875,8 +1001,26 @@ function highlightValidationErrors(errors) {
 
 document.getElementById("saveBtn").addEventListener("click", async () => {
   clearValidationHighlights();
-  syncSampleIdPreview();
-  const result = await controller.save();
+
+  const finalSampleId = getFinalSampleId();
+  if (!finalSampleId) {
+    alert("System Type is required before saving so a Sample ID can be generated.");
+    systemTypeEl?.classList.add("fk-field-error");
+    return;
+  }
+
+  setSampleIdDisplay(finalSampleId);
+  controller.updateField("sampleId", finalSampleId);
+
+  let result;
+
+  try {
+    result = await controller.save();
+  } catch (err) {
+    console.error("Save failed", err);
+    alert("Save failed due to an unexpected error. Check console for details.");
+    return;
+  }
 
   if (!result.success) {
     const issues = result.errors?.issues || [];

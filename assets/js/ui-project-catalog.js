@@ -1,16 +1,61 @@
-import { loadProjects } from "./projects.js";
+import { loadProjects, saveProjectAddressOverride } from "./projects.js";
 import { loadVisits, saveVisits } from "./visits.js";
 import { pad2, loadJSON } from "./utils.js";
-import { loadStoredCalendar, LS_CALENDAR } from "./ics-parser.js";
+import { importIcsUrlToStorage, loadStoredCalendar, LS_CALENDAR } from "./ics-parser.js";
+
+const SHARED_CALENDAR_ICS = "assets/data/Testing Schedule Calendar.ics";
+
+function normalizeCalendarAddress(location) {
+  if (!location) return "";
+
+  const match = String(location).match(/\(([^)]+)\)/);
+  const raw = match ? match[1] : String(location);
+  return raw.replace(/\\/g, "").trim();
+}
+
+function maybeUpdateProjectAddressFromEvent(projectId, event, projects) {
+  const project = projects.find(p => String(p.id) === String(projectId));
+  if (!project) return false;
+
+  const hasAddress = String(project.address || "").trim().length > 0;
+  if (hasAddress) return false;
+
+  const inferredAddress = normalizeCalendarAddress(event?.location || "");
+  if (!inferredAddress) return false;
+
+  project.address = inferredAddress;
+  return saveProjectAddressOverride(projectId, inferredAddress, project);
+}
 
 // -------------------------------
 // LOAD CALENDAR
 // -------------------------------
 export async function loadCalendar() {
-  // Prefer localStorage (populated by ICS import) over the static JSON file.
   const stored = loadStoredCalendar();
-  if (stored) return stored;
 
+  // Primary source: shared ICS file committed to assets/data.
+  // This lets every device load the same schedule without local rewiring.
+  try {
+    const calendar = await importIcsUrlToStorage(SHARED_CALENDAR_ICS);
+    return {
+      ...calendar,
+      source: "ics-file",
+      source_label: "Shared ICS"
+    };
+  } catch (err) {
+    console.warn("ICS load failed, using fallback calendar source:", err);
+  }
+
+  // Fallback 1: previously synced local storage copy.
+  if (stored) {
+    return {
+      ...stored,
+      source: "local-storage",
+      source_label: "Local Cache"
+    };
+  }
+
+  // Fallback 2: legacy JSON calendar file.
   const raw = await loadJSON("assets/data/calendar.json");
 
   const toLinkedProjectId = value => {
@@ -58,6 +103,8 @@ export async function loadCalendar() {
 
   return {
     ...raw,
+    source: "calendar-json",
+    source_label: "Legacy JSON",
     events: sourceEvents
       .map(normalizeEvent)
       .filter(ev => ev && typeof ev.start === "string")
@@ -90,6 +137,7 @@ function showCalendarLinkPrompt(event, projects, calendar) {
     const selectedId = selectEl.value;
 
     event.linked_project_id = selectedId;
+    maybeUpdateProjectAddressFromEvent(selectedId, event, projects);
     
     // Update the stored calendar in localStorage
     calendar.events = calendar.events.map(ev =>
@@ -141,11 +189,21 @@ let projects = [];
 let visits = [];
 let sortColumn = null;
 let sortAsc = true;
+let hoverPreviewTimer = null;
 
 // -------------------------------
 // MAIN INITIALIZER
 // -------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
+  const updateStickyOffsets = () => {
+    const header = document.querySelector(".fk-header");
+    const height = header ? Math.ceil(header.getBoundingClientRect().height) : 72;
+    document.documentElement.style.setProperty("--fk-sticky-nav-height", `${height}px`);
+  };
+
+  updateStickyOffsets();
+  window.addEventListener("resize", updateStickyOffsets);
+
   projects = await loadProjects();
   visits = await loadVisits();
   populateFilters(projects);
@@ -278,6 +336,7 @@ function renderProjectCatalog(projects, visits) {
     const projectVisits = visits.filter(v => v.id === project.id);
 
     const row = document.createElement("tr");
+    row.dataset.projectId = project.id;
     row.innerHTML = `
       <td>${project.id}</td>
       <td>${project.name}</td>
@@ -287,10 +346,18 @@ function renderProjectCatalog(projects, visits) {
     `;
 
     row.addEventListener("click", () => {
-      document.querySelectorAll(".fk-project-table tr").forEach(r => r.classList.remove("selected"));
-      row.classList.add("selected");
+      hideHoverProjectPreview();
+      clearHoverPreviewTimer();
+      openProject(project.id);
+    });
 
-      showProjectDetails(project, projectVisits);
+    row.addEventListener("mouseenter", () => {
+      scheduleHoverProjectPreview(project, projectVisits, row);
+    });
+
+    row.addEventListener("mouseleave", () => {
+      clearHoverPreviewTimer();
+      hideHoverProjectPreview();
     });
 
     tbody.appendChild(row);
@@ -331,30 +398,63 @@ function sortProjects(projects, visits) {
   });
 }
 
-// -------------------------------
-// PROJECT DETAILS PANEL
-// -------------------------------
-function showProjectDetails(project, projectVisits) {
-  const pane = document.getElementById("project-details-pane");
-
-  document.getElementById("details-name").textContent = project.name;
-  document.getElementById("details-id").textContent = project.id;
-  document.getElementById("details-pm").textContent = project.manager || "";
-  document.getElementById("details-client").textContent = project.client || "";
-  document.getElementById("details-address").textContent = project.address || "";
-  document.getElementById("details-visits").textContent = projectVisits.length;
-
-  const list = document.getElementById("details-visit-list");
-  list.innerHTML = "";
-  projectVisits.forEach(v => {
-    const li = document.createElement("li");
-    li.textContent = `${v.date} — ${v.test_type}${v.visit_number}`;
-    list.appendChild(li);
-  });
-
-  document.getElementById("details-open").onclick = () => {
-    window.location.href = `project.html?id=${encodeURIComponent(project.id)}`;
-  };
-
-  pane.classList.remove("hidden");
+function openProject(projectId) {
+  window.location.href = `project.html?id=${encodeURIComponent(projectId)}`;
 }
+
+function clearHoverPreviewTimer() {
+  if (hoverPreviewTimer) {
+    clearTimeout(hoverPreviewTimer);
+    hoverPreviewTimer = null;
+  }
+}
+
+function scheduleHoverProjectPreview(project, projectVisits, row) {
+  clearHoverPreviewTimer();
+  hoverPreviewTimer = setTimeout(() => {
+    showHoverProjectPreview(project, projectVisits, row);
+  }, 3000);
+}
+
+function showHoverProjectPreview(project, projectVisits, row) {
+  const preview = document.getElementById("project-hover-preview");
+  if (!preview) return;
+
+  document.getElementById("project-hover-title").textContent = project.name || project.id;
+  document.getElementById("project-hover-id").textContent = project.id || "";
+  document.getElementById("project-hover-client").textContent = project.client || "—";
+  document.getElementById("project-hover-address").textContent = project.address || "—";
+  document.getElementById("project-hover-visits").textContent = String(projectVisits.length);
+
+  const rect = row.getBoundingClientRect();
+  preview.classList.remove("hidden");
+
+  const margin = 10;
+  const viewportW = window.innerWidth;
+  const viewportH = window.innerHeight;
+  const boxW = preview.offsetWidth;
+  const boxH = preview.offsetHeight;
+
+  let left = rect.right + margin;
+  let top = rect.top;
+
+  if (left + boxW > viewportW - margin) {
+    left = rect.left - boxW - margin;
+  }
+
+  if (left < margin) left = margin;
+  if (top + boxH > viewportH - margin) top = viewportH - boxH - margin;
+  if (top < margin) top = margin;
+
+  preview.style.left = `${left}px`;
+  preview.style.top = `${top}px`;
+}
+
+function hideHoverProjectPreview() {
+  const preview = document.getElementById("project-hover-preview");
+  if (!preview) return;
+  preview.classList.add("hidden");
+}
+
+window.addEventListener("scroll", hideHoverProjectPreview, { passive: true });
+window.addEventListener("resize", hideHoverProjectPreview);

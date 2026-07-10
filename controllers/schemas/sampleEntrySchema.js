@@ -11,6 +11,20 @@ export const SampleEntrySchema = z.object({
   result: z.enum(["PASS", "FAIL"]),
   notes: z.string(),
 
+  personnel: z.object({
+    leadTechnician: z.string(),
+    technician2: z.string()
+  }),
+
+  witnesses: z.object({
+    witness_name_1: z.string(),
+    witness_company_1: z.string(),
+    witness_role_1: z.string(),
+    witness_name_2: z.string(),
+    witness_company_2: z.string(),
+    witness_role_2: z.string()
+  }),
+
   sampleDetails: z.object({
     productType: z.string(),
     manufacturer: z.string(),

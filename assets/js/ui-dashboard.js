@@ -1,12 +1,12 @@
 /**
  * ui-dashboard.js — BEE FieldKIT
  * Renders the weekly Testing Schedule on the dashboard.
- * Loads calendar data from localStorage (ICS import) or falls back to
- * the static assets/data/calendar.json.
+ * Loads calendar data from the shared ICS file when available and
+ * shows the active source + last sync status in the schedule header.
  */
 
 import { loadCalendar } from "./ui-project-catalog.js";
-import { loadProjects } from "./projects.js";
+import { loadProjects, saveProjectAddressOverride } from "./projects.js";
 
 // ------------------------------------------------------------------
 // DATE HELPERS
@@ -60,7 +60,9 @@ function sameDay(a, b) {
 // RENDER
 // ------------------------------------------------------------------
 
-function renderWeekSchedule(events) {
+function renderWeekSchedule(calendar) {
+  _calendar = calendar;
+  const events = calendar?.events ?? [];
   _allEvents = events;
   const section = document.getElementById("week-schedule");
   if (!section) return;
@@ -96,7 +98,7 @@ function renderWeekSchedule(events) {
                   type="button">
             <div class="week-event-time">${fmtTime(ev.start)}</div>
             <div class="week-event-title">${ev.title}</div>
-            ${ev.location ? `<div class="week-event-location">${ev.location}</div>` : ""}
+            ${ev.location ? `<div class="week-event-location">${cleanAddress(ev.location)}</div>` : ""}
             ${ev.linked_project_id
               ? `<div class="week-event-project">${ev.linked_project_id}</div>`
               : ""}
@@ -113,10 +115,30 @@ function renderWeekSchedule(events) {
       </div>`;
   }).join("");
 
+  const sourceLabel = calendar?.source_label || "Calendar";
+  const sourceClass =
+    calendar?.source === "ics-file"
+      ? "schedule-sync-badge--ok"
+      : calendar?.source === "local-storage"
+        ? "schedule-sync-badge--warn"
+        : "schedule-sync-badge--legacy";
+
+  const syncTime = (() => {
+    const iso = calendar?.last_sync;
+    if (!iso) return "Sync time unavailable";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "Sync time unavailable";
+    return `Updated ${d.toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}`;
+  })();
+
   section.innerHTML = `
     <div class="schedule-section-header">
       <h2>Testing Schedule</h2>
-      <span class="schedule-week-label">${fmtWeekLabel(days[0], days[6])}</span>
+      <div class="schedule-header-meta">
+        <span class="schedule-week-label">${fmtWeekLabel(days[0], days[6])}</span>
+        <span class="schedule-sync-badge ${sourceClass}">${sourceLabel}</span>
+        <span class="schedule-sync-time">${syncTime}</span>
+      </div>
     </div>
     <div class="week-grid">${cols}</div>`;
 }
@@ -170,8 +192,56 @@ function linkifyPhoneNumbers(text) {
   });
 }
 
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function formatTemplateDescriptionHtml(description) {
+  const raw = String(description || "");
+  const normalized = raw.replace(/\r\n?/g, "\n");
+  const headingRegex = /(Attendees|Scope|Note|Contact)\s*[-:]/gi;
+
+  const matches = Array.from(normalized.matchAll(headingRegex));
+  if (matches.length < 2) return null;
+
+  const sections = [];
+  for (let i = 0; i < matches.length; i++) {
+    const match = matches[i];
+    const next = matches[i + 1];
+    const start = (match.index ?? 0) + match[0].length;
+    const end = next ? (next.index ?? normalized.length) : normalized.length;
+
+    const heading = match[1].toUpperCase();
+    const sectionText = normalized
+      .slice(start, end)
+      .replace(/\s*\n+\s*/g, " ")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+
+    sections.push({ heading, text: sectionText });
+  }
+
+  if (!sections.length) return null;
+
+  const html = sections
+    .map(section => {
+      const content = section.text ? linkifyPhoneNumbers(escapeHtml(section.text)) : "";
+      return `<strong>${section.heading}</strong><br><br>${content}`;
+    })
+    .join("<br><br>");
+
+  return html;
+}
+
 let _allEvents = [];
 let _currentEventId = null;
+let _calendar = null;
+let _projectSelectorProjects = [];
 
 function openEventDetail(eventId) {
   const ev = _allEvents.find(e => e.id === eventId);
@@ -207,17 +277,15 @@ function openEventDetail(eventId) {
 
   // Body: description with preserved line breaks and linkified phone numbers
   if (ev.description && ev.description.trim()) {
-    // Convert newlines to <br>, but escape any HTML in the description first
-    let safe = ev.description
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/\n/g, "<br>");
-    
-    // Linkify phone numbers
-    safe = linkifyPhoneNumbers(safe);
-    
-    bodyEl.innerHTML = safe;
+    const templateHtml = formatTemplateDescriptionHtml(ev.description);
+    if (templateHtml) {
+      bodyEl.innerHTML = templateHtml;
+    } else {
+      // Convert newlines to <br>, but escape any HTML in the description first.
+      let safe = escapeHtml(ev.description).replace(/\n/g, "<br>");
+      safe = linkifyPhoneNumbers(safe);
+      bodyEl.innerHTML = safe;
+    }
     bodyEl.style.display = "";
   } else {
     bodyEl.innerHTML = "<em>No description provided.</em>";
@@ -262,8 +330,45 @@ async function openProjectSelector() {
     return;
   }
 
+  _projectSelectorProjects = projects;
+  renderProjectSelectorList(_projectSelectorProjects, "");
+
+  const searchInput = document.getElementById("project-selector-search");
+  if (searchInput) {
+    searchInput.value = "";
+  }
+
+  document.getElementById("project-selector-overlay").classList.remove("hidden");
+  searchInput?.focus();
+}
+
+function renderProjectSelectorList(projects, query) {
   const listEl = document.getElementById("project-selector-list");
-  listEl.innerHTML = projects
+  if (!listEl) return;
+
+  const normalizedQuery = String(query || "").trim().toLowerCase();
+
+  const sorted = [...projects].sort((a, b) => {
+    const aName = String(a.name || a.id || "").toLowerCase();
+    const bName = String(b.name || b.id || "").toLowerCase();
+    return aName.localeCompare(bName, undefined, { numeric: true });
+  });
+
+  const filtered = normalizedQuery
+    ? sorted.filter(p => {
+        const haystack = [p.name, p.id, p.client, p.address]
+          .map(v => String(v || "").toLowerCase())
+          .join(" ");
+        return haystack.includes(normalizedQuery);
+      })
+    : sorted;
+
+  if (!filtered.length) {
+    listEl.innerHTML = "<p class=\"project-selector-empty\">No matching projects.</p>";
+    return;
+  }
+
+  listEl.innerHTML = filtered
     .map(p => `
       <button class="project-selector-item" data-project-id="${encodeURIComponent(p.id)}">
         <div class="project-selector-name">${p.name || p.id}</div>
@@ -271,15 +376,15 @@ async function openProjectSelector() {
         ${p.client ? `<div class="project-selector-client">Client: ${p.client}</div>` : ""}
       </button>`)
     .join("");
-
-  document.getElementById("project-selector-overlay").classList.remove("hidden");
 }
 
 function closeProjectSelector() {
   document.getElementById("project-selector-overlay")?.classList.add("hidden");
+  const searchInput = document.getElementById("project-selector-search");
+  if (searchInput) searchInput.value = "";
 }
 
-function linkEventToProject(projectId) {
+async function linkEventToProject(projectId) {
   if (!_currentEventId) return;
 
   const ev = _allEvents.find(e => e.id === _currentEventId);
@@ -288,12 +393,32 @@ function linkEventToProject(projectId) {
   // Update event
   ev.linked_project_id = projectId;
 
+  // If the project has no saved address yet, infer it from calendar location.
+  const inferredAddress = cleanAddress(ev.location || "");
+  if (inferredAddress) {
+    const projects = await loadProjects();
+    const project = projects.find(p => String(p.id) === String(projectId));
+    const hasAddress = String(project?.address || "").trim().length > 0;
+    if (project && !hasAddress) {
+      project.address = inferredAddress;
+      saveProjectAddressOverride(projectId, inferredAddress, project);
+    }
+  }
+
   // Save to localStorage
-  const calendar = JSON.parse(localStorage.getItem("fieldkit_calendar") || "[]");
-  const idx = calendar.findIndex(e => e.id === _currentEventId);
+  const calendar = JSON.parse(localStorage.getItem("fieldkit_calendar") || "{}");
+  const idx = Array.isArray(calendar?.events)
+    ? calendar.events.findIndex(e => e.id === _currentEventId)
+    : -1;
   if (idx >= 0) {
-    calendar[idx].linked_project_id = projectId;
+    calendar.events[idx].linked_project_id = projectId;
     localStorage.setItem("fieldkit_calendar", JSON.stringify(calendar));
+  }
+
+  if (Array.isArray(_calendar?.events)) {
+    _calendar.events = _calendar.events.map(item =>
+      item.id === _currentEventId ? { ...item, linked_project_id: projectId } : item
+    );
   }
 
   // Close selectors and reopen event detail
@@ -301,7 +426,7 @@ function linkEventToProject(projectId) {
   openEventDetail(_currentEventId);
   
   // Re-render the week schedule
-  renderWeekSchedule(_allEvents);
+  renderWeekSchedule(_calendar || { events: _allEvents });
 }
 
 
@@ -346,6 +471,10 @@ function initModal() {
   // Project selector close button
   document.getElementById("project-selector-close")?.addEventListener("click", closeProjectSelector);
 
+  document.getElementById("project-selector-search")?.addEventListener("input", e => {
+    renderProjectSelectorList(_projectSelectorProjects, e.target.value);
+  });
+
   // Project selector overlay (click outside)
   document.getElementById("project-selector-overlay")?.addEventListener("click", e => {
     if (e.target.id === "project-selector-overlay") closeProjectSelector();
@@ -381,7 +510,7 @@ async function init() {
     return;
   }
 
-  renderWeekSchedule(calendar?.events ?? []);
+  renderWeekSchedule(calendar);
 }
 
 document.addEventListener("DOMContentLoaded", init);

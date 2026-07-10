@@ -7,8 +7,6 @@
 const NAV_LINKS = [
   { href: 'index.html',            label: '🏠 Home' },
   { href: 'project-catalog.html',  label: '📁 Projects' },
-  { href: 'sample-entry.html',     label: '📝 Sample Entry' },
-  { href: 'sample-manager.html',   label: '🗂 Sample Manager' },
   { href: 'standards-library.html',label: '📚 Standards' },
   { href: 'metadata-manager.html', label: '⚙️ Metadata' },
   { href: 'import-export.html',    label: '📤 Import / Export' },
@@ -46,6 +44,26 @@ export function injectNav() {
     wrapper.className = 'fk-header';
     wrapper.appendChild(nav);
     document.body.prepend(wrapper);
+  }
+
+  document.body.classList.add('fk-has-sticky-nav');
+
+  const syncHeaderHeight = () => {
+    const stickyHeader = document.querySelector('.fk-header');
+    if (!stickyHeader) return;
+    const height = Math.ceil(stickyHeader.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--fk-sticky-nav-height', `${height}px`);
+  };
+
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
+
+  if (typeof ResizeObserver !== 'undefined') {
+    const stickyHeader = document.querySelector('.fk-header');
+    if (stickyHeader) {
+      const ro = new ResizeObserver(syncHeaderHeight);
+      ro.observe(stickyHeader);
+    }
   }
 }
 

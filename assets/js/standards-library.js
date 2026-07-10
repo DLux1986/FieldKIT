@@ -3,6 +3,7 @@ const standards = [
   "AAMA 501.2-25 - Quality Assurance and Diagnostic Water Leakage.pdf",
   "AAMA 502-21 - Voluntary Specification for Field Testing of Newly Installed Fenestration Products.pdf",
   "AAMA 503-24 - Voluntary Specification for Field Testing of Newly Installed Storefronts, Curtain Walls and Sloped Glazing Systems.pdf",
+  "AAMA-FGIA Design Pressures.pdf",
   "ASTM E283_E283M-19 - Test Method for Determining Rate of Air Leakage Through Exterior Windows, Curtain Walls, and Doors Under Specified Pressure Differences Across the Specimen.pdf",
   "ASTM E331-00(2023) - Standard Test Method for Water Penetration of Exterior Windows, Skylights, Doors, and Curtain Walls by Uniform Static Air Pressure Difference.pdf",
   "ASTM E783-02(2018) - Test Method for Field Measurement of Air Leakage Through Installed Exterior Windows and Doors.pdf",

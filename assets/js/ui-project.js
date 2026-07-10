@@ -1,9 +1,31 @@
-import { loadProjects } from "./projects.js";
+import { loadProjects, saveProjectAddressOverride } from "./projects.js";
 import { loadVisits, saveVisits } from "./visits.js";
-import { loadSamples } from "./samples.js";
+import { loadSamples, saveSamples } from "./samples.js";
 import { loadCalendar } from "./ui-project-catalog.js"; // or wherever you exported it
 import { loadStoredCalendar, LS_CALENDAR } from "./ics-parser.js";
 import { formatSampleId, parseSampleId } from "../../controllers/idGenerator.js";
+
+function normalizeCalendarAddress(location) {
+  if (!location) return "";
+
+  const match = String(location).match(/\(([^)]+)\)/);
+  const raw = match ? match[1] : String(location);
+  return raw.replace(/\\/g, "").trim();
+}
+
+function maybeUpdateProjectAddressFromEvent(projectId, event, projects) {
+  const project = projects.find(p => String(p.id) === String(projectId));
+  if (!project) return false;
+
+  const hasAddress = String(project.address || "").trim().length > 0;
+  if (hasAddress) return false;
+
+  const inferredAddress = normalizeCalendarAddress(event?.location || "");
+  if (!inferredAddress) return false;
+
+  project.address = inferredAddress;
+  return saveProjectAddressOverride(projectId, inferredAddress, project);
+}
 
 // -------------------------------
 // HELPERS
@@ -83,6 +105,7 @@ function showCalendarLinkPrompt(event, project, calendar) {
     const selectedId = selectEl.value;
 
     event.linked_project_id = selectedId;
+    maybeUpdateProjectAddressFromEvent(selectedId, event, project);
     
     // Update the stored calendar in localStorage
     calendar.events = calendar.events.map(ev =>
@@ -132,14 +155,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!project || (!project.id && !project.name)) return;
 
-  document.getElementById("project-title").textContent = project.name || "Project";
+  const projectTitleEl = document.getElementById("project-title");
+  if (projectTitleEl) {
+    projectTitleEl.textContent = project.name || "Project";
+  }
 
   const projectVisits = getProjectVisits(visits, project.id);
   const projectEvents = findEventsForProject(project, calendar);
 
   renderProjectDetails(project, projectVisits, projectEvents);
   renderVisitList(project, visits, samples);
-  bindVisitModal(project, () => visits);
+  bindVisitModal(
+    project,
+    () => visits,
+    updatedVisits => {
+      visits = updatedVisits;
+    }
+  );
 
   // Check for unlinked events for THIS project
   const today = new Date().toISOString().substring(0, 10);
@@ -155,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // -------------------------------
 // RENDER PROJECT DETAILS
 // -------------------------------
-function bindVisitModal(project, getVisits) {
+function bindVisitModal(project, getVisits, setVisits) {
   const modal = document.getElementById("visit-edit-modal");
   const addBtn = document.getElementById("add-visit-btn");
   const dateInput = document.getElementById("edit-visit-date");
@@ -197,6 +229,7 @@ function bindVisitModal(project, getVisits) {
     };
 
     const updatedVisits = [...currentVisits, newVisit];
+    setVisits(updatedVisits);
     saveVisits(updatedVisits);
     renderVisitList(project, updatedVisits);
     renderProjectDetails(project, getProjectVisits(updatedVisits, project.id), []);
@@ -241,6 +274,8 @@ function renderVisitList(project, visits, samples) {
 
   projectVisits.forEach(visit => {
     const row = document.createElement("tr");
+    row.classList.add("fk-visit-row");
+    row.style.cursor = "pointer";
     const visitLabel = `${visit.test_type || ""}${visit.visit_number || ""}`;
     
     // Calculate sample counts from actual samples
@@ -257,8 +292,16 @@ function renderVisitList(project, visits, samples) {
       <td>${failCount}</td>
       <td>
         <button class="fk-add-sample-btn" data-visit-id="${visit.id}">Add Test Sample</button>
+        <button class="fk-delete-visit-btn" data-visit-id="${visit.id}">Delete Visit</button>
       </td>
     `;
+
+    row.addEventListener("click", () => {
+      const url = new URL("visit.html", window.location.href);
+      url.searchParams.set("projectId", project.id);
+      url.searchParams.set("visitId", visit.id);
+      window.location.href = url.toString();
+    });
 
     body.appendChild(row);
   });
@@ -266,7 +309,9 @@ function renderVisitList(project, visits, samples) {
   container.appendChild(table);
 
   container.querySelectorAll(".fk-add-sample-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", e => {
+      // Keep button action independent from row click navigation.
+      e.stopPropagation();
       const visitId = btn.dataset.visitId;
       const targetVisit = projectVisits.find(visit => visit.id === visitId);
       if (!targetVisit) return;
@@ -278,6 +323,29 @@ function renderVisitList(project, visits, samples) {
       url.searchParams.set("visitId", targetVisit.id);
       url.searchParams.set("sample", "new");
       window.location.href = url.toString();
+    });
+  });
+
+  container.querySelectorAll(".fk-delete-visit-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+
+      const visitId = btn.dataset.visitId;
+      const targetVisit = projectVisits.find(visit => String(visit.id) === String(visitId));
+      if (!targetVisit) return;
+
+      const linkedSamples = samples.filter(s => String(s.visit_id) === String(visitId));
+      const warning = `Delete visit ${targetVisit.test_type || ""}${targetVisit.visit_number || ""}?\n\nThis will also delete ${linkedSamples.length} sample${linkedSamples.length === 1 ? "" : "s"} linked to this visit.`;
+      if (!window.confirm(warning)) return;
+
+      const updatedVisits = visits.filter(v => String(v.id) !== String(visitId));
+      const updatedSamples = samples.filter(s => String(s.visit_id) !== String(visitId));
+
+      saveVisits(updatedVisits);
+      saveSamples(updatedSamples);
+
+      renderVisitList(project, updatedVisits, updatedSamples);
+      renderProjectDetails(project, getProjectVisits(updatedVisits, project.id), []);
     });
   });
 }

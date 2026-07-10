@@ -21,7 +21,7 @@
         <label for="filter-pm">PM</label>
         <select id="filter-pm">
           <option value="">All PMs</option>
-        </select>
+        </select>                                                                     
       </div>
 
       <div class="fk-filter-group">
@@ -47,22 +47,6 @@
 
       <button id="filter-clear" class="fk-clear-btn">Clear</button>
 
-    </section>
-
-    <!-- PROJECT DETAILS PANE -->
-    <section id="project-details-pane" class="fk-details hidden">
-      <h2 id="details-name"></h2>
-
-      <p><strong>ID:</strong> <span id="details-id"></span></p>
-      <p><strong>PM:</strong> <span id="details-pm"></span></p>
-      <p><strong>Client:</strong> <span id="details-client"></span></p>
-      <p><strong>Address:</strong> <span id="details-address"></span></p>
-      <p><strong>Total Visits:</strong> <span id="details-visits"></span></p>
-
-      <h3>Visits</h3>
-      <ul id="details-visit-list"></ul>
-
-      <button id="details-open">Open Project</button>
     </section>
 
     <!-- PROJECT TABLE -->
@@ -100,6 +84,16 @@
         <button id="calendar-link-cancel-btn">Cancel</button>
       </div>
     </div>
+  </div>
+
+  <!-- HOVER PREVIEW -->
+  <div id="project-hover-preview" class="project-hover-preview hidden" role="dialog" aria-live="polite" aria-label="Project preview">
+    <div class="project-hover-title" id="project-hover-title"></div>
+    <div class="project-hover-meta"><strong>ID:</strong> <span id="project-hover-id"></span></div>
+    <div class="project-hover-meta"><strong>Client:</strong> <span id="project-hover-client"></span></div>
+    <div class="project-hover-meta"><strong>Address:</strong> <span id="project-hover-address"></span></div>
+    <div class="project-hover-meta"><strong>Visits:</strong> <span id="project-hover-visits"></span></div>
+    <div class="project-hover-hint">Click row to open project</div>
   </div>
 
 </body>

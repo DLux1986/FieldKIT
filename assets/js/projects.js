@@ -2,14 +2,65 @@
 // Loads projects.json (preferred) or projects.csv (fallback)
 // Populates the dashboard project table
 
+const LS_PROJECTS = "fieldkit_projects";
+
+function readLocalProjects() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(LS_PROJECTS) || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (_) {
+    return [];
+  }
+}
+
+function mergeProjectOverrides(baseProjects, localProjects) {
+  const merged = Array.isArray(baseProjects) ? [...baseProjects] : [];
+
+  for (const lp of localProjects) {
+    if (!lp || !lp.id) continue;
+    const idx = merged.findIndex(p => String(p.id) === String(lp.id));
+    if (idx >= 0) merged[idx] = { ...merged[idx], ...lp };
+    else merged.push(lp);
+  }
+
+  return merged;
+}
+
+export function saveProjectAddressOverride(projectId, address, projectSeed = {}) {
+  if (!projectId) return false;
+  const normalizedAddress = String(address || "").trim();
+  if (!normalizedAddress) return false;
+
+  const localProjects = readLocalProjects();
+  const idx = localProjects.findIndex(p => String(p.id) === String(projectId));
+
+  if (idx >= 0) {
+    localProjects[idx] = {
+      ...localProjects[idx],
+      address: normalizedAddress
+    };
+  } else {
+    localProjects.push({
+      id: String(projectId),
+      name: projectSeed.name || String(projectId),
+      client: projectSeed.client || "",
+      manager: projectSeed.manager || "",
+      address: normalizedAddress
+    });
+  }
+
+  localStorage.setItem(LS_PROJECTS, JSON.stringify(localProjects));
+  return true;
+}
+
 export async function loadProjects() {
   // Try JSON first
   try {
     const res = await fetch("data/projects.json");
     const data = await res.json();
 
-    if (Array.isArray(data)) return data;
-    if (Array.isArray(data.projects)) return data.projects;
+    if (Array.isArray(data)) return mergeProjectOverrides(data, readLocalProjects());
+    if (Array.isArray(data.projects)) return mergeProjectOverrides(data.projects, readLocalProjects());
 
     console.warn("projects.json is not in a recognized format:", data);
   } catch (errJson) {
@@ -34,7 +85,7 @@ export async function loadProjects() {
     const clientI = idx("client");
     const mgrI = idx("manager");
 
-    return lines
+    const csvProjects = lines
       .map(line => {
         const cols = line.split(",");
         return {
@@ -46,9 +97,11 @@ export async function loadProjects() {
         };
       })
       .filter(p => p.id && p.name);
+
+    return mergeProjectOverrides(csvProjects, readLocalProjects());
   } catch (errCsv) {
     console.error("CSV load failed:", errCsv);
-    return [];
+    return mergeProjectOverrides([], readLocalProjects());
   }
 }
 

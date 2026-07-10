@@ -246,6 +246,20 @@ export function importIcsToStorage(icsText) {
 }
 
 /**
+ * Fetch an ICS file from a URL and import it into localStorage.
+ * Uses no-store so scheduled file updates are reflected immediately.
+ */
+export async function importIcsUrlToStorage(url) {
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) {
+    throw new Error(`Failed to load ICS: ${url}`);
+  }
+
+  const text = await res.text();
+  return importIcsToStorage(text);
+}
+
+/**
  * Load the stored calendar from localStorage.
  * Returns null if nothing is stored yet.
  */

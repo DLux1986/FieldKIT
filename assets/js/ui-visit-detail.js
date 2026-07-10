@@ -1,384 +1,277 @@
-/**
- * ui-visit-detail.js — Display a single visit with all samples
- * URL: visit.html?project_id=DEMO&visit_id=INIT01
- */
-
 import { pad2 } from "./utils.js";
-import { formatSampleId, parseSampleId, generateSampleId } from "../../controllers/idGenerator.js";
+import { formatSampleId, parseSampleId } from "../../controllers/idGenerator.js";
 import { loadVisits, saveVisits } from "./visits.js";
 import { loadSamples, saveSamples } from "./samples.js";
 
 let VISITS = [];
 let SAMPLES = [];
-let PROJECTS = [];
 let currentVisit = null;
-let currentProject = null;
+const VISIT_TABS = ["WT", "ABT", "ELD"];
+let activeTab = "WT";
 
-// ------------------------------------------------------------------
-// INIT
-// ------------------------------------------------------------------
+function visitDisplayId(visit) {
+  const testType = visit?.test_type || "";
+  const visitNum = visit?.visit_number || "";
+  const compact = `${testType}${visitNum}`.trim();
+  return compact || visit?.id || "Visit";
+}
 
-async function init() {
-  try {
-    VISITS = loadVisits();
-    SAMPLES = loadSamples();
-  } catch (err) {
-    console.warn("Data load failed:", err);
-    document.getElementById("samples-container").innerHTML = 
-      `<p style="color:var(--bee-honey)">Could not load data.</p>`;
-    return;
-  }
+function visitParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    projectId: params.get("projectId") || params.get("project_id") || "",
+    visitId: params.get("visitId") || params.get("visit_id") || ""
+  };
+}
 
-  // Get query params
-  const params = new URLSearchParams(location.search);
-  const projectId = params.get("project_id");
-  const visitId = params.get("visit_id");
-
-  if (!visitId || !projectId) {
-    document.getElementById("samples-container").innerHTML = 
-      `<p style="color:var(--bee-honey)">Missing project_id or visit_id parameter.</p>`;
-    return;
-  }
-
-  // Find visit
-  currentVisit = VISITS.find(v => v.visit_id === visitId && v.project_id === projectId);
-
-  if (!currentVisit) {
-    document.getElementById("samples-container").innerHTML = 
-      `<p style="color:var(--bee-honey)">Visit not found.</p>`;
-    return;
-  }
-
-  // Populate header
-  document.getElementById("visit-id").textContent = currentVisit.visit_id;
-  document.getElementById("visit-date").textContent = currentVisit.date;
-  document.getElementById("visit-test-type").textContent = currentVisit.test_type;
-  document.getElementById("visit-folder").textContent = currentVisit.folder_path || "—";
-  document.getElementById("visit-notes").textContent = currentVisit.notes || "—";
-  document.getElementById("visit-breadcrumb-id").textContent = currentVisit.visit_id;
-  document.getElementById("page-title").textContent = `${currentVisit.visit_id} – ${currentVisit.date}`;
-
-  // Set breadcrumb link
-  document.getElementById("back-to-project-link").href = 
-    `project.html?id=${encodeURIComponent(projectId)}`;
-
-  // Load samples for this visit
-  const visitSamples = SAMPLES
-    .filter(s => s.visit_id === visitId)
-    .map(s => ({ ...s, parsed: parseSampleId(s.sample_id) }))
+function getVisitSamples(visitId) {
+  return SAMPLES
+    .filter(s => String(s.visit_id) === String(visitId))
+    .map(s => ({ ...s, parsed: parseSampleId(s.sample_id || "") }))
     .sort((a, b) => {
-      if (a.parsed.sampleNumber !== b.parsed.sampleNumber) {
-        return a.parsed.sampleNumber - b.parsed.sampleNumber;
-      }
-      return a.parsed.testNumber - b.parsed.testNumber;
+      const aSample = a.parsed?.sampleNumber || 0;
+      const bSample = b.parsed?.sampleNumber || 0;
+      if (aSample !== bSample) return aSample - bSample;
+
+      const aTest = a.parsed?.testNumber || 0;
+      const bTest = b.parsed?.testNumber || 0;
+      return aTest - bTest;
     });
-
-  document.getElementById("sample-count").textContent = visitSamples.length;
-
-  // Render samples table
-  renderSamplesTable(visitSamples);
-
-  // Wire event listeners
-  setupEventListeners();
 }
-
-// ------------------------------------------------------------------
-// RENDER SAMPLES TABLE
-// ------------------------------------------------------------------
-
-function renderSamplesTable(visitSamples) {
-  const container = document.getElementById("samples-container");
-
-  if (visitSamples.length === 0) {
-    container.innerHTML = `<p style="padding:16px;color:var(--bee-cloudy)">No samples yet. <button id="add-sample-empty">Add Sample</button></p>`;
-    document.getElementById("add-sample-empty").addEventListener("click", () => {
-      openAddSamplePrompt();
-    });
-    return;
-  }
-
-  const table = document.createElement("table");
-  table.className = "fk-sample-table";
-
-  // Header
-  const thead = document.createElement("thead");
-  thead.innerHTML = `
-    <tr>
-      <th>Sample</th>
-      <th>Test</th>
-      <th>Elevation</th>
-      <th>Type</th>
-      <th>Result</th>
-      <th>QA</th>
-      <th>Edit</th>
-      <th>Open</th>
-      <th>Retest</th>
-    </tr>`;
-  table.appendChild(thead);
-
-  // Body
-  const tbody = document.createElement("tbody");
-  tbody.innerHTML = visitSamples
-    .map((s, idx, arr) => {
-      const isFirstOfGroup = 
-        idx === 0 || 
-        s.parsed.sampleNumber !== arr[idx - 1].parsed.sampleNumber;
-
-      const groupFlags = getSampleQAFlags(
-        arr.filter(x => x.parsed.sampleNumber === s.parsed.sampleNumber)
-      );
-
-      return `
-        <tr class="${s.result === 'PASS' ? 'fk-row-pass' : s.result === 'FAIL' ? 'fk-row-fail' : ''}">
-          <td>${isFirstOfGroup ? formatSampleId({ systemType: s.window_type || s.system_type || "", sampleNumber: s.parsed?.sampleNumber || s.sample_number || 1, testNumber: 1 }) : ""}</td>
-          <td>T${pad2(s.parsed.testNumber)}</td>
-          <td>${s.elevation || ""}</td>
-          <td>${s.window_type || ""}</td>
-          <td class="${s.result === 'PASS' ? 'fk-result-pass' : s.result === 'FAIL' ? 'fk-result-fail' : ''}">
-            ${s.result || ""}
-          </td>
-          <td>
-            ${groupFlags
-              .map(f => `<span class="fk-qa-flag" data-flag="${f}">${f}</span>`)
-              .join(" ")}
-          </td>
-          <td><button class="fk-sample-edit" data-id="${s.sample_id}">✎</button></td>
-          <td><button class="fk-sample-open" data-id="${s.sample_id}">→</button></td>
-          <td><button class="fk-sample-retest" data-id="${s.sample_id}">⟳</button></td>
-        </tr>
-      `;
-    })
-    .join("");
-  table.appendChild(tbody);
-
-  container.innerHTML = "";
-  container.appendChild(table);
-}
-
-// ------------------------------------------------------------------
-// QA FLAGS
-// ------------------------------------------------------------------
 
 function getSampleQAFlags(sampleGroup) {
   const flags = new Set();
-
-  // RAP: Retest After Pass
   const hasPass = sampleGroup.some(s => s.result === "PASS");
-  const hasMultiple = sampleGroup.length > 1;
-  if (hasPass && hasMultiple) flags.add("RAP");
+  const hasRetest = sampleGroup.length > 1;
 
-  // NO-PHOTO: Failed but missing photos
+  if (hasPass && hasRetest) flags.add("RAP");
+
   sampleGroup.forEach(s => {
     if (s.result === "FAIL" && (!s.attachments || s.attachments.length === 0)) {
       flags.add("NO-PHOTO");
     }
   });
 
-  // SEQ: Out-of-order test numbers
-  sampleGroup.forEach((s, idx) => {
-    const expected = idx + 1;
-    if (s.parsed.testNumber !== expected) flags.add("SEQ");
-  });
+  const tests = sampleGroup.map(s => s.parsed?.testNumber || 0).filter(Boolean);
+  if (tests.length && Math.min(...tests) !== 1) flags.add("SEQ");
 
   return Array.from(flags);
 }
 
-// ------------------------------------------------------------------
-// EVENT LISTENERS
-// ------------------------------------------------------------------
+function renderVisitTabs() {
+  const tabs = document.getElementById("visit-type-tabs");
+  if (!tabs) return;
 
-function setupEventListeners() {
-  // Add sample button
+  tabs.innerHTML = "";
+  VISIT_TABS.forEach(tab => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `fk-visit-tab${tab === activeTab ? " active" : ""}`;
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", tab === activeTab ? "true" : "false");
+    btn.textContent = tab;
+    btn.addEventListener("click", () => {
+      activeTab = tab;
+      renderVisitTabs();
+      renderVisitSection();
+    });
+    tabs.appendChild(btn);
+  });
+}
+
+function renderVisitSection() {
+  const visitSamples = getVisitSamples(currentVisit.id);
+  const isCurrentVisitType = activeTab === String(currentVisit.test_type || "").toUpperCase();
+  const visibleSamples = isCurrentVisitType ? visitSamples : [];
+
+  document.getElementById("sample-count").textContent = String(visibleSamples.length);
+  renderSamplesTable(visibleSamples, { isCurrentVisitType });
+}
+
+function renderSamplesTable(visitSamples, options = {}) {
+  const container = document.getElementById("samples-container");
+  if (!container) return;
+
+  const { isCurrentVisitType = true } = options;
+  container.innerHTML = "";
+
+  if (!isCurrentVisitType) {
+    const empty = document.createElement("p");
+    empty.className = "fk-visit-tab-note";
+    empty.textContent = `No ${activeTab} data for this visit.`;
+    container.appendChild(empty);
+    return;
+  }
+
+  const isWindowTest = activeTab === "WT";
+
+  if (!isWindowTest) {
+    const note = document.createElement("p");
+    note.style.margin = "0 0 12px";
+    note.style.color = "var(--bee-cloudy)";
+    note.textContent = "Detailed ABT/ELD sections are coming soon. Any captured samples for this visit are listed below.";
+    note.className = "fk-visit-tab-note";
+    container.appendChild(note);
+  }
+
+  if (!visitSamples.length) {
+    const empty = document.createElement("p");
+    empty.style.padding = "8px 0";
+    empty.style.color = "var(--bee-cloudy)";
+    empty.textContent = "No samples recorded for this visit yet.";
+    container.appendChild(empty);
+    return;
+  }
+
+  const table = document.createElement("table");
+  table.className = "fk-sample-table";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Sample ID</th>
+        <th>Series / Model</th>
+        <th>System Type</th>
+        <th>Elevation</th>
+        <th>Unit Number</th>
+        <th>Test Pressure (psf)</th>
+        <th>Pass/Fail</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${visitSamples.map((s, idx, arr) => {
+        const currentSample = s.parsed?.sampleNumber || 0;
+        const prevSample = arr[idx - 1]?.parsed?.sampleNumber || -1;
+        const isFirstOfGroup = idx === 0 || currentSample !== prevSample;
+
+        const seriesModel = s.sampleDetails?.seriesModel || s.seriesModel || s.series_model || "";
+        const systemType = s.window_type || s.system_type || s.parsed?.systemType || "";
+        const elevation = s.sampleLocation?.elevation || s.elevation || "";
+        const unitNumber = s.sampleLocation?.unitNumber || s.unit_number || "";
+        const pressurePsf = s.testParameters?.pressure_psf ?? s.pressure_psf;
+        const pressureText = pressurePsf === null || pressurePsf === undefined || pressurePsf === ""
+          ? ""
+          : Number.isFinite(Number(pressurePsf))
+            ? Number(pressurePsf).toFixed(2)
+            : String(pressurePsf);
+
+        return `
+          <tr class="${s.result === "PASS" ? "fk-row-pass" : s.result === "FAIL" ? "fk-row-fail" : ""}">
+            <td>${isFirstOfGroup ? formatSampleId({ systemType: systemType || "", sampleNumber: currentSample || s.sample_number || 1, testNumber: 1 }) : ""}</td>
+            <td>${seriesModel}</td>
+            <td>${systemType}</td>
+            <td>${elevation}</td>
+            <td>${unitNumber}</td>
+            <td>${pressureText}</td>
+            <td class="${s.result === "PASS" ? "fk-result-pass" : s.result === "FAIL" ? "fk-result-fail" : ""}">${s.result || ""}</td>
+          </tr>
+        `;
+      }).join("")}
+    </tbody>
+  `;
+
+  container.appendChild(table);
+}
+
+function setupHeader(projectId) {
+  const display = visitDisplayId(currentVisit);
+  document.getElementById("visit-id").textContent = display;
+  document.getElementById("visit-date").textContent = currentVisit.date || "—";
+  document.getElementById("visit-test-type").textContent = currentVisit.test_type || "—";
+  document.getElementById("visit-folder").textContent = currentVisit.folder_path || "—";
+  document.getElementById("visit-notes").textContent = currentVisit.notes || "—";
+  document.getElementById("visit-breadcrumb-id").textContent = display;
+
+  const title = `FieldKIT - Visit ${display}`;
+  document.title = title;
+
+  const backLink = document.getElementById("back-to-project-link");
+  backLink.href = `project.html?id=${encodeURIComponent(projectId || currentVisit.project_id || "")}`;
+}
+
+function setupVisitActions() {
   document.getElementById("add-sample-btn")?.addEventListener("click", () => {
-    openAddSamplePrompt();
+    const url = new URL("sample-entry.html", window.location.href);
+    url.searchParams.set("projectId", currentVisit.project_id || "");
+    url.searchParams.set("visitId", currentVisit.id || "");
+    url.searchParams.set("sample", "new");
+    window.location.href = url.toString();
   });
 
-  // Edit visit button
   document.getElementById("edit-visit-btn")?.addEventListener("click", () => {
-    openVisitEditModal();
-  });
-
-  // Sample edit buttons
-  document.querySelectorAll(".fk-sample-edit").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.id;
-      const sample = SAMPLES.find(s => s.sample_id === id);
-      if (sample) enterInlineEditMode(btn.closest("tr"), sample);
-    });
-  });
-
-  // Sample open buttons
-  document.querySelectorAll(".fk-sample-open").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.id;
-      window.location.href = `sample.html?sample_id=${encodeURIComponent(id)}`;
-    });
-  });
-
-  // Sample retest buttons
-  document.querySelectorAll(".fk-sample-retest").forEach(btn => {
-    btn.addEventListener("click", async () => {
-      const id = btn.dataset.id;
-      const sample = SAMPLES.find(s => s.sample_id === id);
-      if (sample) await handleRetest(sample);
-    });
-  });
-
-  // Visit edit modal
-  document.getElementById("save-visit-btn")?.addEventListener("click", async () => {
-    await saveVisitChanges();
+    document.getElementById("edit-visit-date").value = currentVisit.date || "";
+    document.getElementById("edit-visit-type").value = currentVisit.test_type || "WT";
+    document.getElementById("edit-visit-notes").value = currentVisit.notes || "";
+    document.getElementById("visit-edit-modal")?.classList.remove("hidden");
   });
 
   document.getElementById("cancel-visit-btn")?.addEventListener("click", () => {
-    document.getElementById("visit-edit-modal").classList.add("hidden");
+    document.getElementById("visit-edit-modal")?.classList.add("hidden");
   });
-}
 
-// ------------------------------------------------------------------
-// ADD SAMPLE
-// ------------------------------------------------------------------
+  document.getElementById("save-visit-btn")?.addEventListener("click", () => {
+    currentVisit.date = document.getElementById("edit-visit-date").value;
+    currentVisit.test_type = document.getElementById("edit-visit-type").value;
+    currentVisit.notes = document.getElementById("edit-visit-notes").value;
 
-async function openAddSamplePrompt() {
-  const windowType = prompt("Window Type (SLDR, FIXD, AWNG, etc.):");
-  if (!windowType) return;
+    saveVisits(VISITS);
+    document.getElementById("visit-edit-modal")?.classList.add("hidden");
+    window.location.reload();
+  });
 
-  const sampleId = generateSampleId(windowType, 
-    (Math.max(...SAMPLES.filter(s => s.visit_id === currentVisit.visit_id).map(s => s.parsed.sampleNumber), 0) + 1),
-    1
-  );
+  document.getElementById("delete-visit-btn")?.addEventListener("click", () => {
+    const projectId = currentVisit.project_id || "";
+    const display = visitDisplayId(currentVisit);
+    const linkedSamples = SAMPLES.filter(s => String(s.visit_id) === String(currentVisit.id));
 
-  const sample = {
-    sample_id: sampleId,
-    visit_id: currentVisit.visit_id,
-    project_id: currentVisit.project_id,
-    window_type: windowType,
-    sample_number: parseInt(sampleId.match(/S(\d{2})/)[1], 10),
-    test_number: 1,
-    elevation: "",
-    product_type: "",
-    manufacturer: "",
-    result: "",
-    notes: "",
-    attachments: []
-  };
+    const warning = `Delete visit ${display}?\n\nThis will also delete ${linkedSamples.length} sample${linkedSamples.length === 1 ? "" : "s"} linked to this visit.`;
+    if (!window.confirm(warning)) return;
 
-  SAMPLES.push(sample);
-  currentVisit.sample_ids.push(sampleId);
+    VISITS = VISITS.filter(v => String(v.id) !== String(currentVisit.id));
+    SAMPLES = SAMPLES.filter(s => String(s.visit_id) !== String(currentVisit.id));
 
-  saveSamples(SAMPLES);
-  saveVisits(VISITS);
-
-  // Refresh page
-  location.reload();
-}
-
-// ------------------------------------------------------------------
-// INLINE EDIT MODE
-// ------------------------------------------------------------------
-
-function enterInlineEditMode(row, sample) {
-  row.innerHTML = `
-    <td>${formatSampleId(sample.sample_id)}</td>
-    <td><input id="edit-elevation" value="${sample.elevation || ""}" /></td>
-    <td>
-      <select id="edit-window-type">
-        ${[
-          "FIXD","AWNG","CASE","HUNG","SLDR","TILT","PCTR","PIVT",
-          "CWOF","CWFX","WWAL","STFR","SING","DUBL","SLGD","TDRR"
-        ]
-          .map(t => `<option value="${t}" ${t === sample.window_type ? "selected" : ""}>${t}</option>`)
-          .join("")}
-      </select>
-    </td>
-    <td>
-      <select id="edit-result">
-        <option value="PASS" ${sample.result === "PASS" ? "selected" : ""}>PASS</option>
-        <option value="FAIL" ${sample.result === "FAIL" ? "selected" : ""}>FAIL</option>
-      </select>
-    </td>
-    <td><button class="fk-save-inline">Save</button></td>
-    <td><button class="fk-cancel-inline">Cancel</button></td>
-    <td></td>
-  `;
-
-  row.querySelector(".fk-save-inline").addEventListener("click", async () => {
-    sample.elevation = document.getElementById("edit-elevation").value;
-    sample.window_type = document.getElementById("edit-window-type").value;
-    sample.result = document.getElementById("edit-result").value;
-
+    saveVisits(VISITS);
     saveSamples(SAMPLES);
-    location.reload();
-  });
 
-  row.querySelector(".fk-cancel-inline").addEventListener("click", () => {
-    location.reload();
+    const back = new URL("project.html", window.location.href);
+    back.searchParams.set("id", projectId);
+    window.location.href = back.toString();
   });
 }
 
-// ------------------------------------------------------------------
-// VISIT EDIT MODAL
-// ------------------------------------------------------------------
-
-function openVisitEditModal() {
-  const modal = document.getElementById("visit-edit-modal");
-  document.getElementById("edit-visit-date").value = currentVisit.date;
-  document.getElementById("edit-visit-type").value = currentVisit.test_type;
-  document.getElementById("edit-visit-notes").value = currentVisit.notes || "";
-  modal.classList.remove("hidden");
+function showError(message) {
+  const container = document.getElementById("samples-container");
+  if (!container) return;
+  container.innerHTML = `<p style="color:var(--bee-honey)">${message}</p>`;
 }
 
-async function saveVisitChanges() {
-  currentVisit.date = document.getElementById("edit-visit-date").value;
-  currentVisit.test_type = document.getElementById("edit-visit-type").value;
-  currentVisit.notes = document.getElementById("edit-visit-notes").value;
+function init() {
+  const { projectId, visitId } = visitParams();
 
-  if (currentProject) {
-    currentVisit.full_name = `${currentVisit.date} ${currentProject.name} ${currentVisit.visit_id}`;
+  VISITS = loadVisits();
+  SAMPLES = loadSamples();
+
+  if (!visitId) {
+    showError("Missing visitId parameter.");
+    return;
   }
 
-  saveVisits(VISITS);
-  document.getElementById("visit-edit-modal").classList.add("hidden");
-  location.reload();
-}
+  currentVisit = VISITS.find(v => String(v.id) === String(visitId) && (!projectId || String(v.project_id) === String(projectId)))
+    || VISITS.find(v => String(v.id) === String(visitId));
 
-// ------------------------------------------------------------------
-// RETEST
-// ------------------------------------------------------------------
-
-async function handleRetest(sample) {
-  if (sample.result === "PASS") {
-    const proceed = confirm(
-      "⚠️ WARNING: This sample previously PASSED.\n\n" +
-      "Retesting a passing sample is unusual and should only be done if:\n" +
-      "• Test pressure changed\n" +
-      "• Installation detail changed\n" +
-      "• Technician or PM explicitly requested it\n\n" +
-      "Are you sure you want to create a retest?"
-    );
-    if (!proceed) return;
+  if (!currentVisit) {
+    showError("Visit not found.");
+    return;
   }
 
-  const nextTest = sample.test_number + 1;
-  const newId = `${sample.visit_id}-${sample.window_type}-S${pad2(sample.sample_number)}T${pad2(nextTest)}`;
+  setupHeader(projectId);
+  setupVisitActions();
 
-  const retest = {
-    ...sample,
-    sample_id: newId,
-    test_number: nextTest,
-    result: "",
-    notes: ""
-  };
-
-  SAMPLES.push(retest);
-  saveSamples(SAMPLES);
-  location.reload();
+  activeTab = String(currentVisit.test_type || "WT").toUpperCase();
+  if (!VISIT_TABS.includes(activeTab)) activeTab = "WT";
+  renderVisitTabs();
+  renderVisitSection();
 }
 
-// ------------------------------------------------------------------
-// RUN
-// ------------------------------------------------------------------
-
-document.addEventListener("DOMContentLoaded", init);
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
 } else {
