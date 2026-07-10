@@ -5,6 +5,7 @@
 <title>Sample Entry</title>
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/bee-theme.css">
+<script type="module" src="assets/js/nav.js"></script>
 </head>
 <!-- Floating Timer Panel -->
 <div id="timerPanel" class="fk-floating hidden">
@@ -17,6 +18,75 @@
 
 <!-- Button to open the panel -->
 <button id="timerOpenBtn" class="fk-floating-open-btn">Timer</button>
+
+<!-- Timer state manager -->
+<script>
+  // Restore timer panel state from sessionStorage
+  const TIMER_OPEN_KEY = "fieldkit_timer_panel_open";
+  const timerPanel = document.getElementById("timerPanel");
+  const timerOpenBtn = document.getElementById("timerOpenBtn");
+  const timerCloseBtn = document.getElementById("timerCloseBtn");
+
+  // Restore open state on page load
+  if (sessionStorage.getItem(TIMER_OPEN_KEY) === "true") {
+    timerPanel.classList.remove("hidden");
+  }
+
+  // Open button
+  timerOpenBtn.addEventListener("click", () => {
+    timerPanel.classList.remove("hidden");
+    sessionStorage.setItem(TIMER_OPEN_KEY, "true");
+  });
+
+  // Close button
+  timerCloseBtn.addEventListener("click", () => {
+    timerPanel.classList.add("hidden");
+    sessionStorage.setItem(TIMER_OPEN_KEY, "false");
+  });
+
+  // Also close on outside click
+  timerPanel.addEventListener("click", e => {
+    if (e.target === timerPanel) {
+      timerPanel.classList.add("hidden");
+      sessionStorage.setItem(TIMER_OPEN_KEY, "false");
+    }
+  });
+
+  // Dragging logic (same as before)
+  const header = timerPanel.querySelector(".fk-floating-header");
+  let offsetX = 0, offsetY = 0, dragging = false;
+
+  header.addEventListener("mousedown", e => {
+    dragging = true;
+    offsetX = e.clientX - timerPanel.offsetLeft;
+    offsetY = e.clientY - timerPanel.offsetTop;
+    e.preventDefault();
+  });
+
+  document.addEventListener("mousemove", e => {
+    if (!dragging) return;
+    timerPanel.style.left = (e.clientX - offsetX) + "px";
+    timerPanel.style.top = (e.clientY - offsetY) + "px";
+  });
+
+  document.addEventListener("mouseup", () => {
+    dragging = false;
+  });
+
+  // Save position on beforeunload so it persists across navigation
+  window.addEventListener("beforeunload", () => {
+    sessionStorage.setItem("fieldkit_timer_x", timerPanel.style.left);
+    sessionStorage.setItem("fieldkit_timer_y", timerPanel.style.top);
+  });
+
+  // Restore position on page load
+  const savedX = sessionStorage.getItem("fieldkit_timer_x");
+  const savedY = sessionStorage.getItem("fieldkit_timer_y");
+  if (savedX && savedY) {
+    timerPanel.style.left = savedX;
+    timerPanel.style.top = savedY;
+  }
+</script>
 
 <body>
 
@@ -82,7 +152,7 @@
 
   <label>
     Manufacturer
-    <div style="display:flex; gap:0.5rem; align-items:center;">
+    <div class="field-inline">
       <input id="manufacturer" list="manufacturerOptions" placeholder="Type or select" style="flex:1;">
       <button id="showManufacturerOptionsBtn" type="button" class="btn btn-line">Show All</button>
     </div>
@@ -393,7 +463,8 @@
 
   document.getElementById("projName").textContent = projectName;
 
-  let samples = JSON.parse(localStorage.getItem(`project_${projectId}_samples`)) || [];
+  // Load samples from unified localStorage key (from samples.js)
+  let samples = JSON.parse(localStorage.getItem("samples") || "[]");
   let editingSample = null;
   const visitTypeLabelEl = document.getElementById("visitTypeLabel");
   const systemTypeEl = document.getElementById("systemType");
@@ -582,17 +653,22 @@ console.log("🔗 FieldKIT — Binding Layer Loaded");
 // Create controller
 controller = new SampleEntryController(projectId, {
   saveSample: async (data) => {
-    // You can replace this with IndexedDB or API later
-    let samples = JSON.parse(localStorage.getItem(`project_${projectId}_samples`)) || [];
+    // Load samples from unified localStorage key (from samples.js)
+    let samples = JSON.parse(localStorage.getItem("samples") || "[]");
 
     if (sampleParam === "new") {
       samples.push(data);
     } else {
-      const index = samples.findIndex(s => s.sampleId === data.sampleId);
-      samples[index] = data;
+      const index = samples.findIndex(s => s.sample_id === data.sample_id);
+      if (index >= 0) {
+        samples[index] = data;
+      } else {
+        samples.push(data);
+      }
     }
 
-    localStorage.setItem(`project_${projectId}_samples`, JSON.stringify(samples));
+    // Save to unified localStorage key
+    localStorage.setItem("samples", JSON.stringify(samples));
   }
 });
 

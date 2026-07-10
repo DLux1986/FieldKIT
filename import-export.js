@@ -1,5 +1,5 @@
 // import-export.js — BEE FieldKIT Import/Export Module
-
+import { importIcsToStorage, loadStoredCalendar } from "./assets/js/ics-parser.js";
 const LS_PROJECTS = "fieldkit_projects";
 const LS_GLOBAL_META = "fieldkit_metadata_global";
 
@@ -194,6 +194,74 @@ function mergeOrOverwrite(key, incoming, mode) {
 }
 
 // ------------------------------------------------------------
+// CALENDAR ICS IMPORT
+// ------------------------------------------------------------
+
+async function importCalendarIcs(file) {
+  const text = await file.text();
+  let calendar;
+  try {
+    calendar = importIcsToStorage(text);
+  } catch (err) {
+    setIcsStatus(`❌ Parse error: ${err.message}`, "error");
+    return;
+  }
+
+  const count = calendar.events.length;
+  setIcsStatus(`✅ Synced ${count} event${count !== 1 ? "s" : ""} from ${file.name}`, "ok");
+  renderIcsPreview(calendar.events);
+}
+
+function setIcsStatus(msg, type) {
+  const el = $("icsStatus");
+  el.textContent = msg;
+  el.style.color = type === "error" ? "var(--bee-honey)" : "var(--bee-cloudy)";
+}
+
+function renderIcsPreview(events) {
+  const container = $("icsPreview");
+  if (!events.length) {
+    container.innerHTML = "<p style='font-size:0.85rem;color:var(--bee-cloudy)'>No events found.</p>";
+    return;
+  }
+
+  // Show next 10 upcoming events
+  const now  = new Date();
+  const upcoming = events
+    .filter(e => e.start && new Date(e.start) >= now)
+    .sort((a, b) => new Date(a.start) - new Date(b.start))
+    .slice(0, 10);
+
+  const rows = upcoming.map(e => {
+    const d = new Date(e.start);
+    const dateStr = d.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" });
+    const linked  = e.linked_project_id
+      ? `<span style="color:var(--bee-honey);font-weight:600;">${e.linked_project_id}</span>`
+      : `<span style="color:#aaa">—</span>`;
+    return `<tr>
+      <td style="padding:6px 10px">${dateStr}</td>
+      <td style="padding:6px 10px">${e.title}</td>
+      <td style="padding:6px 10px">${e.location || "—"}</td>
+      <td style="padding:6px 10px">${linked}</td>
+    </tr>`;
+  }).join("");
+
+  container.innerHTML = `
+    <p style="font-size:0.85rem;font-weight:600;margin-bottom:6px;">Next ${upcoming.length} upcoming events:</p>
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <thead>
+        <tr style="border-bottom:2px solid var(--bee-cloudy);">
+          <th style="text-align:left;padding:6px 10px">Date</th>
+          <th style="text-align:left;padding:6px 10px">Title</th>
+          <th style="text-align:left;padding:6px 10px">Location</th>
+          <th style="text-align:left;padding:6px 10px">Linked Project</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+// ------------------------------------------------------------
 // UI HOOKUP
 // ------------------------------------------------------------
 
@@ -201,6 +269,24 @@ document.addEventListener("DOMContentLoaded", () => {
   $("exportAllJson").onclick = exportAllJson;
   $("exportProjectsCsv").onclick = exportProjectsCsv;
   $("exportSamplesCsv").onclick = exportSamplesCsv;
+
+  $("icsImportBtn").onclick = () => {
+    const file = $("icsFile").files[0];
+    if (!file) {
+      setIcsStatus("No file selected.", "error");
+      return;
+    }
+    importCalendarIcs(file);
+  };
+
+  // Show current stored calendar status on page load
+  const stored = loadStoredCalendar();
+  if (stored) {
+    const d    = new Date(stored.last_sync);
+    const when = d.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
+    setIcsStatus(`Last synced: ${when} — ${stored.events.length} events stored`, "ok");
+    renderIcsPreview(stored.events);
+  }
 
   $("importBtn").onclick = () => {
     const file = $("importFile").files[0];

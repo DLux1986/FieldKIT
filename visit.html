@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FieldKIT – Visit</title>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/bee-theme.css">
+  <script type="module" src="assets/js/ui-visit-detail.js"></script>
+  <script type="module" src="assets/js/nav.js"></script>
+</head>
+
+<body>
+
+  <main class="fk-main">
+
+    <!-- BREADCRUMB & ACTIONS -->
+    <section class="fk-visit-detail-actions">
+      <div class="fk-breadcrumb">
+        <a id="back-to-project-link" href="project.html">Project</a>
+        <span>/</span>
+        <span id="visit-breadcrumb-id">Visit</span>
+      </div>
+
+      <div class="fk-action-buttons">
+        <button id="add-sample-btn">+ Add Sample</button>
+        <button id="edit-visit-btn">Edit Visit</button>
+      </div>
+    </section>
+
+    <!-- VISIT HEADER -->
+    <section class="fk-visit-detail-header">
+      <div class="fk-visit-detail-meta">
+        <div class="fk-meta-row">
+          <strong>Visit ID:</strong>
+          <span id="visit-id"></span>
+        </div>
+        <div class="fk-meta-row">
+          <strong>Date:</strong>
+          <span id="visit-date"></span>
+        </div>
+        <div class="fk-meta-row">
+          <strong>Test Type:</strong>
+          <span id="visit-test-type"></span>
+        </div>
+        <div class="fk-meta-row">
+          <strong>Folder:</strong>
+          <span id="visit-folder" class="fk-folder-path"></span>
+        </div>
+        <div class="fk-meta-row">
+          <strong>Notes:</strong>
+          <span id="visit-notes"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAMPLES TABLE -->
+    <section class="fk-visit-samples-section">
+      <h2>Samples (<span id="sample-count">0</span>)</h2>
+      <div id="samples-container"></div>
+    </section>
+
+  </main>
+
+  <!-- VISIT EDIT MODAL -->
+  <div id="visit-edit-modal" class="fk-modal hidden">
+    <div class="fk-modal-content">
+      <h2>Edit Visit</h2>
+
+      <label>Date</label>
+      <input id="edit-visit-date" type="date">
+
+      <label>Test Type</label>
+      <select id="edit-visit-type">
+        <option value="WT">WT</option>
+        <option value="ABT">ABT</option>
+        <option value="ELD">ELD</option>
+      </select>
+
+      <label>Notes</label>
+      <textarea id="edit-visit-notes"></textarea>
+
+      <div class="fk-modal-actions">
+        <button id="save-visit-btn">Save</button>
+        <button id="cancel-visit-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

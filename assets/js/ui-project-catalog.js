@@ -1,12 +1,67 @@
 import { loadProjects } from "./projects.js";
-import { loadVisits } from "./visits.js";
-import { pad2, loadJSON, saveJSON } from "./utils.js";
+import { loadVisits, saveVisits } from "./visits.js";
+import { pad2, loadJSON } from "./utils.js";
+import { loadStoredCalendar, LS_CALENDAR } from "./ics-parser.js";
 
 // -------------------------------
 // LOAD CALENDAR
 // -------------------------------
 export async function loadCalendar() {
-  return await loadJSON("assets/data/calendar.json");
+  // Prefer localStorage (populated by ICS import) over the static JSON file.
+  const stored = loadStoredCalendar();
+  if (stored) return stored;
+
+  const raw = await loadJSON("assets/data/calendar.json");
+
+  const toLinkedProjectId = value => {
+    if (value == null) return null;
+    const normalized = String(value).trim();
+    if (!normalized || normalized.toLowerCase() === "null") return null;
+    return normalized;
+  };
+
+  const extractByToken = (obj, token) => {
+    for (const [key, value] of Object.entries(obj || {})) {
+      if (typeof value === "string" && value.includes(token)) return key;
+    }
+    return "";
+  };
+
+  const normalizeEvent = event => {
+    if (!event || typeof event !== "object") return null;
+
+    const looksNormalized = typeof event.start === "string" || typeof event.title === "string";
+    if (looksNormalized) {
+      return {
+        id: event.id || "",
+        title: event.title || "Scheduled Visit",
+        start: event.start || "",
+        end: event.end || "",
+        linked_project_id: toLinkedProjectId(event.linked_project_id)
+      };
+    }
+
+    return {
+      id: extractByToken(event, "['id']"),
+      title: extractByToken(event, "['subject']") || "Scheduled Visit",
+      start: extractByToken(event, "['start']?['dateTime']"),
+      end: extractByToken(event, "['end']?['dateTime']"),
+      linked_project_id: toLinkedProjectId(event.linked_project_id)
+    };
+  };
+
+  const sourceEvents = Array.isArray(raw?.events)
+    ? raw.events
+    : Array.isArray(raw?.events?.body)
+      ? raw.events.body
+      : [];
+
+  return {
+    ...raw,
+    events: sourceEvents
+      .map(normalizeEvent)
+      .filter(ev => ev && typeof ev.start === "string")
+  };
 }
 
 // -------------------------------
@@ -35,7 +90,12 @@ function showCalendarLinkPrompt(event, projects, calendar) {
     const selectedId = selectEl.value;
 
     event.linked_project_id = selectedId;
-    await saveJSON("assets/data/calendar.json", calendar);
+    
+    // Update the stored calendar in localStorage
+    calendar.events = calendar.events.map(ev =>
+      ev.id === event.id ? { ...ev, linked_project_id: selectedId } : ev
+    );
+    localStorage.setItem(LS_CALENDAR, JSON.stringify(calendar));
 
     modal.classList.add("hidden");
 
@@ -71,7 +131,7 @@ async function autoCreateVisitFromEvent(event, projectId) {
 
   visits.push(newVisit);
 
-  await saveJSON("assets/data/visits.json", { visits });
+  saveVisits(visits);
 }
 
 // -------------------------------

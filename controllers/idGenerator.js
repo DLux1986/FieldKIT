@@ -18,6 +18,24 @@ export function generateSampleId(systemType, sampleNumber, testNumber) {
   return `${normalizedType}-S${String(normalizedSample).padStart(2, '0')}T${String(normalizedTest).padStart(2, '0')}`;
 }
 
+export function parseSampleId(sampleId) {
+  if (!sampleId || typeof sampleId !== 'string') {
+    return { systemType: '', sampleNumber: 0, testNumber: 0 };
+  }
+
+  // Match format: "SLDR-S01T02" or "SLDR-S1T2"
+  const match = sampleId.trim().match(/^([A-Z0-9]+)-S(\d{1,2})T(\d{1,2})$/i);
+  if (match) {
+    return {
+      systemType: match[1].toUpperCase(),
+      sampleNumber: Number(match[2]),
+      testNumber: Number(match[3])
+    };
+  }
+
+  return { systemType: '', sampleNumber: 0, testNumber: 0 };
+}
+
 export function formatSampleId(value) {
   if (!value && value !== 0) return "";
 

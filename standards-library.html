@@ -1,25 +1,25 @@
-<div class="bee-app">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Standards Library — BEE FieldKIT</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/bee-theme.css">
+  <link rel="stylesheet" href="assets/css/standards-library.css">
+  <script type="module" src="assets/js/nav.js"></script>
+  <script type="module" src="assets/js/standards-library.js"></script>
+</head>
+<body>
 
-  <header class="bee-header">
-    <div class="bee-logo">BEE ENGINEERS</div>
-    <nav class="bee-nav">
-      <a href="/dashboard.html">Dashboard</a>
-      <a href="/samples.html">Samples</a>
-      <a href="/standards-library.html" class="active">Standards</a>
-      <a href="/timers.html">Timers</a>
-    </nav>
-  </header>
-
-  <main class="bee-content">
+  <main class="fk-main">
 
     <div class="standards-page">
-      <div class="standards-header">
-        <h2>Standards Library</h2>
-      </div>
-
       <div class="standards-grid">
         <div id="standardsList" class="standards-list"></div>
         <div class="viewer-panel">
+          <div class="viewer-controls">
+            <button id="fsBtn" class="viewer-fs-btn" title="Fullscreen">⛶ Fullscreen</button>
+          </div>
           <iframe id="pdfViewer"></iframe>
         </div>
       </div>
@@ -27,4 +27,5 @@
 
   </main>
 
-</div>
+</body>
+</html>

@@ -70,3 +70,111 @@ body {
   overflow: auto;
   padding: 20px;
 }
+
+/* -----------------------------------
+   TIMER STYLES
+----------------------------------- */
+body > h1 {
+  display: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  padding: 16px;
+  text-align: center;
+}
+
+.mode-switch {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.mode-switch .btn {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.timer-display {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+}
+
+#stepName {
+  font-size: 0.9rem;
+  color: var(--cloudy);
+  margin-bottom: 6px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#timeLeft {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--honey);
+  font-family: "Monaco", "Courier New", monospace;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin: 0;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.controls .btn {
+  padding: 10px 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.btn {
+  background: var(--sky);
+  color: var(--black);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--hive);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.btn-line {
+  background: transparent;
+  border: 2px solid var(--sky);
+  color: var(--black);
+}
+
+.btn-line:hover {
+  background: var(--balance);
+  border-color: var(--honey);
+  color: var(--honey);
+}

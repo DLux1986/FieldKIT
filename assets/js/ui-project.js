@@ -1,8 +1,9 @@
 import { loadProjects } from "./projects.js";
 import { loadVisits, saveVisits } from "./visits.js";
+import { loadSamples } from "./samples.js";
 import { loadCalendar } from "./ui-project-catalog.js"; // or wherever you exported it
-import { saveJSON } from "./utils.js";
-import { formatSampleId } from "../../controllers/idGenerator.js";
+import { loadStoredCalendar, LS_CALENDAR } from "./ics-parser.js";
+import { formatSampleId, parseSampleId } from "../../controllers/idGenerator.js";
 
 // -------------------------------
 // HELPERS
@@ -53,7 +54,7 @@ async function autoCreateVisitFromEvent(event, projectId) {
   };
 
   visits.push(newVisit);
-  await saveJSON("assets/data/visits.json", { visits });
+  saveVisits(visits);
 }
 
 // -------------------------------
@@ -82,7 +83,12 @@ function showCalendarLinkPrompt(event, project, calendar) {
     const selectedId = selectEl.value;
 
     event.linked_project_id = selectedId;
-    await saveJSON("assets/data/calendar.json", calendar);
+    
+    // Update the stored calendar in localStorage
+    calendar.events = calendar.events.map(ev =>
+      ev.id === event.id ? { ...ev, linked_project_id: selectedId } : ev
+    );
+    localStorage.setItem(LS_CALENDAR, JSON.stringify(calendar));
 
     modal.classList.add("hidden");
 
@@ -114,6 +120,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const projects = await loadProjects();
   const calendar = await loadCalendar();
   let visits = await loadVisits();
+  let samples = loadSamples();
 
   const project = projects.find(p => p.id === projectId) || {
     id: projectId || "",
@@ -131,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const projectEvents = findEventsForProject(project, calendar);
 
   renderProjectDetails(project, projectVisits, projectEvents);
-  renderVisitList(project, visits);
+  renderVisitList(project, visits, samples);
   bindVisitModal(project, () => visits);
 
   // Check for unlinked events for THIS project
@@ -197,9 +204,14 @@ function bindVisitModal(project, getVisits) {
   });
 }
 
-function renderVisitList(project, visits) {
+function renderVisitList(project, visits, samples) {
   const container = document.getElementById("visit-list");
   if (!container) return;
+
+  // Load samples if not provided
+  if (!samples) {
+    samples = loadSamples();
+  }
 
   const projectVisits = getProjectVisits(visits, project.id);
   container.innerHTML = "";
@@ -230,9 +242,12 @@ function renderVisitList(project, visits) {
   projectVisits.forEach(visit => {
     const row = document.createElement("tr");
     const visitLabel = `${visit.test_type || ""}${visit.visit_number || ""}`;
-    const sampleCount = visit.sampleCount || 0;
-    const passCount = visit.passCount || 0;
-    const failCount = visit.failCount || 0;
+    
+    // Calculate sample counts from actual samples
+    const visitSamples = samples.filter(s => s.visit_id === visit.id);
+    const sampleCount = visitSamples.length;
+    const passCount = visitSamples.filter(s => s.result === "pass" || s.result === "PASS").length;
+    const failCount = visitSamples.filter(s => s.result === "fail" || s.result === "FAIL").length;
 
     row.innerHTML = `
       <td>${visit.date || ""}</td>

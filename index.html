@@ -5,82 +5,43 @@
   <title>FieldKIT Dashboard</title>
 
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/bee-theme.css" />
+  <script type="module" src="assets/js/nav.js"></script>
 </head>
-<div id="fk-floating-timers" class="fk-floating hidden">
-  <div class="fk-floating-header">
-    <span>Test Timers</span>
-    <button id="fk-floating-close">×</button>
-  </div>
-
-  <iframe src="/tools/test-timers.html"></iframe>
-</div>
-
-<button id="fk-floating-open" class="fk-floating-open-btn">⏱️ Test Timers</button>
-
 <body>
-
-  <header class="fk-header">
-    <h1>BEE ENGINEERS FieldKIT</h1>
-  </header>
 
   <main class="fk-main">
 
-    <!-- QUICK ACTIONS -->
-    <section class="dashboard-grid">
+    <!-- WEEK SCHEDULE (populated by ui-dashboard.js) -->
+    <section id="week-schedule"></section>
 
-      <a class="dash-card" href="project-catalog.html">
-        <div class="dash-icon">📁</div>
-        <div class="dash-title">Project Database</div>
-      </a>
-
-      <a class="dash-card" href="./tools/test-timers/test-timers.html">
-        <div class="dash-icon">⏱️</div>
-        <div class="dash-title">Test Timers</div>
-      </a>
-
-      <a class="dash-card" href="unit-converters.html">
-        <div class="dash-icon">🔧</div>
-        <div class="dash-title">Unit Converters</div>
-      </a>
-
-      <a class="dash-card" href="standards-library.html">
-        <div class="dash-icon">📚</div>
-        <div class="dash-title">Standards Library</div>
-      </a>
-
-      <a class="dash-card" href="sample-entry.html">
-        <div class="dash-icon">📝</div>
-        <div class="dash-title">Sample Entry</div>
-      </a>
-
-    </section>
-
-    <!-- SCHEDULE -->
-    <section class="schedule-section">
-      <h2>Testing Schedule</h2>
-
-      <div class="schedule-item">
-        <div class="schedule-date">Mon 10/12</div>
-        <div class="schedule-body">
-          <div class="schedule-title">Window Test</div>
-          <div class="schedule-location">Altera North</div>
-          <div class="schedule-time">8:00am</div>
+    <!-- PROJECT LINK SELECTOR MODAL -->
+    <div id="project-selector-overlay" class="event-detail-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="project-selector-title">
+      <div class="event-detail-panel">
+        <button class="event-detail-close" id="project-selector-close" aria-label="Close">&times;</button>
+        <div class="event-detail-header">
+          <div class="event-detail-title" id="project-selector-title">Link Event to Project</div>
         </div>
+        <div id="project-selector-list" class="project-selector-list"></div>
       </div>
+    </div>
 
-      <div class="schedule-item">
-        <div class="schedule-date">Wed 10/14</div>
-        <div class="schedule-body">
-          <div class="schedule-title">Air Barrier Test</div>
-          <div class="schedule-location">The Lofts – Mirkwood</div>
-          <div class="schedule-time">11:00am</div>
+    <!-- EVENT DETAIL MODAL -->
+    <div id="event-detail-overlay" class="event-detail-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="event-detail-title">
+      <div class="event-detail-panel">
+        <button class="event-detail-close" id="event-detail-close" aria-label="Close">&times;</button>
+        <div class="event-detail-header">
+          <div class="event-detail-title" id="event-detail-title"></div>
+          <div class="event-detail-meta" id="event-detail-meta"></div>
+          <div class="event-detail-actions" id="event-detail-actions"></div>
         </div>
+        <div class="event-detail-body" id="event-detail-body"></div>
+        <div class="event-detail-footer" id="event-detail-footer"></div>
       </div>
+    </div>
 
-    </section>
-<script type="module" src="assets/js/floating-timers.js"></script>
+<script type="module" src="assets/js/ui-dashboard.js"></script>
 
-  </main>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 // ui-visit.js
 
-import { formatSampleId } from "../../controllers/idGenerator.js";
+import { formatSampleId, parseSampleId } from "../../controllers/idGenerator.js";
 
 function renderVisitsForProject(project, visits, samples, container) {
   container.innerHTML = "";
@@ -33,6 +33,7 @@ function renderVisitsForProject(project, visits, samples, container) {
         </header>
 
         <div class="fk-visit-body">
+          <button class="fk-view-full-visit-btn" data-visit="${visit.visit_id}" data-project="${project.project_id}">📄 View Full Visit</button>
           <button class="fk-add-sample-btn" data-visit="${visit.visit_id}">Add Sample</button>
           <button class="fk-edit-visit-btn" data-visit="${visit.visit_id}">Edit Visit</button>
 
@@ -106,7 +107,15 @@ function renderVisitsForProject(project, visits, samples, container) {
         const isCollapsed = body.classList.toggle("collapsed");
         toggleBtn.classList.toggle("rotated", isCollapsed);
         });
+
+      // VIEW FULL VISIT PAGE
       // -----------------------------
+      card.querySelector(".fk-view-full-visit-btn")?.addEventListener("click", (e) => {
+        const visitId = e.target.dataset.visit;
+        const projectId = e.target.dataset.project;
+        window.location.href = `visit.html?project_id=${encodeURIComponent(projectId)}&visit_id=${encodeURIComponent(visitId)}`;
+      });
+
       // OPEN SAMPLE PAGE
       // -----------------------------
       card.querySelectorAll(".fk-sample-open").forEach(btn => {

@@ -1,8 +1,27 @@
-// samples.js
+// samples.js — localStorage powered
 
 import { loadJSON } from "./utils.js";
 
-export async function loadSamples() {
+const SAMPLES_KEY = "samples";
+
+export function loadSamples() {
+  const stored = localStorage.getItem(SAMPLES_KEY);
+  if (stored) {
+    try {
+      return JSON.parse(stored);
+    } catch (e) {
+      console.warn("Samples localStorage parse failed:", e);
+    }
+  }
+  return [];
+}
+
+export function saveSamples(samples) {
+  localStorage.setItem(SAMPLES_KEY, JSON.stringify(samples));
+}
+
+// Legacy: try loading from JSON if localStorage is empty
+export async function loadSamplesFromJSON() {
   try {
     const data = await loadJSON("assets/data/samples.json");
 

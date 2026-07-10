@@ -13,22 +13,44 @@ const listEl = document.getElementById("standardsList");
 const viewer = document.getElementById("pdfViewer");
 const fsBtn = document.getElementById("fsBtn");
 
-fsBtn.onclick = () => {
+let currentActiveItem = null;
+
+fsBtn.addEventListener("click", () => {
   if (viewer.requestFullscreen) viewer.requestFullscreen();
-};
+});
 
 function loadList() {
-  standards.forEach(file => {
+  standards.forEach((file, index) => {
     const item = document.createElement("div");
     item.className = "standards-item";
     item.textContent = file.replace(".pdf", "");
-    item.onclick = () => openPDF(file);
+    item.dataset.file = file;
+    item.addEventListener("click", () => selectPDF(file, item));
     listEl.appendChild(item);
+    
+    // Load first PDF by default
+    if (index === 0) {
+      selectPDF(file, item);
+    }
   });
 }
 
+function selectPDF(filename, item) {
+  // Remove active class from previous item
+  if (currentActiveItem) {
+    currentActiveItem.classList.remove("active");
+  }
+  
+  // Add active class to new item
+  item.classList.add("active");
+  currentActiveItem = item;
+  
+  // Load PDF
+  openPDF(filename);
+}
+
 function openPDF(filename) {
-  viewer.src = `/assets/standards/${filename}`;
+  viewer.src = `assets/standards/${filename}`;
 }
 
 loadList();
