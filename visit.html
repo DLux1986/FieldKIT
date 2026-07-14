@@ -52,6 +52,18 @@
           <strong>Notes:</strong>
           <span id="visit-notes"></span>
         </div>
+        <div class="fk-meta-row">
+          <strong>Lead Technician:</strong>
+          <span id="visit-lead-technician">—</span>
+        </div>
+        <div class="fk-meta-row">
+          <strong>Technician 2:</strong>
+          <span id="visit-technician-2">—</span>
+        </div>
+        <div class="fk-meta-row">
+          <strong>Witnesses:</strong>
+          <span id="visit-witness-summary">—</span>
+        </div>
       </div>
     </section>
 
@@ -81,6 +93,50 @@
 
       <label>Notes</label>
       <textarea id="edit-visit-notes"></textarea>
+
+      <h3>Personnel</h3>
+
+      <label>Lead Technician</label>
+      <select id="edit-lead-technician">
+        <option value=""></option>
+        <option value="Christopher Shafer">Christopher Shafer</option>
+        <option value="Dave Luxmore">Dave Luxmore</option>
+        <option value="Jack Welch">Jack Welch</option>
+        <option value="Jesus Garcia">Jesus Garcia</option>
+        <option value="Robert Smith">Robert Smith</option>
+        <option value="Torin Garner">Torin Garner</option>
+      </select>
+
+      <label>Technician 2</label>
+      <select id="edit-technician-2">
+        <option value=""></option>
+        <option value="Christopher Shafer">Christopher Shafer</option>
+        <option value="Dave Luxmore">Dave Luxmore</option>
+        <option value="Jack Welch">Jack Welch</option>
+        <option value="Jesus Garcia">Jesus Garcia</option>
+        <option value="Robert Smith">Robert Smith</option>
+        <option value="Torin Garner">Torin Garner</option>
+      </select>
+
+      <h3>Witnesses</h3>
+
+      <label>Witness Name 1</label>
+      <input id="edit-witness-name-1" type="text">
+
+      <label>Witness Name 2</label>
+      <input id="edit-witness-name-2" type="text">
+
+      <label>Witness Company 1</label>
+      <input id="edit-witness-company-1" type="text">
+
+      <label>Witness Company 2</label>
+      <input id="edit-witness-company-2" type="text">
+
+      <label>Witness Role 1</label>
+      <input id="edit-witness-role-1" type="text">
+
+      <label>Witness Role 2</label>
+      <input id="edit-witness-role-2" type="text">
 
       <div class="fk-modal-actions">
         <button id="save-visit-btn">Save</button>

@@ -1,63 +1,22 @@
-import { loadProjects, saveProjectAddressOverride } from "./projects.js";
-import { loadVisits, saveVisits } from "./visits.js";
-import { pad2, loadJSON } from "./utils.js";
-import { importIcsUrlToStorage, loadStoredCalendar, LS_CALENDAR } from "./ics-parser.js";
+import { loadProjects } from "./projects.js";
+import { loadVisits } from "./visits.js";
+import { pad2, loadJSON, saveJSON } from "./utils.js";
+import { importIcsUrlToStorage, loadStoredCalendar } from "./ics-parser.js";
 
-const SHARED_CALENDAR_ICS = "assets/data/Testing Schedule Calendar.ics";
+const DEFAULT_ICS_URL = "assets/data/Testing Schedule Calendar.ics";
 
-function normalizeCalendarAddress(location) {
-  if (!location) return "";
+function isPersonnelOffEvent(event) {
+  const title = String(event?.title || "").trim();
+  if (!title) return false;
 
-  const match = String(location).match(/\(([^)]+)\)/);
-  const raw = match ? match[1] : String(location);
-  return raw.replace(/\\/g, "").trim();
-}
-
-function maybeUpdateProjectAddressFromEvent(projectId, event, projects) {
-  const project = projects.find(p => String(p.id) === String(projectId));
-  if (!project) return false;
-
-  const hasAddress = String(project.address || "").trim().length > 0;
-  if (hasAddress) return false;
-
-  const inferredAddress = normalizeCalendarAddress(event?.location || "");
-  if (!inferredAddress) return false;
-
-  project.address = inferredAddress;
-  return saveProjectAddressOverride(projectId, inferredAddress, project);
+  // Match patterns like "Chris Off", "Dave Off at 2pm".
+  return /^[A-Za-z]+(?:\s+[A-Za-z]+)?\s+off\b/i.test(title);
 }
 
 // -------------------------------
 // LOAD CALENDAR
 // -------------------------------
 export async function loadCalendar() {
-  const stored = loadStoredCalendar();
-
-  // Primary source: shared ICS file committed to assets/data.
-  // This lets every device load the same schedule without local rewiring.
-  try {
-    const calendar = await importIcsUrlToStorage(SHARED_CALENDAR_ICS);
-    return {
-      ...calendar,
-      source: "ics-file",
-      source_label: "Shared ICS"
-    };
-  } catch (err) {
-    console.warn("ICS load failed, using fallback calendar source:", err);
-  }
-
-  // Fallback 1: previously synced local storage copy.
-  if (stored) {
-    return {
-      ...stored,
-      source: "local-storage",
-      source_label: "Local Cache"
-    };
-  }
-
-  // Fallback 2: legacy JSON calendar file.
-  const raw = await loadJSON("assets/data/calendar.json");
-
   const toLinkedProjectId = value => {
     if (value == null) return null;
     const normalized = String(value).trim();
@@ -82,6 +41,8 @@ export async function loadCalendar() {
         title: event.title || "Scheduled Visit",
         start: event.start || "",
         end: event.end || "",
+        location: event.location || "",
+        description: event.description || "",
         linked_project_id: toLinkedProjectId(event.linked_project_id)
       };
     }
@@ -91,24 +52,46 @@ export async function loadCalendar() {
       title: extractByToken(event, "['subject']") || "Scheduled Visit",
       start: extractByToken(event, "['start']?['dateTime']"),
       end: extractByToken(event, "['end']?['dateTime']"),
+      location: extractByToken(event, "['location']?['displayName']") || "",
+      description: extractByToken(event, "['bodyPreview']") || "",
       linked_project_id: toLinkedProjectId(event.linked_project_id)
     };
   };
 
-  const sourceEvents = Array.isArray(raw?.events)
-    ? raw.events
-    : Array.isArray(raw?.events?.body)
-      ? raw.events.body
-      : [];
+  const normalizeCalendar = (raw, source, sourceLabel) => {
+    const sourceEvents = Array.isArray(raw?.events)
+      ? raw.events
+      : Array.isArray(raw?.events?.body)
+        ? raw.events.body
+        : [];
 
-  return {
-    ...raw,
-    source: "calendar-json",
-    source_label: "Legacy JSON",
-    events: sourceEvents
-      .map(normalizeEvent)
-      .filter(ev => ev && typeof ev.start === "string")
+    return {
+      ...(raw || {}),
+      source,
+      source_label: sourceLabel,
+      events: sourceEvents
+        .map(normalizeEvent)
+        .filter(ev => ev && typeof ev.start === "string" && ev.start.length > 0)
+    };
   };
+
+  // Prefer live ICS file in assets/data so dashboard/calendar stay current
+  // without a manual import step.
+  try {
+    const synced = await importIcsUrlToStorage(encodeURI(DEFAULT_ICS_URL));
+    return normalizeCalendar(synced, "ics-file", "ICS File");
+  } catch (_) {
+    // Fall back to whatever was last synced in local storage.
+  }
+
+  const stored = loadStoredCalendar();
+  if (stored && (Array.isArray(stored.events) || Array.isArray(stored?.events?.body))) {
+    return normalizeCalendar(stored, "local-storage", "Stored Calendar");
+  }
+
+  // Final fallback for legacy/dev datasets.
+  const raw = await loadJSON("assets/data/calendar.json");
+  return normalizeCalendar(raw, "calendar-json", "calendar.json");
 }
 
 // -------------------------------
@@ -137,13 +120,22 @@ function showCalendarLinkPrompt(event, projects, calendar) {
     const selectedId = selectEl.value;
 
     event.linked_project_id = selectedId;
-    maybeUpdateProjectAddressFromEvent(selectedId, event, projects);
-    
-    // Update the stored calendar in localStorage
-    calendar.events = calendar.events.map(ev =>
-      ev.id === event.id ? { ...ev, linked_project_id: selectedId } : ev
-    );
-    localStorage.setItem(LS_CALENDAR, JSON.stringify(calendar));
+
+    // Persist links to localStorage-backed calendar when ICS is the source.
+    try {
+      const stored = JSON.parse(localStorage.getItem("fieldkit_calendar") || "{}");
+      if (Array.isArray(stored?.events)) {
+        const idx = stored.events.findIndex(ev => ev.id === event.id);
+        if (idx >= 0) {
+          stored.events[idx].linked_project_id = selectedId;
+        }
+        localStorage.setItem("fieldkit_calendar", JSON.stringify(stored));
+      }
+    } catch (_) {
+      // Ignore storage write issues and still try legacy JSON save path.
+    }
+
+    await saveJSON("assets/data/calendar.json", calendar);
 
     modal.classList.add("hidden");
 
@@ -179,7 +171,7 @@ async function autoCreateVisitFromEvent(event, projectId) {
 
   visits.push(newVisit);
 
-  saveVisits(visits);
+  await saveJSON("assets/data/visits.json", { visits });
 }
 
 // -------------------------------
@@ -189,21 +181,11 @@ let projects = [];
 let visits = [];
 let sortColumn = null;
 let sortAsc = true;
-let hoverPreviewTimer = null;
 
 // -------------------------------
 // MAIN INITIALIZER
 // -------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
-  const updateStickyOffsets = () => {
-    const header = document.querySelector(".fk-header");
-    const height = header ? Math.ceil(header.getBoundingClientRect().height) : 72;
-    document.documentElement.style.setProperty("--fk-sticky-nav-height", `${height}px`);
-  };
-
-  updateStickyOffsets();
-  window.addEventListener("resize", updateStickyOffsets);
-
   projects = await loadProjects();
   visits = await loadVisits();
   populateFilters(projects);
@@ -237,7 +219,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const today = new Date().toISOString().substring(0, 10);
 
   const unlinkedEvents = calendar.events.filter(ev =>
-    ev.start.startsWith(today) && !ev.linked_project_id
+    ev.start.startsWith(today) &&
+    !ev.linked_project_id &&
+    !isPersonnelOffEvent(ev)
   );
 
   if (unlinkedEvents.length > 0) {
@@ -336,7 +320,6 @@ function renderProjectCatalog(projects, visits) {
     const projectVisits = visits.filter(v => v.id === project.id);
 
     const row = document.createElement("tr");
-    row.dataset.projectId = project.id;
     row.innerHTML = `
       <td>${project.id}</td>
       <td>${project.name}</td>
@@ -346,18 +329,17 @@ function renderProjectCatalog(projects, visits) {
     `;
 
     row.addEventListener("click", () => {
-      hideHoverProjectPreview();
-      clearHoverPreviewTimer();
-      openProject(project.id);
-    });
+      document.querySelectorAll(".fk-project-table tr").forEach(r => r.classList.remove("selected"));
+      row.classList.add("selected");
 
-    row.addEventListener("mouseenter", () => {
-      scheduleHoverProjectPreview(project, projectVisits, row);
-    });
+      // Some catalog layouts do not include the inline details pane.
+      // In that case, use row click to open the project page directly.
+      if (!document.getElementById("project-details-pane")) {
+        window.location.href = `project.html?id=${encodeURIComponent(project.id)}`;
+        return;
+      }
 
-    row.addEventListener("mouseleave", () => {
-      clearHoverPreviewTimer();
-      hideHoverProjectPreview();
+      showProjectDetails(project, projectVisits);
     });
 
     tbody.appendChild(row);
@@ -398,63 +380,43 @@ function sortProjects(projects, visits) {
   });
 }
 
-function openProject(projectId) {
-  window.location.href = `project.html?id=${encodeURIComponent(projectId)}`;
-}
+// -------------------------------
+// PROJECT DETAILS PANEL
+// -------------------------------
+function showProjectDetails(project, projectVisits) {
+  const pane = document.getElementById("project-details-pane");
+  if (!pane) return;
 
-function clearHoverPreviewTimer() {
-  if (hoverPreviewTimer) {
-    clearTimeout(hoverPreviewTimer);
-    hoverPreviewTimer = null;
-  }
-}
+  const nameEl = document.getElementById("details-name");
+  const idEl = document.getElementById("details-id");
+  const pmEl = document.getElementById("details-pm");
+  const clientEl = document.getElementById("details-client");
+  const addressEl = document.getElementById("details-address");
+  const visitsEl = document.getElementById("details-visits");
+  const list = document.getElementById("details-visit-list");
+  const openBtn = document.getElementById("details-open");
 
-function scheduleHoverProjectPreview(project, projectVisits, row) {
-  clearHoverPreviewTimer();
-  hoverPreviewTimer = setTimeout(() => {
-    showHoverProjectPreview(project, projectVisits, row);
-  }, 3000);
-}
-
-function showHoverProjectPreview(project, projectVisits, row) {
-  const preview = document.getElementById("project-hover-preview");
-  if (!preview) return;
-
-  document.getElementById("project-hover-title").textContent = project.name || project.id;
-  document.getElementById("project-hover-id").textContent = project.id || "";
-  document.getElementById("project-hover-client").textContent = project.client || "—";
-  document.getElementById("project-hover-address").textContent = project.address || "—";
-  document.getElementById("project-hover-visits").textContent = String(projectVisits.length);
-
-  const rect = row.getBoundingClientRect();
-  preview.classList.remove("hidden");
-
-  const margin = 10;
-  const viewportW = window.innerWidth;
-  const viewportH = window.innerHeight;
-  const boxW = preview.offsetWidth;
-  const boxH = preview.offsetHeight;
-
-  let left = rect.right + margin;
-  let top = rect.top;
-
-  if (left + boxW > viewportW - margin) {
-    left = rect.left - boxW - margin;
+  if (!nameEl || !idEl || !pmEl || !clientEl || !addressEl || !visitsEl || !list || !openBtn) {
+    return;
   }
 
-  if (left < margin) left = margin;
-  if (top + boxH > viewportH - margin) top = viewportH - boxH - margin;
-  if (top < margin) top = margin;
+  nameEl.textContent = project.name;
+  idEl.textContent = project.id;
+  pmEl.textContent = project.manager || "";
+  clientEl.textContent = project.client || "";
+  addressEl.textContent = project.address || "";
+  visitsEl.textContent = projectVisits.length;
 
-  preview.style.left = `${left}px`;
-  preview.style.top = `${top}px`;
+  list.innerHTML = "";
+  projectVisits.forEach(v => {
+    const li = document.createElement("li");
+    li.textContent = `${v.date} — ${v.test_type}${v.visit_number}`;
+    list.appendChild(li);
+  });
+
+  openBtn.onclick = () => {
+    window.location.href = `project.html?id=${encodeURIComponent(project.id)}`;
+  };
+
+  pane.classList.remove("hidden");
 }
-
-function hideHoverProjectPreview() {
-  const preview = document.getElementById("project-hover-preview");
-  if (!preview) return;
-  preview.classList.add("hidden");
-}
-
-window.addEventListener("scroll", hideHoverProjectPreview, { passive: true });
-window.addEventListener("resize", hideHoverProjectPreview);

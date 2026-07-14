@@ -1,0 +1,14 @@
+{
+  "manager": [
+    {"pm_name": "Anna Senchenko", "pm_info": "", "pm_title": "Project Manager"},
+    {"pm_name": "Chad Brickner", "pm_info": ", RBEC, BECxP, CDT", "pm_title": "Senior Project Manager"},
+    {"pm_name": "Chad Smith", "pm_info": ", P.E.", "pm_title": "Managing Principal"},
+    {"pm_name": "Chris Pressey", "pm_info": ", P.E., LEED", "pm_title": "Senior Project Manager"},
+    {"pm_name": "David Chapman", "pm_info": ", RRC, RRO, REWO", "pm_title": "Inspection Manager"},
+    {"pm_name": "Denin Dazey", "pm_info": "", "pm_title": "Project Manager"},
+    {"pm_name": "Patrick McMahon", "pm_info": ", P.E.", "pm_title": "Senior Project Manager"},
+    {"pm_name": "Stephen Polledri", "pm_info": "", "pm_title": "Project Manager"},
+    {"pm_name": "Telman Gasanov", "pm_info": ", Principal", "pm_title": "Project Manager"},
+    {"pm_name": "Tyler Smith", "pm_info": ", P.E", "pm_title": "Senior Project Manager"}
+  ]
+}

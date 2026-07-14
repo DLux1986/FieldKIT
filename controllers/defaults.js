@@ -6,6 +6,7 @@ export const createEmptySampleEntry = (projectId = "") => ({
 
   testDate: "",
   testTime: "",
+  testPhase: "Initial",
 
   result: "PASS",
   notes: "",

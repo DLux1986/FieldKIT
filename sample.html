@@ -5,56 +5,25 @@
   <title>FieldKIT – Sample</title>
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/bee-theme.css">
-  <script type="module" src="assets/js/nav.js"></script>
-  <script defer src="assets/js/utils.js"></script>
-  <script defer src="assets/js/visits.js"></script>
-  <script defer src="assets/js/samples.js"></script>
-  <script defer src="assets/js/ui-sample.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const target = new URL("sample-entry.html", window.location.href);
+
+    for (const [key, value] of params.entries()) {
+      if (key === "sample_id" || key === "sampleId") {
+        target.searchParams.set("sample_id", value);
+      } else {
+        target.searchParams.set(key, value);
+      }
+    }
+
+    window.location.replace(target.toString());
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=sample-entry.html" />
+  </noscript>
 </head>
 <body>
-
-  <main class="fk-main">
-    <form id="sample-form">
-      <div class="fk-field">
-        <label>Window Type</label>
-        <select id="window-type"></select>
-      </div>
-
-      <div class="fk-field">
-        <label>Elevation</label>
-        <input id="elevation" type="text" />
-      </div>
-
-      <div class="fk-field">
-        <label>Product Type</label>
-        <input id="product-type" type="text" />
-      </div>
-
-      <div class="fk-field">
-        <label>Manufacturer</label>
-        <input id="manufacturer" type="text" />
-      </div>
-
-      <div class="fk-field">
-        <label>Result</label>
-        <select id="result">
-          <option value="PASS">PASS</option>
-          <option value="FAIL">FAIL</option>
-        </select>
-      </div>
-
-      <div class="fk-field">
-        <label>Notes</label>
-        <textarea id="notes"></textarea>
-      </div>
-
-      <div class="fk-actions">
-        <button type="button" id="save-sample-btn">Save</button>
-        <button type="button" id="delete-sample-btn">Delete</button>
-        <button type="button" id="duplicate-sample-btn">Duplicate</button>
-        <button type="button" id="back-to-visit-btn">Back to Visit</button>
-      </div>
-    </form>
-  </main>
+  <p>Redirecting to sample-entry.html...</p>
 </body>
 </html>

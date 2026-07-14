@@ -7,6 +7,7 @@ export const SampleEntrySchema = z.object({
 
   testDate: z.string(),
   testTime: z.string(),
+  testPhase: z.enum(["Initial", "Retest"]),
 
   result: z.enum(["PASS", "FAIL"]),
   notes: z.string(),

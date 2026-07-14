@@ -5,6 +5,14 @@ import { loadCalendar } from "./ui-project-catalog.js"; // or wherever you expor
 import { loadStoredCalendar, LS_CALENDAR } from "./ics-parser.js";
 import { formatSampleId, parseSampleId } from "../../controllers/idGenerator.js";
 
+function isPersonnelOffEvent(event) {
+  const title = String(event?.title || "").trim();
+  if (!title) return false;
+
+  // Match patterns like "Chris Off", "Dave Off at 2pm".
+  return /^[A-Za-z]+(?:\s+[A-Za-z]+)?\s+off\b/i.test(title);
+}
+
 function normalizeCalendarAddress(location) {
   if (!location) return "";
 
@@ -176,7 +184,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Check for unlinked events for THIS project
   const today = new Date().toISOString().substring(0, 10);
   const unlinked = calendar.events.filter(ev =>
-    ev.start.startsWith(today) && !ev.linked_project_id
+    ev.start.startsWith(today) &&
+    !ev.linked_project_id &&
+    !isPersonnelOffEvent(ev)
   );
 
   if (unlinked.length > 0) {
@@ -193,6 +203,14 @@ function bindVisitModal(project, getVisits, setVisits) {
   const dateInput = document.getElementById("edit-visit-date");
   const typeInput = document.getElementById("edit-visit-type");
   const notesInput = document.getElementById("edit-visit-notes");
+  const leadTechnicianInput = document.getElementById("edit-lead-technician");
+  const technician2Input = document.getElementById("edit-technician-2");
+  const witnessName1Input = document.getElementById("edit-witness-name-1");
+  const witnessName2Input = document.getElementById("edit-witness-name-2");
+  const witnessCompany1Input = document.getElementById("edit-witness-company-1");
+  const witnessCompany2Input = document.getElementById("edit-witness-company-2");
+  const witnessRole1Input = document.getElementById("edit-witness-role-1");
+  const witnessRole2Input = document.getElementById("edit-witness-role-2");
   const saveBtn = document.getElementById("save-visit-btn");
   const cancelBtn = document.getElementById("cancel-visit-btn");
 
@@ -200,6 +218,14 @@ function bindVisitModal(project, getVisits, setVisits) {
     dateInput.value = new Date().toISOString().substring(0, 10);
     typeInput.value = "WT";
     notesInput.value = "";
+    if (leadTechnicianInput) leadTechnicianInput.value = "";
+    if (technician2Input) technician2Input.value = "";
+    if (witnessName1Input) witnessName1Input.value = "";
+    if (witnessName2Input) witnessName2Input.value = "";
+    if (witnessCompany1Input) witnessCompany1Input.value = "";
+    if (witnessCompany2Input) witnessCompany2Input.value = "";
+    if (witnessRole1Input) witnessRole1Input.value = "";
+    if (witnessRole2Input) witnessRole2Input.value = "";
     modal.classList.remove("hidden");
   });
 
@@ -212,6 +238,18 @@ function bindVisitModal(project, getVisits, setVisits) {
     const date = dateInput.value;
     const testType = typeInput.value;
     const notes = notesInput.value;
+    const personnel = {
+      leadTechnician: leadTechnicianInput?.value || "",
+      technician2: technician2Input?.value || ""
+    };
+    const witnesses = {
+      witness_name_1: witnessName1Input?.value || "",
+      witness_name_2: witnessName2Input?.value || "",
+      witness_company_1: witnessCompany1Input?.value || "",
+      witness_company_2: witnessCompany2Input?.value || "",
+      witness_role_1: witnessRole1Input?.value || "",
+      witness_role_2: witnessRole2Input?.value || ""
+    };
 
     if (!date || !project.id) {
       modal.classList.add("hidden");
@@ -225,7 +263,17 @@ function bindVisitModal(project, getVisits, setVisits) {
       date,
       test_type: testType,
       visit_number: nextNumber,
-      notes
+      notes,
+      personnel,
+      witnesses,
+      lead_technician: personnel.leadTechnician,
+      technician_2: personnel.technician2,
+      witness_name_1: witnesses.witness_name_1,
+      witness_name_2: witnesses.witness_name_2,
+      witness_company_1: witnesses.witness_company_1,
+      witness_company_2: witnesses.witness_company_2,
+      witness_role_1: witnesses.witness_role_1,
+      witness_role_2: witnesses.witness_role_2
     };
 
     const updatedVisits = [...currentVisits, newVisit];

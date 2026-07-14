@@ -8,6 +8,9 @@ Use these Jinja fields in your DOCX template (for `docxtpl`).
 - `{{ project_name }}`
 - `{{ project_manager }}`
 - `{{ project_client }}`
+- `{{ testDate }}`
+- `{{ testTime }}`
+- `{{ testPhase }}`
 
 ## Project fields
 - `{{ project.id }}`
@@ -15,6 +18,12 @@ Use these Jinja fields in your DOCX template (for `docxtpl`).
 - `{{ project.client }}`
 - `{{ project.manager }}`
 - `{{ project.address }}`
+
+## Manager fields
+- `{{ manager.pm_name }}`
+- `{{ manager.pm_info }}`
+- `{{ manager.pm_title }}`
+- `{{ manager.pm_name_with_info }}`
 
 ## Visit fields
 - `{{ visit.id }}`
@@ -42,13 +51,28 @@ Blank witness fields are valid when only one witness is present.
 - `{{ summary.sample_count }}`
 - `{{ summary.pass_count }}`
 - `{{ summary.fail_count }}`
+- `{{ summary.product_types_sentence }}`
+- `{{ summary.product_types_list_text }}`
+
+Product type loop fields:
+
+```jinja
+{% for p in summary.product_types %}
+{{ p.line }}
+{% endfor %}
+```
+
+Available fields per `p`:
+- `{{ p.count }}`
+- `{{ p.label }}`
+- `{{ p.line }}`
 
 ## Sample table loop
 Use this in a Word table row:
 
 ```jinja
 {% for s in samples %}
-{{ s.sample_id }} | {{ s.series_model }} | {{ s.system_type }} | {{ s.elevation }} | {{ s.unit_number }} | {{ s.pressure_psf }} | {{ s.result }}
+{{ s.sample_id }} | {{ s.test_date }} | {{ s.test_time }} | {{ s.test_phase }} | {{ s.series_model }} | {{ s.system_type }} | {{ s.elevation }} | {{ s.unit_number }} | {{ s.pressure_psf }} | {{ s.result }} | {{ s.failure_display }}
 {% endfor %}
 ```
 
@@ -60,3 +84,39 @@ Recommended table columns:
 - Unit Number
 - Test Pressure (psf)
 - Pass/Fail
+- Failure Details
+
+Available fields per `s`:
+- `{{ s.sample_id }}`
+- `{{ s.test_date }}`
+- `{{ s.test_time }}`
+- `{{ s.test_phase }}`
+- `{{ s.series_model }}`
+- `{{ s.system_type }}`
+- `{{ s.elevation }}`
+- `{{ s.unit_number }}`
+- `{{ s.pressure_psf }}`
+- `{{ s.result }}`
+- `{{ s.failure_cycle }}`
+- `{{ s.failure_time }}`
+- `{{ s.failure_mode }}`
+- `{{ s.failure_location }}`
+- `{{ s.failure_summary }}`
+- `{{ s.failure_display }}`
+
+`{{ s.failure_display }}` is the recommended bulletproof field for table cells:
+- FAIL rows: same value as `{{ s.failure_summary }}`
+- Non-FAIL rows: `-`
+
+Example with expanded conditional failure fields:
+
+```jinja
+{% for s in samples %}
+{{ s.sample_id }} | {{ s.result }} |
+{% if s.result == "FAIL" %}
+Cycle {{ s.failure_cycle }} | Time {{ s.failure_time }} | {{ s.failure_mode }} | {{ s.failure_location }}
+{% else %}
+-
+{% endif %}
+{% endfor %}
+```

@@ -9,6 +9,37 @@ let currentVisit = null;
 const VISIT_TABS = ["WT", "ABT", "ELD"];
 let activeTab = "WT";
 
+function normalizeVisitSharedFields(visit) {
+  if (!visit) return visit;
+
+  visit.personnel = {
+    leadTechnician: visit.personnel?.leadTechnician || visit.lead_technician || "",
+    technician2: visit.personnel?.technician2 || visit.technician_2 || ""
+  };
+
+  visit.witnesses = {
+    witness_name_1: visit.witnesses?.witness_name_1 || visit.witness_name_1 || "",
+    witness_company_1: visit.witnesses?.witness_company_1 || visit.witness_company_1 || "",
+    witness_role_1: visit.witnesses?.witness_role_1 || visit.witness_role_1 || "",
+    witness_name_2: visit.witnesses?.witness_name_2 || visit.witness_name_2 || "",
+    witness_company_2: visit.witnesses?.witness_company_2 || visit.witness_company_2 || "",
+    witness_role_2: visit.witnesses?.witness_role_2 || visit.witness_role_2 || ""
+  };
+
+  return visit;
+}
+
+function formatWitnessSummary(witnesses = {}) {
+  const entries = [
+    [witnesses.witness_name_1, witnesses.witness_company_1, witnesses.witness_role_1],
+    [witnesses.witness_name_2, witnesses.witness_company_2, witnesses.witness_role_2]
+  ]
+    .map(parts => parts.filter(Boolean).join(" / "))
+    .filter(Boolean);
+
+  return entries.join("; ") || "—";
+}
+
 function visitDisplayId(visit) {
   const testType = visit?.test_type || "";
   const visitNum = visit?.visit_number || "";
@@ -92,6 +123,19 @@ function renderSamplesTable(visitSamples, options = {}) {
   const container = document.getElementById("samples-container");
   if (!container) return;
 
+  const formatFailureSummary = (sample) => {
+    if (sample.result !== "FAIL") return "—";
+
+    const failure = sample.failure || {};
+    const cycle = failure.cycleFailureOccurred ? `Cycle ${failure.cycleFailureOccurred}` : "";
+    const time = failure.timeOfFailure ? `Time ${failure.timeOfFailure}` : "";
+    const mode = failure.modeOfFailure || "";
+    const location = failure.failureLocation || "";
+
+    const details = [cycle, time, mode, location].filter(Boolean);
+    return details.length ? details.join(" | ") : "Recorded failure";
+  };
+
   const { isCurrentVisitType = true } = options;
   container.innerHTML = "";
 
@@ -135,6 +179,7 @@ function renderSamplesTable(visitSamples, options = {}) {
         <th>Unit Number</th>
         <th>Test Pressure (psf)</th>
         <th>Pass/Fail</th>
+        <th>Failure Details</th>
       </tr>
     </thead>
     <tbody>
@@ -163,6 +208,7 @@ function renderSamplesTable(visitSamples, options = {}) {
             <td>${unitNumber}</td>
             <td>${pressureText}</td>
             <td class="${s.result === "PASS" ? "fk-result-pass" : s.result === "FAIL" ? "fk-result-fail" : ""}">${s.result || ""}</td>
+            <td>${formatFailureSummary(s)}</td>
           </tr>
         `;
       }).join("")}
@@ -179,6 +225,9 @@ function setupHeader(projectId) {
   document.getElementById("visit-test-type").textContent = currentVisit.test_type || "—";
   document.getElementById("visit-folder").textContent = currentVisit.folder_path || "—";
   document.getElementById("visit-notes").textContent = currentVisit.notes || "—";
+  document.getElementById("visit-lead-technician").textContent = currentVisit.personnel?.leadTechnician || "—";
+  document.getElementById("visit-technician-2").textContent = currentVisit.personnel?.technician2 || "—";
+  document.getElementById("visit-witness-summary").textContent = formatWitnessSummary(currentVisit.witnesses);
   document.getElementById("visit-breadcrumb-id").textContent = display;
 
   const title = `FieldKIT - Visit ${display}`;
@@ -201,6 +250,14 @@ function setupVisitActions() {
     document.getElementById("edit-visit-date").value = currentVisit.date || "";
     document.getElementById("edit-visit-type").value = currentVisit.test_type || "WT";
     document.getElementById("edit-visit-notes").value = currentVisit.notes || "";
+    document.getElementById("edit-lead-technician").value = currentVisit.personnel?.leadTechnician || "";
+    document.getElementById("edit-technician-2").value = currentVisit.personnel?.technician2 || "";
+    document.getElementById("edit-witness-name-1").value = currentVisit.witnesses?.witness_name_1 || "";
+    document.getElementById("edit-witness-name-2").value = currentVisit.witnesses?.witness_name_2 || "";
+    document.getElementById("edit-witness-company-1").value = currentVisit.witnesses?.witness_company_1 || "";
+    document.getElementById("edit-witness-company-2").value = currentVisit.witnesses?.witness_company_2 || "";
+    document.getElementById("edit-witness-role-1").value = currentVisit.witnesses?.witness_role_1 || "";
+    document.getElementById("edit-witness-role-2").value = currentVisit.witnesses?.witness_role_2 || "";
     document.getElementById("visit-edit-modal")?.classList.remove("hidden");
   });
 
@@ -212,6 +269,18 @@ function setupVisitActions() {
     currentVisit.date = document.getElementById("edit-visit-date").value;
     currentVisit.test_type = document.getElementById("edit-visit-type").value;
     currentVisit.notes = document.getElementById("edit-visit-notes").value;
+    currentVisit.personnel = {
+      leadTechnician: document.getElementById("edit-lead-technician").value,
+      technician2: document.getElementById("edit-technician-2").value
+    };
+    currentVisit.witnesses = {
+      witness_name_1: document.getElementById("edit-witness-name-1").value,
+      witness_name_2: document.getElementById("edit-witness-name-2").value,
+      witness_company_1: document.getElementById("edit-witness-company-1").value,
+      witness_company_2: document.getElementById("edit-witness-company-2").value,
+      witness_role_1: document.getElementById("edit-witness-role-1").value,
+      witness_role_2: document.getElementById("edit-witness-role-2").value
+    };
 
     saveVisits(VISITS);
     document.getElementById("visit-edit-modal")?.classList.add("hidden");
@@ -262,6 +331,8 @@ function init() {
     showError("Visit not found.");
     return;
   }
+
+  normalizeVisitSharedFields(currentVisit);
 
   setupHeader(projectId);
   setupVisitActions();

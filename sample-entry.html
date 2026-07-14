@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <title>Sample Entry</title>
 <link rel="stylesheet" href="assets/css/style.css">
@@ -9,6 +10,7 @@
 </head>
 <!-- Floating Timer Panel -->
 <div id="timerPanel" class="fk-floating hidden">
+
   <div class="fk-floating-header">
     <span>Test Timer</span>
     <button id="timerCloseBtn">&times;</button>
@@ -97,48 +99,7 @@
   <p><strong>Project:</strong> <span id="projName"></span></p>
   <p><strong>Sample ID:</strong> <span id="sampleId">—</span></p>
   <p><strong>Visit Type:</strong> <span id="visitTypeLabel">—</span></p>
-</div>
-
-<!-- Floating Tools Panel (unchanged) -->
-<div id="fk-floating-tools">
-  <div id="fk-tools-header">
-    <span>Tools</span>
-    <button id="fk-tools-toggle">−</button>
-  </div>
-</div>
-
-<!-- NEW SAMPLE ENTRY FORM -->
-<form id="sampleEntryForm" class="form-grid">
-
-  <!-- SAMPLE ID (readonly) -->
-  <label>
-    Sample ID
-    <input id="sampleIdField" type="text" readonly>
-  </label>
-
-  <!-- TEST DATE -->
-  <label>
-    Test Date
-    <input id="testDate" type="date">
-  </label>
-
-  <label>
-    Sample Number
-    <input id="sampleNumber" type="number" min="1" step="1" placeholder="1">
-  </label>
-
-  <!-- TEST TIME -->
-  <label>
-    Test Time
-    <input id="testTime" type="time">
-  </label>
-
-  <label>
-    Test Number
-    <input id="testNumber" type="number" min="1" step="1" placeholder="1">
-  </label>
-
-  <!-- RESULT -->
+    <!-- RESULT -->
   <label>
     Result
     <select id="result">
@@ -146,67 +107,34 @@
       <option value="FAIL">FAIL</option>
     </select>
   </label>
+</div>
 
-  <!-- PERSONNEL -->
-  <h2 class="section-header">Personnel</h2>
+<!-- NEW SAMPLE ENTRY FORM -->
+<form id="sampleEntryForm" class="form-grid">
+
 
   <label>
-    Lead Technician
-    <select id="leadTechnician">
-      <option value=""></option>
-      <option value="Christopher Shafer">Christopher Shafer</option>
-      <option value="Dave Luxmore">Dave Luxmore</option>
-      <option value="Jack Welch">Jack Welch</option>
-      <option value="Jesus Garcia">Jesus Garcia</option>
-      <option value="Robert Smith">Robert Smith</option>
-      <option value="Torin Garner">Torin Garner</option>
+    Sample Number
+    <input id="sampleNumber" type="number" min="1" step="1" placeholder="1">
+  </label>
+
+  <label>
+    Test Number
+    <input id="testNumber" type="number" min="1" step="1" placeholder="1">
+  </label>
+  <!-- TEST TIME -->
+
+
+  <label>
+    Test Phase
+    <select id="testPhase">
+      <option value="Initial">Initial</option>
+      <option value="Retest">Retest</option>
     </select>
   </label>
-
   <label>
-    Technician 2
-    <select id="technician2">
-      <option value=""></option>
-      <option value="Christopher Shafer">Christopher Shafer</option>
-      <option value="Dave Luxmore">Dave Luxmore</option>
-      <option value="Jack Welch">Jack Welch</option>
-      <option value="Jesus Garcia">Jesus Garcia</option>
-      <option value="Robert Smith">Robert Smith</option>
-      <option value="Torin Garner">Torin Garner</option>
-    </select>
-  </label>
-
-  <!-- WITNESSES -->
-  <h2 class="section-header">Witnesses</h2>
-
-  <label>
-    Witness Name 1
-    <input id="witness_name_1" type="text">
-  </label>
-
-  <label>
-    Witness Name 2
-    <input id="witness_name_2" type="text">
-  </label>
-
-  <label>
-    Witness Company 1
-    <input id="witness_company_1" type="text">
-  </label>
-  
-  <label>
-    Witness Company 2
-    <input id="witness_company_2" type="text">
-  </label>
-
-  <label>
-    Witness Role 1
-    <input id="witness_role_1" type="text">
-  </label>
-
-  <label>
-    Witness Role 2
-    <input id="witness_role_2" type="text">
+    Test Time
+    <input id="testTime" type="time">
   </label>
 
   <!-- SAMPLE DETAILS -->
@@ -220,8 +148,9 @@
   </label>
 
   <label>
-    Height (in)
-    <input id="height_in" type="number" step="0.5" placeholder="48.0">
+    Series / Model
+    <input id="seriesModel" list="seriesModelOptions" placeholder="Type or select">
+    <datalist id="seriesModelOptions"></datalist>
   </label>
 
   <label>
@@ -255,11 +184,10 @@
     Width (in)
     <input id="width_in" type="number" step="0.5" placeholder="84.5">
   </label>
-
+  
   <label>
-    Series / Model
-    <input id="seriesModel" list="seriesModelOptions" placeholder="Type or select">
-    <datalist id="seriesModelOptions"></datalist>
+    Height (in)
+    <input id="height_in" type="number" step="0.5" placeholder="48.0">
   </label>
 
   <label>
@@ -276,13 +204,13 @@
   </label>
 
   <label>
-    Unit Number
-    <input id="unitNumber" type="text" placeholder="A-101">
+    Floor Level
+    <input id="floorLevel" type="text" placeholder="1st Floor">
   </label>
 
   <label>
-    Floor Level
-    <input id="floorLevel" type="text" placeholder="1st Floor">
+    Unit Number
+    <input id="unitNumber" type="text" placeholder="A-101">
   </label>
 
   <label>
@@ -439,6 +367,25 @@
   const projectAddress = params.get("address") || "";
   const sampleParam = params.get("sample") || params.get("sampleId") || params.get("sample_id") || "new";
   const visitId = params.get("visitId");
+  const visitRecords = loadVisits();
+  const currentVisit = visitRecords.find(item => String(item.id) === String(visitId) || String(item.visit_id) === String(visitId)) || null;
+
+  function getVisitSharedFields(visit, sample = {}) {
+    return {
+      personnel: {
+        leadTechnician: visit?.personnel?.leadTechnician || visit?.lead_technician || sample?.personnel?.leadTechnician || sample?.lead_technician || "",
+        technician2: visit?.personnel?.technician2 || visit?.technician_2 || sample?.personnel?.technician2 || sample?.technician_2 || ""
+      },
+      witnesses: {
+        witness_name_1: visit?.witnesses?.witness_name_1 || visit?.witness_name_1 || sample?.witnesses?.witness_name_1 || sample?.witness_name_1 || "",
+        witness_company_1: visit?.witnesses?.witness_company_1 || visit?.witness_company_1 || sample?.witnesses?.witness_company_1 || sample?.witness_company_1 || "",
+        witness_role_1: visit?.witnesses?.witness_role_1 || visit?.witness_role_1 || sample?.witnesses?.witness_role_1 || sample?.witness_role_1 || "",
+        witness_name_2: visit?.witnesses?.witness_name_2 || visit?.witness_name_2 || sample?.witnesses?.witness_name_2 || sample?.witness_name_2 || "",
+        witness_company_2: visit?.witnesses?.witness_company_2 || visit?.witness_company_2 || sample?.witnesses?.witness_company_2 || sample?.witness_company_2 || "",
+        witness_role_2: visit?.witnesses?.witness_role_2 || visit?.witness_role_2 || sample?.witnesses?.witness_role_2 || sample?.witness_role_2 || ""
+      }
+    };
+  }
 
   function loadVisits() {
     return JSON.parse(localStorage.getItem("visits") || "[]");
@@ -454,8 +401,9 @@
 
   function toLegacySampleShape(sample) {
     const parsed = parseSampleIdValue(sample?.sampleId || sample?.sample_id || "");
-    const personnel = sample?.personnel || {};
-    const witnesses = sample?.witnesses || {};
+    const sharedFields = getVisitSharedFields(currentVisit, sample);
+    const personnel = sharedFields.personnel;
+    const witnesses = sharedFields.witnesses;
     return {
       sample_id: sample?.sampleId || sample?.sample_id || "",
       project_id: sample?.projectId || sample?.project_id || projectId || "",
@@ -471,6 +419,8 @@
       window_type: parsed?.systemType || sample?.window_type || "",
       sample_number: parsed?.sampleNumber || sample?.sample_number || null,
       test_number: parsed?.testNumber || sample?.test_number || null,
+      testPhase: sample?.testPhase || sample?.test_phase || "Initial",
+      test_phase: sample?.test_phase || sample?.testPhase || "Initial",
       elevation: sample?.sampleLocation?.elevation || sample?.elevation || "",
       product_type: sample?.sampleDetails?.productType || sample?.product_type || "",
       manufacturer: sample?.sampleDetails?.manufacturer || sample?.manufacturer || "",
@@ -609,6 +559,111 @@
     if (sampleIdField) sampleIdField.value = value || "";
   }
 
+  function setControlValue(id, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = value ?? "";
+  }
+
+  function hydrateExistingSample(sample) {
+    if (!sample || !controller) return;
+
+    controller.state = {
+      ...controller.state,
+      sampleId: sample.sampleId || sample.sample_id || "",
+      projectId: sample.projectId || sample.project_id || projectId || "",
+      testDate: sample.testDate || sample.test_date || "",
+      testTime: sample.testTime || sample.test_time || "",
+      testPhase: sample.testPhase || sample.test_phase || "Initial",
+      result: sample.result || "PASS",
+      notes: sample.notes || "",
+      personnel: {
+        ...controller.state.personnel,
+        leadTechnician: sample.personnel?.leadTechnician || sample.lead_technician || "",
+        technician2: sample.personnel?.technician2 || sample.technician_2 || ""
+      },
+      witnesses: {
+        ...controller.state.witnesses,
+        witness_name_1: sample.witnesses?.witness_name_1 || sample.witness_name_1 || "",
+        witness_company_1: sample.witnesses?.witness_company_1 || sample.witness_company_1 || "",
+        witness_role_1: sample.witnesses?.witness_role_1 || sample.witness_role_1 || "",
+        witness_name_2: sample.witnesses?.witness_name_2 || sample.witness_name_2 || "",
+        witness_company_2: sample.witnesses?.witness_company_2 || sample.witness_company_2 || "",
+        witness_role_2: sample.witnesses?.witness_role_2 || sample.witness_role_2 || ""
+      },
+      sampleDetails: {
+        ...controller.state.sampleDetails,
+        productType: sample.sampleDetails?.productType || sample.product_type || "",
+        manufacturer: sample.sampleDetails?.manufacturer || sample.manufacturer || "",
+        seriesModel: sample.sampleDetails?.seriesModel || sample.series_model || "",
+        width_in: sample.sampleDetails?.width_in ?? sample.width_in ?? null,
+        height_in: sample.sampleDetails?.height_in ?? sample.height_in ?? null,
+        configuration: sample.sampleDetails?.configuration || sample.configuration || ""
+      },
+      sampleLocation: {
+        ...controller.state.sampleLocation,
+        elevation: sample.sampleLocation?.elevation || sample.elevation || "",
+        unitNumber: sample.sampleLocation?.unitNumber || sample.unit_number || "",
+        floorLevel: sample.sampleLocation?.floorLevel || sample.floor_level || "",
+        description: sample.sampleLocation?.description || sample.location_description || ""
+      },
+      testParameters: {
+        ...controller.state.testParameters,
+        procedure: sample.testParameters?.procedure || sample.procedure || "A",
+        pressure_psf: sample.testParameters?.pressure_psf ?? sample.pressure_psf ?? null,
+        pressure_inwc: sample.testParameters?.pressure_inwc ?? sample.pressure_inwc ?? null,
+        atmosphericTemp_f: sample.testParameters?.atmosphericTemp_f ?? sample.atmosphericTemp_f ?? null,
+        barometricPressure_inhg: sample.testParameters?.barometricPressure_inhg ?? sample.barometricPressure_inhg ?? null,
+        windSpeed_mph: sample.testParameters?.windSpeed_mph ?? sample.windSpeed_mph ?? null,
+        windDirection: sample.testParameters?.windDirection || sample.windDirection || ""
+      },
+      failure: {
+        ...controller.state.failure,
+        isFailure: (sample.result || "").toUpperCase() === "FAIL",
+        cycleFailureOccurred: sample.failure?.cycleFailureOccurred ?? sample.cycleFailureOccurred ?? null,
+        timeOfFailure: sample.failure?.timeOfFailure || sample.timeOfFailure || "",
+        modeOfFailure: sample.failure?.modeOfFailure || sample.modeOfFailure || "",
+        failureLocation: sample.failure?.failureLocation || sample.failureLocation || "",
+        remediationPerformed: sample.failure?.remediationPerformed ?? sample.remediationPerformed ?? null,
+        remediationDescription: sample.failure?.remediationDescription || sample.remediationDescription || ""
+      }
+    };
+
+    setControlValue("testDate", controller.state.testDate);
+    setControlValue("testTime", controller.state.testTime);
+    setControlValue("testPhase", controller.state.testPhase);
+    setControlValue("result", controller.state.result);
+    setControlValue("productType", controller.state.sampleDetails.productType);
+    setControlValue("manufacturer", controller.state.sampleDetails.manufacturer);
+    setControlValue("seriesModel", controller.state.sampleDetails.seriesModel);
+    setControlValue("width_in", controller.state.sampleDetails.width_in);
+    setControlValue("height_in", controller.state.sampleDetails.height_in);
+    setControlValue("configuration", controller.state.sampleDetails.configuration);
+    setControlValue("elevation", controller.state.sampleLocation.elevation);
+    setControlValue("unitNumber", controller.state.sampleLocation.unitNumber);
+    setControlValue("floorLevel", controller.state.sampleLocation.floorLevel);
+    setControlValue("locationDescription", controller.state.sampleLocation.description);
+    setControlValue("procedure", controller.state.testParameters.procedure);
+    setControlValue("pressure_psf", controller.state.testParameters.pressure_psf);
+    setControlValue("pressure_inwc", controller.state.testParameters.pressure_inwc);
+    setControlValue("atmosphericTemp_f", controller.state.testParameters.atmosphericTemp_f);
+    setControlValue("barometricPressure_inhg", controller.state.testParameters.barometricPressure_inhg);
+    setControlValue("windSpeed_mph", controller.state.testParameters.windSpeed_mph);
+    setControlValue("windDirection", controller.state.testParameters.windDirection);
+    setControlValue("notes", controller.state.notes);
+    setControlValue("cycleFailureOccurred", controller.state.failure.cycleFailureOccurred);
+    setControlValue("timeOfFailure", controller.state.failure.timeOfFailure);
+    setControlValue("modeOfFailure", controller.state.failure.modeOfFailure);
+    setControlValue("failureLocation", controller.state.failure.failureLocation);
+    setControlValue("remediationPerformed", controller.state.failure.remediationPerformed);
+    setControlValue("remediationDescription", controller.state.failure.remediationDescription);
+
+    const failureBlockEl = document.getElementById("failureBlock");
+    if (failureBlockEl) {
+      failureBlockEl.style.display = controller.state.failure.isFailure ? "block" : "none";
+    }
+  }
+
   function getFinalSampleId() {
     const systemType = (systemTypeEl?.value || "").trim().toUpperCase();
     const sampleNumber = Number(sampleNumberEl?.value) || 1;
@@ -687,55 +742,6 @@
   applyMetadata();
   await populateManufacturers();
 
-  const toolsPanel = document.getElementById("fk-floating-tools");
-  const toolsHeader = document.getElementById("fk-tools-header");
-  const toggleBtn = document.getElementById("fk-tools-toggle");
-  const toolsBody = document.getElementById("fk-tools-body");
-
-  toggleBtn?.addEventListener("click", () => {
-    if (!toolsBody) return;
-    const isHidden = toolsBody.style.display === "none";
-    toolsBody.style.display = isHidden ? "block" : "none";
-    toggleBtn.textContent = isHidden ? "−" : "+";
-  });
-
-  let toolsOffsetX = 0;
-  let toolsOffsetY = 0;
-  let toolsDragging = false;
-
-  toolsHeader?.addEventListener("mousedown", (e) => {
-    if (!toolsPanel) return;
-    toolsDragging = true;
-    toolsOffsetX = e.clientX - toolsPanel.offsetLeft;
-    toolsOffsetY = e.clientY - toolsPanel.offsetTop;
-  });
-
-  document.addEventListener("mousemove", (e) => {
-    if (!toolsDragging || !toolsPanel) return;
-    toolsPanel.style.left = `${e.clientX - toolsOffsetX}px`;
-    toolsPanel.style.top = `${e.clientY - toolsOffsetY}px`;
-    toolsPanel.style.bottom = "auto";
-    toolsPanel.style.right = "auto";
-  });
-
-  document.addEventListener("mouseup", () => {
-    toolsDragging = false;
-  });
-
-  document.querySelectorAll(".fk-tool-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const tool = btn.dataset.tool;
-
-      if (tool === "timers") {
-        window.open("tools/test-timers/index.html", "_blank");
-      }
-
-      if (tool === "weather") {
-        window.open("tools/weather/index.html", "_blank");
-      }
-    });
-  });
-
   document.getElementById("cancelBtn").addEventListener("click", () => {
     const url = new URL("project.html", location.href);
     url.searchParams.set("projectId", projectId);
@@ -754,6 +760,10 @@ controller = new SampleEntryController(projectId, {
     // Load samples from unified localStorage key (from samples.js)
     let samples = JSON.parse(localStorage.getItem("samples") || "[]");
 
+    const sharedFields = getVisitSharedFields(currentVisit, data);
+    data.personnel = sharedFields.personnel;
+    data.witnesses = sharedFields.witnesses;
+
     const legacy = toLegacySampleShape(data);
     const persistedSample = { ...data, ...legacy };
     const sampleKey = String(persistedSample.sampleId || persistedSample.sample_id || "");
@@ -769,6 +779,10 @@ controller = new SampleEntryController(projectId, {
     localStorage.setItem("samples", JSON.stringify(samples));
   }
 });
+
+if (sampleParam !== "new") {
+  hydrateExistingSample(editingSample);
+}
 
 // -----------------------------
 // WEATHER DATA
@@ -902,16 +916,8 @@ function bindField(id, path) {
 // -----------------------------
 bindField("testDate", "testDate");
 bindField("testTime", "testTime");
+bindField("testPhase", "testPhase");
 bindField("result", "result");
-
-bindField("leadTechnician", "personnel.leadTechnician");
-bindField("technician2", "personnel.technician2");
-bindField("witness_name_1", "witnesses.witness_name_1");
-bindField("witness_company_1", "witnesses.witness_company_1");
-bindField("witness_role_1", "witnesses.witness_role_1");
-bindField("witness_name_2", "witnesses.witness_name_2");
-bindField("witness_company_2", "witnesses.witness_company_2");
-bindField("witness_role_2", "witnesses.witness_role_2");
 
 bindField("productType", "sampleDetails.productType");
 bindField("manufacturer", "sampleDetails.manufacturer");

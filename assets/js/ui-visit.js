@@ -6,6 +6,19 @@ function renderVisitsForProject(project, visits, samples, container) {
   container.innerHTML = "";
   const projectVisits = visits.filter(v => v.project_id === project.project_id);
 
+  const formatFailureSummary = (sample) => {
+    if (sample.result !== "FAIL") return "—";
+
+    const failure = sample.failure || {};
+    const cycle = failure.cycleFailureOccurred ? `Cycle ${failure.cycleFailureOccurred}` : "";
+    const time = failure.timeOfFailure ? `Time ${failure.timeOfFailure}` : "";
+    const mode = failure.modeOfFailure || "";
+    const location = failure.failureLocation || "";
+
+    const details = [cycle, time, mode, location].filter(Boolean);
+    return details.length ? details.join(" | ") : "Recorded failure";
+  };
+
   projectVisits
     .sort((a, b) => a.date.localeCompare(b.date))
     .forEach(visit => {
@@ -50,6 +63,7 @@ function renderVisitsForProject(project, visits, samples, container) {
                 <th>Elevation</th>
                 <th>Type</th>
                 <th>Result</th>
+                <th>Failure</th>
                 <th>QA</th>
                 <th>Edit</th>
                 <th>Open</th>
@@ -77,6 +91,7 @@ function renderVisitsForProject(project, visits, samples, container) {
                       <td class="${s.result === 'PASS' ? 'fk-result-pass' : s.result === 'FAIL' ? 'fk-result-fail' : ''}">
                         ${s.result || ""}
                       </td>
+                      <td>${formatFailureSummary(s)}</td>
 
                       <td>
                         ${groupFlags
@@ -121,7 +136,7 @@ function renderVisitsForProject(project, visits, samples, container) {
       card.querySelectorAll(".fk-sample-open").forEach(btn => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.id;
-          window.location.href = `sample.html?sample_id=${encodeURIComponent(id)}`;
+          window.location.href = `sample-entry.html?sample_id=${encodeURIComponent(id)}`;
         });
       });
 
