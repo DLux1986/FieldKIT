@@ -133,7 +133,39 @@ function buildEvent(props) {
   const unescape = str => str
     .replace(/\\n/gi, "\n")
     .replace(/\\,/g,  ",")
+    .replace(/\\;/g,  ";")
     .replace(/\\\\/g, "\\");
+
+  // Normalize common template headings so downstream renderers can
+  // consistently detect sections from either DESCRIPTION or X-ALT-DESC.
+  const normalizeDescription = text => {
+    const normalized = String(text || "")
+      .replace(/\r\n?/g, "\n")
+      .replace(/\u00a0/g, " ");
+
+    const lines = normalized.split("\n").map(line => {
+      const trimmed = line.trim();
+      if (!trimmed) return "";
+
+      return trimmed
+        .replace(/^(?:on\s*site|onsite)\s+contact\s*[-:–—]\s*/i, "Contact- ")
+        .replace(/^contact\s*[-:–—]\s*/i, "Contact- ");
+    });
+
+    const compact = [];
+    let previousBlank = false;
+    for (const line of lines) {
+      if (!line) {
+        if (!previousBlank) compact.push("");
+        previousBlank = true;
+        continue;
+      }
+      compact.push(line);
+      previousBlank = false;
+    }
+
+    return compact.join("\n").trim();
+  };
 
   // Outlook desktop exports the event body as HTML in X-ALT-DESC;FMTTYPE=text/html
   // and leaves DESCRIPTION empty.  Strip the HTML to get readable plain text.
@@ -186,6 +218,7 @@ function buildEvent(props) {
       console.debug("[ics-parser] Used X-ALT-DESC for", get("SUMMARY"));
     }
   }
+  description = normalizeDescription(description);
 
   return {
     id:                uid,

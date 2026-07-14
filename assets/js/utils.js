@@ -1,22 +1,58 @@
 // utils.js
 
+const LOCAL_JSON_OVERRIDE_PREFIX = "fieldkit_json_override:";
+
+function localOverrideKey(path) {
+  return `${LOCAL_JSON_OVERRIDE_PREFIX}${path}`;
+}
+
+function readLocalOverride(path) {
+  try {
+    const raw = localStorage.getItem(localOverrideKey(path));
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (_) {
+    return null;
+  }
+}
+
+function writeLocalOverride(path, data) {
+  localStorage.setItem(localOverrideKey(path), JSON.stringify(data, null, 2));
+}
+
+function clearLocalOverride(path) {
+  localStorage.removeItem(localOverrideKey(path));
+}
+
 export async function loadJSON(path) {
+  const localOverride = readLocalOverride(path);
+  if (localOverride != null) return localOverride;
+
   const res = await fetch(path);
   if (!res.ok) throw new Error(`Failed to load ${path}`);
   return await res.json();
 }
 export async function saveJSON(path, data) {
-  const response = await fetch(path, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data, null, 2)
-  });
+  try {
+    const response = await fetch(path, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data, null, 2)
+    });
 
-  if (!response.ok) {
-    throw new Error(`Failed to save JSON to ${path}`);
+    if (!response.ok) {
+      throw new Error(`PUT ${response.status}`);
+    }
+
+    clearLocalOverride(path);
+    return true;
+  } catch (err) {
+    // Static hosting commonly rejects PUT to assets with 405.
+    // Persist locally so app behavior still works without a write-capable backend.
+    writeLocalOverride(path, data);
+    console.warn(`saveJSON fell back to localStorage for ${path}:`, err);
+    return true;
   }
-
-  return true;
 }
 export async function loadCalendar() {
   try {

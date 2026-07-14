@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//FieldKIT//Regression Fixture//EN
+BEGIN:VEVENT
+UID:fixture-onsite-contact@example.com
+DTSTART:20260714T150000Z
+DTEND:20260714T160000Z
+SUMMARY:Fixture Event One
+DESCRIPTION:Attendees- Alice\n\nOnsite Contact – \n\nJane Doe | Superintendent\n\ncel 206.555.0101
+END:VEVENT
+BEGIN:VEVENT
+UID:fixture-on-site-contact@example.com
+DTSTART:20260715T150000Z
+DTEND:20260715T160000Z
+SUMMARY:Fixture Event Two
+DESCRIPTION:Scope- Window retest\n\nOn site contact: Bob Smith\n\n206-555-0102
+END:VEVENT
+END:VCALENDAR

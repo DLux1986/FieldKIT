@@ -204,7 +204,7 @@ function escapeHtml(text) {
 function formatTemplateDescriptionHtml(description) {
   const raw = String(description || "");
   const normalized = raw.replace(/\r\n?/g, "\n");
-  const headingRegex = /(Attendees|Scope|Note|Contact)\s*[-:]/gi;
+  const headingRegex = /(Attendees|Scope|Note|(?:On\s*site|Onsite)\s+Contact|Contact)\s*[-:–—]/gi;
 
   const matches = Array.from(normalized.matchAll(headingRegex));
   if (matches.length < 2) return null;
@@ -216,7 +216,8 @@ function formatTemplateDescriptionHtml(description) {
     const start = (match.index ?? 0) + match[0].length;
     const end = next ? (next.index ?? normalized.length) : normalized.length;
 
-    const heading = match[1].toUpperCase();
+    const rawHeading = match[1].toLowerCase().replace(/\s+/g, " ").trim();
+    const heading = rawHeading.includes("contact") ? "CONTACT" : rawHeading.toUpperCase();
     const sectionText = normalized
       .slice(start, end)
       .replace(/\s*\n+\s*/g, " ")
